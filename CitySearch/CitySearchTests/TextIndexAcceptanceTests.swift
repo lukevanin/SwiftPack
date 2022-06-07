@@ -8,7 +8,7 @@ import XCTest
 ///
 final class TextIndexAcceptanceTests: XCTestCase {
     
-    typealias Data = (key: String, value: Int)
+    typealias Data = (key: String, value: Int?)
     
     typealias SearchScenario = (query: String, results: [Int])
     
@@ -189,6 +189,55 @@ final class TextIndexAcceptanceTests: XCTestCase {
                 (query: "al", results: [1]),
                 (query: "alb", results: []),
                 (query: "", results: [1, 3, 4]),
+            ]
+        ),
+        
+        // A data set where some values are nil
+        TestCase(
+            name: "Nils",
+            data: [
+                [
+                    (key: "alabama, us", value: 0),
+                    (key: "alabama, us", value: nil),
+                    (key: "albuquerque, us", value: nil),
+                    (key: "albuquerque, us", value: 10),
+                    (key: "anaheim, us", value: nil),
+                    (key: "sydney, au", value: 4),
+                ]
+            ],
+            subscriptScenarios: [
+                (key: "alabama, us", result: nil),
+                (key: "albuquerque, us", result: 10),
+                (key: "anaheim, us", result: nil),
+                (key: "arizona, us", result: nil),
+                (key: "sydney, au", result: 4),
+                (key: "z", result: nil),
+                (key: "", result: nil),
+            ],
+            searchScenarios: [
+                (query: "a", results: [10]),
+                (query: "s", results: [4]),
+                (query: "al", results: [10]),
+                (query: "alb", results: [10]),
+                (query: "an", results: []),
+                (query: "", results: [10, 4]),
+            ]
+        ),
+
+        // An empty data set.
+        TestCase(
+            name: "Empty",
+            data: [],
+            subscriptScenarios: [
+                (key: "alabama, us", result: nil),
+                (key: "albuquerque, us", result: nil),
+                (key: "anaheim, us", result: nil),
+                (key: "arizona, us", result: nil),
+                (key: "sydney, au", result: nil),
+            ],
+            searchScenarios: [
+                (query: "a", results: []),
+                (query: "", results: []),
             ]
         ),
     ]

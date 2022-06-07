@@ -63,25 +63,28 @@ struct LinearTextIndex: TextIndex {
                 }
         }
         set {
-            #warning("TODO: Test replacing existing element")
-            #warning("TODO: Test removing existing element when given value is nil")
-            #warning("TODO: Test missing element when value is nil")
-            guard let newValue = newValue else {
-                return
-            }
             // Find the index of the element with the given key, if one exists.
             let index = elements.firstIndex { element in
                 element.key == key
             }
             if let index = index {
-                // An element already exists with the given key. Replace the
-                // value of the element.
-                elements[index].value = newValue
+                // An element already exists with the given key.
+                if let newValue = newValue {
+                    // The new value is provided. Replace the existing value.
+                    elements[index].value = newValue
+                }
+                else {
+                    // The new value is nil. Remove the existing element.
+                    elements.remove(at: index)
+                }
             }
             else {
-                // The element does not already exist. Insert a new element
-                // with the given key and value.
-                elements.append((key: key, value: newValue))
+                if let newValue = newValue {
+                    // The element does not already exist, and a new value is
+                    // provided. Insert a new element with the given key and
+                    // value. Do not insert any element if the value is nil.
+                    elements.append((key: key, value: newValue))
+                }
             }
         }
     }
