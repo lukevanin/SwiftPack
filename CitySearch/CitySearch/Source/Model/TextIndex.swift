@@ -69,7 +69,20 @@ struct LinearTextIndex: TextIndex {
             guard let newValue = newValue else {
                 return
             }
-            elements.append((key: key, value: newValue))
+            // Find the index of the element with the given key, if one exists.
+            let index = elements.firstIndex { element in
+                element.key == key
+            }
+            if let index = index {
+                // An element already exists with the given key. Replace the
+                // value of the element.
+                elements[index].value = newValue
+            }
+            else {
+                // The element does not already exist. Insert a new element
+                // with the given key and value.
+                elements.append((key: key, value: newValue))
+            }
         }
     }
     
@@ -77,6 +90,9 @@ struct LinearTextIndex: TextIndex {
         elements
             .filter { element in
                 element.key.prefix(prefix.count) == prefix
+            }
+            .sorted { a, b in
+                a.key < b.key
             }
             .map { element in
                 element.value
