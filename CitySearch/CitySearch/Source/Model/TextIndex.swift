@@ -74,6 +74,12 @@ struct LinearTextIndex: TextIndex {
     }
     
     func search<S>(prefix: S) -> [Int] where S : StringProtocol {
-        return []
+        elements
+            .filter { element in
+                element.key.prefix(prefix.count) == prefix
+            }
+            .map { element in
+                element.value
+            }
     }
 }
