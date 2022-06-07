@@ -17,7 +17,7 @@
 		FC660C82284F99520074A213 /* BaselineTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C81284F99520074A213 /* BaselineTests.swift */; };
 		FC660C83284F9D3F0074A213 /* cities.json in Resources */ = {isa = PBXBuildFile; fileRef = FC660C7C284F885D0074A213 /* cities.json */; };
 		FC660C84284F9D420074A213 /* cities.json in Resources */ = {isa = PBXBuildFile; fileRef = FC660C7C284F885D0074A213 /* cities.json */; };
-		FC660C86284FA0390074A213 /* SpecificationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C85284FA0390074A213 /* SpecificationTests.swift */; };
+		FC660C86284FA0390074A213 /* TextIndexAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C85284FA0390074A213 /* TextIndexAcceptanceTests.swift */; };
 		FC660C8C284FD6B00074A213 /* TextIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C8B284FD6B00074A213 /* TextIndex.swift */; };
 /* End PBXBuildFile section */
 
@@ -54,7 +54,7 @@
 		FC660C7D284F885D0074A213 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		FC660C7E284F88AC0074A213 /* NOTES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NOTES.md; sourceTree = "<group>"; };
 		FC660C81284F99520074A213 /* BaselineTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaselineTests.swift; sourceTree = "<group>"; };
-		FC660C85284FA0390074A213 /* SpecificationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpecificationTests.swift; sourceTree = "<group>"; };
+		FC660C85284FA0390074A213 /* TextIndexAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextIndexAcceptanceTests.swift; sourceTree = "<group>"; };
 		FC660C8B284FD6B00074A213 /* TextIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextIndex.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -118,7 +118,7 @@
 			isa = PBXGroup;
 			children = (
 				FC660C81284F99520074A213 /* BaselineTests.swift */,
-				FC660C85284FA0390074A213 /* SpecificationTests.swift */,
+				FC660C85284FA0390074A213 /* TextIndexAcceptanceTests.swift */,
 			);
 			path = CitySearchTests;
 			sourceTree = "<group>";
@@ -323,7 +323,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC660C82284F99520074A213 /* BaselineTests.swift in Sources */,
-				FC660C86284FA0390074A213 /* SpecificationTests.swift in Sources */,
+				FC660C86284FA0390074A213 /* TextIndexAcceptanceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

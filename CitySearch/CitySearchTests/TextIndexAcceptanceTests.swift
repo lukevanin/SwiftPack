@@ -6,7 +6,7 @@ import XCTest
 /// Tests based on the scenarios provided in the specification which prepresent the minimal acceptance
 /// criteria. These are not comprehensive or sufficient for completeness.
 ///
-final class SpecificationTests: XCTestCase {
+final class TextIndexAcceptanceTests: XCTestCase {
     
     /// We define a prefix string as: a substring that matches the initial characters of the target string. For
     ///  instance, assume the following entries:
@@ -44,7 +44,7 @@ final class SpecificationTests: XCTestCase {
         var subject = LinearTextIndex()
         verifySubject(&subject)
     }
-    
+
     private func verifySubject<I>(_ subject: inout I, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
         // Populate the test subject
         data.forEach { datum in
