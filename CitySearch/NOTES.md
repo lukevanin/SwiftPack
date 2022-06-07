@@ -41,8 +41,9 @@ O(M), where M is the length of the query string.
 simply by visiting the descandants of the node. This iteration can be abstracted as a Collection, so that the data can 
 accessed by the app easily. 
 - Memory usage should be within a reasonable limits to allow the entire data set to be loaded into memory. The source 
-file takes about 19MB of space on disk which, even if this file is stored verbatim in memory, is unlikely to exceed the
-memory available to the app.
+file takes about 19MB of space on disk, which includes the overhead of storing content as JSON, such as extra formatting
+characters (`"`, `[]`, `{}`), and extra characters used to encode numbers. The data should require less space once it is 
+deserialized. Even if this data is stored verbatim in memory is unlikely to exceed the memory available to the app.
 
 Cons:
  
