@@ -49,7 +49,7 @@
 		FC660C69284F88490074A213 /* CitySearchUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CitySearchUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC660C6D284F88490074A213 /* CitySearchUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchUITests.swift; sourceTree = "<group>"; };
 		FC660C6F284F88490074A213 /* CitySearchUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		FC660C7C284F885D0074A213 /* cities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; name = cities.json; path = ../cities.json; sourceTree = "<group>"; };
+		FC660C7C284F885D0074A213 /* cities.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = cities.json; sourceTree = "<group>"; };
 		FC660C7D284F885D0074A213 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		FC660C7E284F88AC0074A213 /* NOTES.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = NOTES.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -82,7 +82,6 @@
 		FC660C40284F88470074A213 = {
 			isa = PBXGroup;
 			children = (
-				FC660C7C284F885D0074A213 /* cities.json */,
 				FC660C7D284F885D0074A213 /* README.md */,
 				FC660C7E284F88AC0074A213 /* NOTES.md */,
 				FC660C4B284F88470074A213 /* CitySearch */,
@@ -107,10 +106,6 @@
 			children = (
 				FC660C7F284F88BA0074A213 /* Source */,
 				FC660C80284F88C30074A213 /* Resources */,
-				FC660C52284F88470074A213 /* Main.storyboard */,
-				FC660C55284F88490074A213 /* Assets.xcassets */,
-				FC660C57284F88490074A213 /* LaunchScreen.storyboard */,
-				FC660C5A284F88490074A213 /* Info.plist */,
 			);
 			path = CitySearch;
 			sourceTree = "<group>";
@@ -145,6 +140,11 @@
 		FC660C80284F88C30074A213 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				FC660C7C284F885D0074A213 /* cities.json */,
+				FC660C52284F88470074A213 /* Main.storyboard */,
+				FC660C55284F88490074A213 /* Assets.xcassets */,
+				FC660C57284F88490074A213 /* LaunchScreen.storyboard */,
+				FC660C5A284F88490074A213 /* Info.plist */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
