@@ -77,6 +77,8 @@ locate data we can easily find the file matching the initial prefix, then use th
 
 ## Approach
 
+### Testing
+
 Implement basic sanity tests and "happy path" behaviour based on the test cases in the specification. 
 
 Consider tests for edge cases, such as:
@@ -100,3 +102,17 @@ We may be able to create a user interface integration tests that measures realti
 
 Preferrably we should implement all of these tests before starting any development so that we have a working solution as 
 soon as possible.
+
+### User Interface
+
+We will use UIKit and code-only layout. We will not be using Storyboards or SwiftUI.
+
+Benefits of using UIKit:
+- Tried and tested and used by millions of applications over decades.
+- Predictable: Edge cases are (mostly) well known, and can be avoided.
+- Flexible: Provides for changing existing behaviour, and implementing custom functionality.
+- Performant: UIKit generally provides a smooth and responsive user experience when used correctly.
+
+Disadvantages of using UIKit:
+- Code is imperative, often requiring lots of lines of repetative code for even basic tasks. This often makes 
+development slow and prone to bugs.
