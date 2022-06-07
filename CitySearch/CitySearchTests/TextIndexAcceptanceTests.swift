@@ -61,7 +61,7 @@ final class TextIndexAcceptanceTests: XCTestCase {
         // Verify that the test subject returns the expected results.
         scenarios.forEach { scenario in
             let results = subject.search(prefix: scenario.query)
-            XCTAssertEqual(results, scenario.results)
+            XCTAssertEqual(results, scenario.results, file: file, line: line)
         }
     }
 }
