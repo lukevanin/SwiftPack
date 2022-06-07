@@ -23,7 +23,19 @@ final class TextIndexAcceptanceTests: XCTestCase {
         (key: "sydney, au", value: 4),
     ]
 
-    private let scenarios = [
+    private let subscriptScenarios = [
+        (key: "alabama, us", result: 0),
+        (key: "albuquerque, us", result: 1),
+        (key: "anaheim, us", result: 2),
+        (key: "arizona, us", result: 3),
+        (key: "sydney, au", result: 4),
+        (key: "alabama, usa", result: nil),
+        (key: "alabama, u", result: nil),
+        (key: "z", result: nil),
+        (key: "", result: nil),
+    ]
+
+    private let searchScenarios = [
         // If the given prefix is "A", all cities but Sydney should appear.
         (query: "a", results: [0, 1, 2, 3]),
 
@@ -47,21 +59,38 @@ final class TextIndexAcceptanceTests: XCTestCase {
         (query: "z", results: []),
     ]
 
-    func test_linearTextIndex_meetsSpecificationCriteria() {
+    func test_linearTextIndex_subscript() {
         var subject = LinearTextIndex()
-        verifySubject(&subject)
+        setupSubject(&subject)
+        exerciseSubscript(subject)
     }
 
-    private func verifySubject<I>(_ subject: inout I, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
+    func test_linearTextIndex_search() {
+        var subject = LinearTextIndex()
+        setupSubject(&subject)
+        exerciseSearch(subject)
+    }
+
+    private func setupSubject<I>(_ subject: inout I) where I: TextIndex {
         // Populate the test subject
         data.forEach { datum in
             subject[datum.key] = datum.value
         }
-        
-        // Verify that the test subject returns the expected results.
-        scenarios.forEach { scenario in
+    }
+
+    /// Verify that the test subject returns the expected value for a given key.
+    private func exerciseSubscript<I>(_ subject: I, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
+        subscriptScenarios.forEach { scenario in
+            let result = subject[scenario.key]
+            XCTAssertEqual(result, scenario.result, "Expected \(scenario.result.map { String($0) } ?? "nil") for key \(scenario.key), but got \(result.map { String($0) } ?? "nil")", file: file, line: line)
+        }
+    }
+    
+    /// Verify that the test subject returns the expected values for a given prefix.
+    private func exerciseSearch<I>(_ subject: I, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
+        searchScenarios.forEach { scenario in
             let results = subject.search(prefix: scenario.query)
-            XCTAssertEqual(results, scenario.results, file: file, line: line)
+            XCTAssertEqual(results, scenario.results, "Expected \(scenario.results) for prefix \(scenario.query), but got \(results)", file: file, line: line)
         }
     }
 }

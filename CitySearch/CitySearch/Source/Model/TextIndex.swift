@@ -36,7 +36,7 @@ protocol TextIndex {
     /// - Returns: A collecion of values whose keys start with the given prefix. Values are returned
     /// sorted relative to the alphabetical order of their keys.
     ///
-    mutating func search<S>(prefix: S) -> [Int] where S: StringProtocol
+    func search<S>(prefix: S) -> [Int] where S: StringProtocol
 }
 
 ///
@@ -50,14 +50,26 @@ protocol TextIndex {
 ///
 struct LinearTextIndex: TextIndex {
     
-    private var keyValues = [(key: String, value: Int)]()
+    private var elements = [(key: String, value: Int)]()
     
     subscript(key: String) -> Int? {
         get {
-            return nil
+            elements
+                .first { element in
+                    element.key == key
+                }
+                .map { element in
+                    element.value
+                }
         }
         set {
-            
+            #warning("TODO: Test replacing existing element")
+            #warning("TODO: Test removing existing element when given value is nil")
+            #warning("TODO: Test missing element when value is nil")
+            guard let newValue = newValue else {
+                return
+            }
+            elements.append((key: key, value: newValue))
         }
     }
     
