@@ -117,3 +117,19 @@ Benefits of using UIKit:
 Disadvantages of using UIKit:
 - Code is imperative, often requiring lots of lines of repetative code for even basic tasks. This often makes 
 development slow and prone to bugs.
+
+## Journal
+
+07/06
+
+Initial performance testing was conducted in iOS simulator on M1 MacBook Pro:
+
+- The data set appears to contain 209,557 entries.
+- Loading data takes ~6ms. Using memory mapping reduces this below 1ms, 
+- Parseing memory-mapped data into NSObjects using JSONSerialization takes ~300ms.  
+- Parseing memory-mapped data into a Codable struct using JSONDecoder takes ~2s.
+
+* Note: Memory usage appears to be misreported. Memory consumption is reported to be about 19KB. Peak memory usage is 
+reported as 0KB. This may be due to tests being run on the simulator. Using a real device may produce more useful 
+metrics.
+
