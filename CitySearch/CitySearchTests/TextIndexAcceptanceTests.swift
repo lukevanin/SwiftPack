@@ -16,28 +16,35 @@ final class TextIndexAcceptanceTests: XCTestCase {
     /// * Arizona, US
     /// * Sydney, AU
     private let data = [
-        (key: "Alabama, US", value: 0),
-        (key: "Albuquerque, US", value: 1),
-        (key: "Anaheim, US", value: 2),
-        (key: "Arizona, US", value: 3),
-        (key: "Sydney, AU", value: 4),
+        (key: "alabama, us", value: 0),
+        (key: "albuquerque, us", value: 1),
+        (key: "anaheim, us", value: 2),
+        (key: "arizona, us", value: 3),
+        (key: "sydney, au", value: 4),
     ]
 
     private let scenarios = [
         // If the given prefix is "A", all cities but Sydney should appear.
-        (query: "A", results: [0, 1, 2, 3]),
+        (query: "a", results: [0, 1, 2, 3]),
 
         // Contrariwise, if the given prefix is "s", the only result should be
         // "Sydney, AU".
-        (query: "S", results: [4]),
+        (query: "s", results: [4]),
      
         // If the given prefix is "Al", "Alabama, US" and "Albuquerque, US" are
         // the only results.
-        (query: "Al", results: [0, 1]),
+        (query: "al", results: [0, 1]),
         
         // If the prefix given is "Alb" then the only result is
         // "Albuquerque, US"
-        (query: "Alb", results: [1])
+        (query: "alb", results: [1]),
+        
+        // If the prefix given is "" the all cities should be returned.
+        (query: "", results: [0, 1, 2, 3, 4]),
+        
+        // If the prefix given is "Z" (matches no cities), then the empty
+        // collection should be returned.
+        (query: "z", results: []),
     ]
 
     func test_linearTextIndex_meetsSpecificationCriteria() {
