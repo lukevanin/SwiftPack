@@ -226,9 +226,9 @@ final class TextIndexAcceptanceTests: XCTestCase {
         XCTAssertEqual(Array(result), [1, 3, 5, 7, 11, 13])
     }
 
-//    func test_trieTextIndex_minimal() {
-//        exerciseSubject(TrieTextIndex(), testCase: makeMinimalTestCase())
-//    }
+    func test_trieTextIndex_minimal() {
+        exerciseSubject(TrieTextIndex(), testCase: makeMinimalTestCase())
+    }
 
     // MARK: Helpers
     
