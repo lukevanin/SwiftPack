@@ -73,16 +73,17 @@ struct TrieTextIndex: TextIndex {
             guard let character = key.first else {
                 // Key is empty. Insert the given value at the current node.
                 #warning("TODO: Use a binary insertion sort when inserting a new value")
-                values.append(value)
-                values.sort()
+                if values.contains(value) == false {
+                    values.append(value)
+                    values.sort()
+                }
                 return
             }
             // Get the child node corresponding to the character.
-            var childNode: Node! = childNodes[character]
-            if childNode == nil {
+            if childNodes[character] == nil {
                 // The child node does not exist yet. Create it and insert it
                 // into the array of child nodes.
-                childNode = Node()
+                childNodes[character] = Node()
                 #warning("TODO: Use binary insertion sort to insert character")
                 characters.append(character)
                 characters.sort()
@@ -90,9 +91,7 @@ struct TrieTextIndex: TextIndex {
             // Insert the value with the remainder of the key into the
             // child node.
             let suffix = key.dropFirst()
-            childNode.insert(key: suffix, value: value)
-            childNodes[character] = childNode
-            characters.append(character)
+            childNodes[character]!.insert(key: suffix, value: value)
         }
         
         ///
@@ -122,8 +121,17 @@ struct TrieTextIndex: TextIndex {
     }
     
     ///
-    /// Iterates through all of the descendants of a given node, returning all of the values contained within
-    /// the node tree
+    /// Iterates through all of the descendants of a given node and  returning all of the values contained
+    /// within the node tree
+    ///
+    /// The iterator uses a stack to maintain state for the current node. The stack contains an array of
+    /// node iterators. The top of the stack refers to the root of the node subtree which is being iterated over.
+    /// The bottom of the stack refers to the current node.
+    ///
+    /// When initialized, the stack contains just the root node. The stack grows in depth as the descendants
+    /// nodes of the root node are visited. A node is removed from the stack once all of its descandants have
+    /// been iterated over. The iterator completes when all descendants of the root node have been
+    /// iterated over.
     ///
     private struct NodesIterator: IteratorProtocol {
         
@@ -155,49 +163,44 @@ struct TrieTextIndex: TextIndex {
         private var stack = [NodeIterator]()
         
         init(node: Node) {
-            self.stack = []
-            firstNode(node: node)
+            self.stack = [NodeIterator(node: node)]
         }
         
-        private mutating func firstNode(node: Node) {
-            // Use depth-first traversal to find the first descendant node.
-            var current: Node! = node
-            while current != nil {
-                var iterator = NodeIterator(node: current)
-                // Find the next child node for the current node
-                current = iterator.nextChild()
-                // Append the node to the stack
-                stack.append(iterator)
-            }
-        }
-
-        private mutating func nextNode() {
-            // Use depth-first traversal to find the first descendant node.
+        ///
+        /// Returns the next value in the tree.
+        ///
+        ///
+        ///
+        /// The iteration step performs the following operations:
+        /// - Set the current node to the node at the bottom of the stack.
+        /// - Return the next value for the current node.
+        /// - If no more values are available on the current node then we can iterate over the children of
+        /// the current node. Get the child node for the current node and add it to the stack.
+        /// - If no more child nodes are available then iteration is complete for this node. Remove the
+        /// node from the stack.
+        /// - Repeat these steps until the stack is empty.
+        ///
+        /// - Returns: The next available value, or nil if no more values are available.
+        ///
+        mutating func next() -> Int? {
+            // Use depth-first search to find the next value in the sequence
             while stack.count > 0 {
                 // Find the next child node for the current node
-                if let childNode = stack[stack.count - 1].nextChild() {
+                if let value = stack[stack.count - 1].nextValue() {
+                    // Return the value for the current node.
+                    return value
+                }
+                else if let childNode = stack[stack.count - 1].nextChild() {
                     // Append the node to the stack and repeat.
                     stack.append(NodeIterator(node: childNode))
                 }
                 else {
-                    // No more child nodes. Remove this node from the stack
-                    // and try the parent node.
+                    // No more child nodes and no more values. Remove this node
+                    // from the stack and try the parent node.
                     stack.removeLast()
                 }
             }
-        }
-        
-        mutating func next() -> Int? {
-            while stack.count > 0 {
-                if let value = stack[stack.count - 1].nextValue() {
-                    return value
-                }
-                else {
-                    // No more values for the current node. Try the next
-                    // character.
-                    nextNode()
-                }
-            }
+            // No more nodes to visit. We are done iterating.
             return nil
         }
     }
