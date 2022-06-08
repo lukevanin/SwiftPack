@@ -207,12 +207,6 @@ struct TrieTextIndex: TextIndex {
     
     private var root = Node()
     
-    subscript(key: String) -> Int? {
-        get {
-            return nil
-        }
-    }
-    
     mutating func insert(key: String, value: Int) {
         root.insert(key: key, value: value)
     }

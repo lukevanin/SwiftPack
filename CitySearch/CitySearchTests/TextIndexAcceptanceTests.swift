@@ -39,43 +39,44 @@ final class TextIndexAcceptanceTests: XCTestCase {
 
     // MARK: Linear Index
 
-//    func test_linearTextIndex_minimal() {
-//        exerciseSubject(LinearTextIndex(), testCase: makeMinimalTestCase())
-//    }
-//
-//    func test_linearTextIndex_empty() {
-//        exerciseSubject(LinearTextIndex(), testCase: makeEmptyTestCase())
-//    }
-//
-//    func test_linearTextIndex_duplicatedValues() {
-//        exerciseSubject(LinearTextIndex(), testCase: makeDuplicatedValuesTestCase())
-//    }
-//
-//    func test_linearTextIndex_duplicatedKeys() {
-//        exerciseSubject(LinearTextIndex(), testCase: makeDuplicatedKeysTestCase())
-//    }
-//
-//    func test_linearTextIndex_medium() {
-//        exerciseSubject(LinearTextIndex(), testCase: makeMediumTestCase())
-//    }
-//
-//    func test_linearTextIndex_large_fillPerformance() {
-//        let testCase = makeLargeTestCase()
-//        var subject = LinearTextIndex()
-//        measure(metrics: defaultMetrics()) {
-//            fillSubject(&subject, with: testCase.data[0])
-//        }
-//    }
-//
-//    func test_linearTextIndex_large_searchPerformance() {
-//        let testCase = makeLargeTestCase()
-//        var subject = LinearTextIndex()
-//        fillSubject(&subject, with: testCase.data[0])
-//        measure(metrics: defaultMetrics()) {
-//            exerciseSearch(subject, with: testCase.queries, name: testCase.name, verify: false)
-//        }
-//    }
-    
+    func test_linearTextIndex_minimal() {
+        exerciseSubject(LinearTextIndex(), testCase: makeMinimalTestCase())
+    }
+
+    func test_linearTextIndex_empty() {
+        exerciseSubject(LinearTextIndex(), testCase: makeEmptyTestCase())
+    }
+
+    func test_linearTextIndex_duplicatedValues() {
+        exerciseSubject(LinearTextIndex(), testCase: makeDuplicatedValuesTestCase())
+    }
+
+    func test_linearTextIndex_duplicatedKeys() {
+        exerciseSubject(LinearTextIndex(), testCase: makeDuplicatedKeysTestCase())
+    }
+
+    func test_linearTextIndex_100_entries() {
+        exerciseSubject(LinearTextIndex(), testCase: makeTestCase(name: "100", count: 100))
+    }
+
+    func test_linearTextIndex_500_searchPerformance() {
+        let testCase = makeTestCase(name: "500", count: 500)
+        var subject = LinearTextIndex()
+        fillSubject(&subject, with: testCase.data[0])
+        measure(metrics: defaultMetrics()) {
+            exerciseSearch(subject, with: testCase.queries, name: testCase.name, verify: false)
+        }
+    }
+
+    func test_linearTextIndex_1k_searchPerformance() {
+        let testCase = makeTestCase(name: "1k", count: 1_000)
+        var subject = LinearTextIndex()
+        fillSubject(&subject, with: testCase.data[0])
+        measure(metrics: defaultMetrics()) {
+            exerciseSearch(subject, with: testCase.queries, name: testCase.name, verify: false)
+        }
+    }
+
     // MARK: Trie Index
     
     func test_trieIndex_search_shouldReturnEmptySet_givenNoValues_noPrefix() {
@@ -228,6 +229,90 @@ final class TextIndexAcceptanceTests: XCTestCase {
 
     func test_trieTextIndex_minimal() {
         exerciseSubject(TrieTextIndex(), testCase: makeMinimalTestCase())
+    }
+
+    func test_trieTextIndex_empty() {
+        exerciseSubject(TrieTextIndex(), testCase: makeEmptyTestCase())
+    }
+
+    func test_trieTextIndex_duplicatedValues() {
+        exerciseSubject(TrieTextIndex(), testCase: makeDuplicatedValuesTestCase())
+    }
+
+    func test_trueTextIndex_duplicatedKeys() {
+        exerciseSubject(TrieTextIndex(), testCase: makeDuplicatedKeysTestCase())
+    }
+
+    func test_trieTextIndex_100_entries() {
+        exerciseSubject(TrieTextIndex(), testCase: makeTestCase(name: "100", count: 100))
+    }
+
+    //    func test_linearTextIndex_large_fillPerformance() {
+    //        let testCase = makeLargeTestCase()
+    //        var subject = LinearTextIndex()
+    //        measure(metrics: defaultMetrics()) {
+    //            fillSubject(&subject, with: testCase.data[0])
+    //        }
+    //    }
+    
+    func test_trieTextIndex_1k_searchPerformance() {
+        let testCase = makeTestCase(name: "1k", count: 1_000)
+        var subject = TrieTextIndex()
+        fillSubject(&subject, with: testCase.data[0])
+        measure(metrics: defaultMetrics()) {
+            exerciseSearch(subject, with: testCase.queries, name: testCase.name, verify: false)
+        }
+    }
+    
+    func test_trieTextIndex_10k_searchPerformance() {
+        let testCase = makeTestCase(name: "10k", count: 10_000)
+        var subject = TrieTextIndex()
+        fillSubject(&subject, with: testCase.data[0])
+        measure(metrics: defaultMetrics()) {
+            exerciseSearch(subject, with: testCase.queries, name: testCase.name, verify: false)
+        }
+    }
+    
+    func test_trieTextIndex_100k_searchPerformance() {
+        let testCase = makeTestCase(name: "100k", count: 100_000)
+        var subject = TrieTextIndex()
+        fillSubject(&subject, with: testCase.data[0])
+        measure(metrics: defaultMetrics()) {
+            exerciseSearch(subject, with: testCase.queries, name: testCase.name, verify: false)
+        }
+    }
+    
+    func test_trieTextIndex_200k_searchPerformance() {
+        let testCase = makeTestCase(name: "200k", count: 200_000)
+        var subject = TrieTextIndex()
+        fillSubject(&subject, with: testCase.data[0])
+        measure(metrics: defaultMetrics()) {
+            exerciseSearch(subject, with: testCase.queries, name: testCase.name, verify: false)
+        }
+    }
+    
+    func test_trieTextIndex_1m_searchPerformance() {
+        let indices = Array((0 ..< 1_000_000))
+        let elements = indices.map { (i: Int) -> Data in
+            (key: String(format: "a%09d", i), value: i)
+        }
+        var subject = TrieTextIndex()
+        elements.forEach { element in
+            subject.insert(key: element.key, value: element.value)
+        }
+        measure(metrics: defaultMetrics()) {
+            let _ = subject.search(prefix: "a000000000")
+            let _ = subject.search(prefix: "a00000000")
+            let _ = subject.search(prefix: "a0000000")
+            let _ = subject.search(prefix: "a000000")
+            let _ = subject.search(prefix: "a00000")
+            let _ = subject.search(prefix: "a0000")
+            let _ = subject.search(prefix: "a000")
+            let _ = subject.search(prefix: "a00")
+            XCTAssertEqual(Array(subject.search(prefix: "a000000000")), [0])
+            XCTAssertEqual(Array(subject.search(prefix: "a000555555")), [555555])
+            XCTAssertEqual(Array(subject.search(prefix: "a000999999")), [999999])
+        }
     }
 
     // MARK: Helpers
@@ -437,20 +522,6 @@ final class TextIndexAcceptanceTests: XCTestCase {
             ]
         )
     }
-    
-    ///
-    /// A medium sized data set.
-    ///
-    private func makeMediumTestCase() -> TestCase {
-        makeTestCase(name: "Medium", count: 100)
-    }
-    
-    ///
-    /// A lerger sized data set containing more values.
-    ///
-    private func makeLargeTestCase() -> TestCase {
-        makeTestCase(name: "Large", count: 1_000)
-    }
 
     ///
     /// Creates a test case scenario for a given number of elements.
@@ -465,9 +536,11 @@ final class TextIndexAcceptanceTests: XCTestCase {
         let indices = Array((0 ..< count))
         var queries = [SearchScenario]()
         queries.append(
-            contentsOf: indices.map { i in
-                (query: String(format: "a%09d", i), results: [i])
-            }
+            contentsOf: indices
+                .suffix(1000)
+                .map { i in
+                    (query: String(format: "a%09d", i), results: [i])
+                }
         )
         queries.append(
             contentsOf: [
