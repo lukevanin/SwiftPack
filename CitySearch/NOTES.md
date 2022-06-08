@@ -227,3 +227,23 @@ Child values can be assigned to buckets according to its annotation.
 For now, we will use the first option, where trie child nodes are stored in a 
 dictionary, and use the annotated approach if this is performance is still not 
 adequate. 
+
+The trie implementation is complete. Test coverage is 100%. Performance seems
+to be acceptable:
+- Locating a node within a tree containing 1m entries takes much less 
+than 1 ms.
+- Performing 100k searches on a tree containing 100k entries takes 300ms.
+
+Performance seems to scale exactly linearly with the number of queries. 100k 
+queries on a set containing 100k entries takes ~400ms, compared to 10k queries 
+on a data set containing 10k entries which takes ~40ms.
+
+Compared to the linear text index, queries using the the trie text index are 
+~100x faster.
+
+Performing 1k queries on a data set containing 1k entries takes ~800ms. The trie 
+index can perform 200k queries in the same amount of time (200x faster). 
+Performing 1k queries with the trie index takes 10ms (80x faster).
+
+The next step is to combine the text index with the array of data, so that we
+can return entities related to keys.
