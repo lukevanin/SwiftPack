@@ -55,11 +55,7 @@ final class BaselineTests: XCTestCase {
     func test_measure_withData_alwaysMapped() {
         let fileURL = Bundle.main.url(forResource: "cities", withExtension: "json")!
         measure(
-            metrics: [
-                XCTCPUMetric(limitingToCurrentThread: true),
-                XCTMemoryMetric(),
-                XCTClockMetric(),
-            ],
+            metrics: defaultMetrics(),
             block: {
                 do {
                     _ = try Data(contentsOf: fileURL, options: [.alwaysMapped])
@@ -76,11 +72,7 @@ final class BaselineTests: XCTestCase {
         let data = try! Data(contentsOf: fileURL, options: [.alwaysMapped])
         let decoder = JSONDecoder()
         measure(
-            metrics: [
-                XCTCPUMetric(limitingToCurrentThread: true),
-                XCTMemoryMetric(),
-                XCTClockMetric(),
-            ],
+            metrics: defaultMetrics(),
             block: {
                 do {
                     let cities = try decoder.decode([City].self, from: data)
@@ -97,11 +89,7 @@ final class BaselineTests: XCTestCase {
         let fileURL = Bundle.main.url(forResource: "cities", withExtension: "json")!
         let data = try! Data(contentsOf: fileURL, options: [.alwaysMapped])
         measure(
-            metrics: [
-                XCTCPUMetric(limitingToCurrentThread: true),
-                XCTMemoryMetric(),
-                XCTClockMetric(),
-            ],
+            metrics: defaultMetrics(),
             block: {
                 do {
                     let cities = try JSONSerialization.jsonObject(with: data, options: []) as? NSArray
