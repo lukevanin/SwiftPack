@@ -42,8 +42,8 @@ text matching a given prefix.
 _Pros:_
 
 - Data can be located efficiently. The asymptotic complexity of locating the 
-node matching a query prefix is of order  O(M), where M is the length of the 
-query string.
+node matching a given prefix length P is of order O(P). Inserting N nodes with 
+average key length K is in the order of O(N log K).
 - Data can be retrieved efficiently. Once the initial node is matched, the 
 entire subset of the data can be accessed  simply by visiting the descandants of 
 the node. This iteration can be abstracted as a Collection, so that the data can 
@@ -161,7 +161,7 @@ basic tasks. This often makes  development slow and prone to bugs.
 
 ## Journal
 
-07/06
+### 07/06
 
 Initial performance testing was conducted in iOS simulator on M1 MacBook Pro:
 
@@ -177,4 +177,53 @@ to be about 19KB. Peak memory usage is  reported as 0KB. This may be due to
 tests being run on the simulator. Using a real device may produce more useful 
 metrics.
 
+### 08/06
 
+While implementing the trie insertion algorithm it occurred to me to check if 
+the data set contains multiple values which have the same city and country. This 
+turns out to be the case. For example, "New York Mills, US" occurs twice in the
+data set. 
+
+Up until this point I assumed that key-value pairs were unique, and implemented
+tests to check that inserting a value with a key that was already present in the
+index would replace the existing value.
+
+This new realisation will require some changes to be made. A trie structure can 
+still be used, however instead of each node needs to store an array of values 
+instead of just storing a single value. The order of values is not defined by 
+the specification, but a reasonable approach is to store and return values in 
+the order that they were inserted.
+
+Another consideration is the handling of the space and delimiting characters. 
+The specification indicates that users would like to search by city and 
+country separated by a comma, and some cities contain spaces in their names.
+
+Handling extra characters that are not in the alphabet has some implications 
+for performance.
+
+If we only needed to use characters that appear sequentially in the list, then 
+the computation for the index of the child node from the character becomes 
+trivial: subtract the ordinal value of the first character in the alphabet
+from the ordinal value of the given character.
+
+There are a few solutions for this. 
+
+One simple solution is to child nodes in a dictionary instead of in an array. 
+This increases search complexity from O(P) to O(P log A), where P is the length 
+of the prefix and A is the size of the alphabet. This is still sub-linear but 
+not optimal.
+
+Another solution is to pre-process the input string and annotate each character 
+with its contextual symantic meaning. e.g. 
+- A...Z are annotated as "alphabet".
+- Comma, semi-colon, colon are annotated as "delimiter".
+- Any other character is annotated as "white-space".
+
+The input can be further procesed to remove duplicate consecutive spaces 
+and delimiters.
+
+Child values can be assigned to buckets according to its annotation.  
+
+For now, we will use the first option, where trie child nodes are stored in a 
+dictionary, and use the annotated approach if this is performance is still not 
+adequate. 

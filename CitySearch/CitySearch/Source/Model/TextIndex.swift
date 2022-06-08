@@ -1,13 +1,10 @@
 import Foundation
 
 ///
-/// A hash table where keys are strings and values are integers.
+/// A collection where keys are strings and values are integers.
 ///
-/// A collection that stores values associated with a unique key. A query string is provided to return a subset of
-/// the stored values. The index returns values where the prefix of the key matches the given query.
-///
-/// The prefix is defined as the substring of the key, from the beginning of the key, and of the same length
-/// as the query.
+/// A collection that stores integers associated with a string. Values can be retrieved using a query string,
+/// where values whose prefix matches the provided query
 ///
 /// The index is usually used to implement text search capabilities for a data set containing complex
 /// objects. The text index would contain keys with the text that can be searched, with the val ues referring
@@ -21,12 +18,9 @@ import Foundation
 protocol TextIndex {
     
     ///
-    /// Inserts a value with a given key index to the index, and returns a value with a given key if one exists.
+    /// Inserts a value into the index associated with a key string.
     ///
-    /// - Parameter key: The key associated with the value.
-    /// - Returns: The value associated with the key, if one exists.
-    ///
-    subscript(_ key: String) -> Int? { get set }
+    mutating func insert(key: String, value: Int)
     
     ///
     /// Retrieves all values whose key starts with the given query.

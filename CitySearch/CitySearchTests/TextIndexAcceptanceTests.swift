@@ -27,76 +27,90 @@ import XCTest
 
 final class TextIndexAcceptanceTests: XCTestCase {
     
-    typealias Data = (key: String, value: Int?)
+    typealias Data = (key: String, value: Int)
     
     typealias SearchScenario = (query: String, results: [Int])
-    
-    typealias SubscriptScenario = (key: String, result: Int?)
     
     struct TestCase {
         let name: String
         let data: [[Data]]
-        let subscriptScenarios: [SubscriptScenario]
-        let searchScenarios: [SearchScenario]
+        let queries: [SearchScenario]
     }
 
     // MARK: Linear Index
 
-    func test_linearTextIndex_minimal() {
-        exerciseSubject(LinearTextIndex(), testCase: makeMinimalTestCase())
-    }
-
-    func test_linearTextIndex_empty() {
-        exerciseSubject(LinearTextIndex(), testCase: makeEmptyTestCase())
-    }
-
-    func test_linearTextIndex_duplicatedValues() {
-        exerciseSubject(LinearTextIndex(), testCase: makeDuplicatedValuesTestCase())
-    }
-
-    func test_linearTextIndex_duplicatedKeys() {
-        exerciseSubject(LinearTextIndex(), testCase: makeDuplicatedKeysTestCase())
-    }
-
-    func test_linearTextIndex_nilValues() {
-        exerciseSubject(LinearTextIndex(), testCase: makeNilValuesTestCase())
-    }
-
-    func test_linearTextIndex_medium() {
-        exerciseSubject(LinearTextIndex(), testCase: makeMediumTestCase())
-    }
-
-    func test_linearTextIndex_large_fillPerformance() {
-        let testCase = makeLargeTestCase()
-        var subject = LinearTextIndex()
-        measure(metrics: defaultMetrics()) {
-            fillSubject(&subject, with: testCase.data[0])
-        }
-    }
-
-    func test_linearTextIndex_large_subscriptPerformance() {
-        let testCase = makeLargeTestCase()
-        var subject = LinearTextIndex()
-        fillSubject(&subject, with: testCase.data[0])
-        measure(metrics: defaultMetrics()) {
-            exerciseSubscript(subject, with: testCase.subscriptScenarios, name: testCase.name, verify: false)
-        }
-    }
-
-    func test_linearTextIndex_large_searchPerformance() {
-        let testCase = makeLargeTestCase()
-        var subject = LinearTextIndex()
-        fillSubject(&subject, with: testCase.data[0])
-        measure(metrics: defaultMetrics()) {
-            exerciseSearch(subject, with: testCase.searchScenarios, name: testCase.name, verify: false)
-        }
-    }
+//    func test_linearTextIndex_minimal() {
+//        exerciseSubject(LinearTextIndex(), testCase: makeMinimalTestCase())
+//    }
+//
+//    func test_linearTextIndex_empty() {
+//        exerciseSubject(LinearTextIndex(), testCase: makeEmptyTestCase())
+//    }
+//
+//    func test_linearTextIndex_duplicatedValues() {
+//        exerciseSubject(LinearTextIndex(), testCase: makeDuplicatedValuesTestCase())
+//    }
+//
+//    func test_linearTextIndex_duplicatedKeys() {
+//        exerciseSubject(LinearTextIndex(), testCase: makeDuplicatedKeysTestCase())
+//    }
+//
+//    func test_linearTextIndex_medium() {
+//        exerciseSubject(LinearTextIndex(), testCase: makeMediumTestCase())
+//    }
+//
+//    func test_linearTextIndex_large_fillPerformance() {
+//        let testCase = makeLargeTestCase()
+//        var subject = LinearTextIndex()
+//        measure(metrics: defaultMetrics()) {
+//            fillSubject(&subject, with: testCase.data[0])
+//        }
+//    }
+//
+//    func test_linearTextIndex_large_searchPerformance() {
+//        let testCase = makeLargeTestCase()
+//        var subject = LinearTextIndex()
+//        fillSubject(&subject, with: testCase.data[0])
+//        measure(metrics: defaultMetrics()) {
+//            exerciseSearch(subject, with: testCase.queries, name: testCase.name, verify: false)
+//        }
+//    }
     
     // MARK: Trie Index
-
-    func test_trieTextIndex_minimal() {
-        exerciseSubject(TrieTextIndex(), testCase: makeMinimalTestCase())
+    
+    func test_trieIndex_search_shouldReturnValue_givenExactPrefix() {
+        var subject = TrieTextIndex()
+        subject.insert(key: "foo", value: 7)
+        let result = subject.search(prefix: "foo")
+        XCTAssertEqual(Array(result), [7])
     }
+    
+    func test_trieIndex_search_shouldReturnValues_givenExactPrefix() {
+        var subject = TrieTextIndex()
+        subject.insert(key: "foo", value: 7)
+        subject.insert(key: "foo", value: 13)
+        let result = subject.search(prefix: "foo")
+        XCTAssertEqual(Array(result), [7, 13])
+    }
+    
+    func test_trieIndex_search_shouldReturnValuesInCorrectOrder_givenExactPrefix() {
+        var subject = TrieTextIndex()
+        subject.insert(key: "foo", value: 13)
+        subject.insert(key: "foo", value: 7)
+        let result = subject.search(prefix: "foo")
+        XCTAssertEqual(Array(result), [7, 13])
+    }
+    
+    func test_trieIndex_search_shouldReturnValue_givenExactPrefix() {
+        var subject = TrieTextIndex()
+        subject.insert(key: "foo", value: 7)
+        let result = subject.search(prefix: "foo")
+        XCTAssertEqual(Array(result), [7])
+    }
+
+//    func test_trieTextIndex_minimal() {
+//        exerciseSubject(TrieTextIndex(), testCase: makeMinimalTestCase())
+//    }
 
     // MARK: Helpers
     
@@ -110,7 +124,7 @@ final class TextIndexAcceptanceTests: XCTestCase {
             // Fill the subject with data
             fillSubject(&subject, with: data)
             // Exercise the subject
-            exerciseSubject(subject, with: testCase, file: file, line: line)
+            exerciseSearch(subject, with: testCase.queries, name: testCase.name, file: file, line: line)
         }
     }
 
@@ -119,27 +133,7 @@ final class TextIndexAcceptanceTests: XCTestCase {
     ///
     private func fillSubject<I>(_ subject: inout I, with data: [Data]) where I: TextIndex {
         data.forEach { datum in
-            subject[datum.key] = datum.value
-        }
-    }
-    
-    ///
-    /// Exercise the subject under various conditions..
-    ///
-    private func exerciseSubject<I>(_ subject: I, with testCase: TestCase, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
-        exerciseSubscript(subject, with: testCase.subscriptScenarios, name: testCase.name, file: file, line: line)
-        exerciseSearch(subject, with: testCase.searchScenarios, name: testCase.name, file: file, line: line)
-    }
-
-    ///
-    /// Verify that the test subject returns the expected value for a given key.
-    ///
-    private func exerciseSubscript<I>(_ subject: I, with scenarios: [SubscriptScenario], name: String, verify: Bool = true, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
-        scenarios.forEach { scenario in
-            let result = subject[scenario.key]
-            if verify {
-                XCTAssertEqual(result, scenario.result, "\(name) > Subscript > Expected \(scenario.result.map { String($0) } ?? "nil") for key \(scenario.key), but got \(result.map { String($0) } ?? "nil")", file: file, line: line)
-            }
+            subject.insert(key: datum.key, value: datum.value)
         }
     }
     
@@ -195,30 +189,19 @@ final class TextIndexAcceptanceTests: XCTestCase {
                     (key: "sydney, au", value: 4),
                     (key: "arizona, us", value: 30),
                 ],
-                // Original data with some keys duplicated.
+                // Original data with some key+values duplicated.
                 [
                     (key: "anaheim, us", value: 2),
-                    (key: "albuquerque, us", value: 10),
                     (key: "anaheim, us", value: 2),
-                    (key: "alabama, us", value: 0),
-                    (key: "sydney, au", value: 4),
+                    (key: "anaheim, us", value: 2),
                     (key: "albuquerque, us", value: 10),
-                    (key: "arizona, us", value: 30),
+                    (key: "alabama, us", value: 0),
+                    (key: "albuquerque, us", value: 10),
                     (key: "sydney, au", value: 4),
+                    (key: "arizona, us", value: 30),
                 ],
             ],
-            subscriptScenarios: [
-                (key: "alabama, us", result: 0),
-                (key: "albuquerque, us", result: 10),
-                (key: "anaheim, us", result: 2),
-                (key: "arizona, us", result: 30),
-                (key: "sydney, au", result: 4),
-                (key: "alabama, usa", result: nil),
-                (key: "alabama, u", result: nil),
-                (key: "z", result: nil),
-                (key: "", result: nil),
-            ],
-            searchScenarios: [
+            queries: [
                 // If the given prefix is "A", all cities but Sydney should
                 // appear.
                 (query: "a", results: [0, 10, 2, 30]),
@@ -241,6 +224,17 @@ final class TextIndexAcceptanceTests: XCTestCase {
                 // If the prefix given is "Z" (matches no cities), then the
                 // empty collection should be returned.
                 (query: "z", results: []),
+                
+                // Additional scenarions
+                (query: "alabama, us", results: [0]),
+                (query: "albuquerque, us", results: [10]),
+                (query: "anaheim, us", results: [2]),
+                (query: "arizona, us", results: [30]),
+                (query: "sydney, au", results: [4]),
+                (query: "alabama, usa", results: []),
+                (query: "alabama, u", results: [0]),
+                (query: "z", results: []),
+                (query: "", results: [0, 10, 2, 30, 4]),
             ]
         )
     }
@@ -252,16 +246,14 @@ final class TextIndexAcceptanceTests: XCTestCase {
         TestCase(
             name: "Empty",
             data: [],
-            subscriptScenarios: [
-                (key: "alabama, us", result: nil),
-                (key: "albuquerque, us", result: nil),
-                (key: "anaheim, us", result: nil),
-                (key: "arizona, us", result: nil),
-                (key: "sydney, au", result: nil),
-            ],
-            searchScenarios: [
+            queries: [
                 (query: "a", results: []),
                 (query: "", results: []),
+                (query: "alabama, us", results: []),
+                (query: "albuquerque, us", results: []),
+                (query: "anaheim, us", results: []),
+                (query: "arizona, us", results: []),
+                (query: "sydney, au", results: []),
             ]
         )
     }
@@ -282,16 +274,13 @@ final class TextIndexAcceptanceTests: XCTestCase {
                     (key: "sydney, au", value: 2),
                 ]
             ],
-            subscriptScenarios: [
-                (key: "alabama, us", result: 0),
-                (key: "albuquerque, us", result: 0),
-                (key: "anaheim, us", result: 1),
-                (key: "arizona, us", result: 1),
-                (key: "sydney, au", result: 2),
-                (key: "z", result: nil),
-                (key: "", result: nil),
-            ],
-            searchScenarios: [
+            queries: [
+                (query: "alabama, us", results: [0]),
+                (query: "albuquerque, us", results: [0]),
+                (query: "anaheim, us", results: [1]),
+                (query: "arizona, us", results: [1]),
+                (query: "sydney, au", results: [2]),
+                (query: "z", results: []),
                 (query: "a", results: [0, 0, 1, 1]),
                 (query: "s", results: [2]),
                 (query: "al", results: [0, 0]),
@@ -317,55 +306,16 @@ final class TextIndexAcceptanceTests: XCTestCase {
                     (key: "sydney, au", value: 4),
                 ]
             ],
-            subscriptScenarios: [
-                (key: "alabama, us", result: 1),
-                (key: "albuquerque, us", result: nil),
-                (key: "anaheim, us", result: 3),
-                (key: "arizona, us", result: nil),
-                (key: "sydney, au", result: 4),
-            ],
-            searchScenarios: [
-                (query: "a", results: [1, 3]),
+            queries: [
+                (query: "alabama, us", results: [0, 1]),
+                (query: "albuquerque, us", results: []),
+                (query: "anaheim, us", results: [2, 3]),
+                (query: "sydney, au", results: [4]),
+                (query: "a", results: [0, 1, 2, 3]),
                 (query: "s", results: [4]),
-                (query: "al", results: [1]),
+                (query: "al", results: [0, 1]),
                 (query: "alb", results: []),
-                (query: "", results: [1, 3, 4]),
-            ]
-        )
-    }
-      
-    ///
-    /// A data set where some values are nil.
-    ///
-    private func makeNilValuesTestCase() -> TestCase {
-        TestCase(
-            name: "Nils",
-            data: [
-                [
-                    (key: "alabama, us", value: 0),
-                    (key: "alabama, us", value: nil),
-                    (key: "albuquerque, us", value: nil),
-                    (key: "albuquerque, us", value: 10),
-                    (key: "anaheim, us", value: nil),
-                    (key: "sydney, au", value: 4),
-                ]
-            ],
-            subscriptScenarios: [
-                (key: "alabama, us", result: nil),
-                (key: "albuquerque, us", result: 10),
-                (key: "anaheim, us", result: nil),
-                (key: "arizona, us", result: nil),
-                (key: "sydney, au", result: 4),
-                (key: "z", result: nil),
-                (key: "", result: nil),
-            ],
-            searchScenarios: [
-                (query: "a", results: [10]),
-                (query: "s", results: [4]),
-                (query: "al", results: [10]),
-                (query: "alb", results: [10]),
-                (query: "an", results: []),
-                (query: "", results: [10, 4]),
+                (query: "", results: [0, 1, 2, 3, 4]),
             ]
         )
     }
@@ -381,7 +331,7 @@ final class TextIndexAcceptanceTests: XCTestCase {
     /// A lerger sized data set containing more values.
     ///
     private func makeLargeTestCase() -> TestCase {
-        makeTestCase(name: "Large", count: 2_000)
+        makeTestCase(name: "Large", count: 1_000)
     }
 
     ///
@@ -395,17 +345,14 @@ final class TextIndexAcceptanceTests: XCTestCase {
     ///
     private func makeTestCase(name: String, count: Int) -> TestCase {
         let indices = Array((0 ..< count))
-        let testCase = TestCase(
-            name: name,
-            data:[
-                indices.map { i in
-                    (key: String(format: "a%09d", i), value: i)
-                }
-            ],
-            subscriptScenarios: indices.map { i in
-                (key: String(format: "a%09d", i), result: i)
-            },
-            searchScenarios: [
+        var queries = [SearchScenario]()
+        queries.append(
+            contentsOf: indices.map { i in
+                (query: String(format: "a%09d", i), results: [i])
+            }
+        )
+        queries.append(
+            contentsOf: [
                 (query: "", results: indices),
                 (query: "a", results: indices),
                 (query: "a0", results: indices),
@@ -415,6 +362,15 @@ final class TextIndexAcceptanceTests: XCTestCase {
                 (query: "a000000009", results: [9]),
                 (query: "z", results: []),
             ]
+        )
+        let testCase = TestCase(
+            name: name,
+            data:[
+                indices.map { i in
+                    (key: String(format: "a%09d", i), value: i)
+                }
+            ],
+            queries: queries
         )
         return testCase
     }
