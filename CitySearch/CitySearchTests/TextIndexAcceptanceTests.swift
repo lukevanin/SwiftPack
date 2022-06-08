@@ -6,6 +6,25 @@ import XCTest
 /// Tests based on the scenarios provided in the specification which prepresent the minimal acceptance
 /// criteria. These are not comprehensive or sufficient for completeness.
 ///
+/// We are using a data-driven approach to testing. This approach is not applicable to every
+/// circumstance, but can be useful in situations such as ours where the subject is data oriented in nature.
+///
+/// In this particular case the approach works well as we mostly just want to push a lot of data through
+/// the subject and check the outcome, with a very simple and repetative steps.
+///
+/// This also allows us to run identical tests on multiple different subjects. For our purposes we are using
+/// this technique to rune tests against an oracle or reference implementation, to verify that the tests are
+/// producing expected results. We run the same tests on our optimal solution(s) to verify their
+/// correctness.
+///
+/// We define an array of test cases. Each test case consists of three pieces:
+/// - data: Array of key-values we want to populate the subject with before performing testing.
+/// - subscript scenarios: Array of key-values. We compare the value retrieved from the subject using
+/// the key, to a known value.
+/// - search scenarios: Array of key-values. We compare the search results from the subject using a
+/// specific key against a known value.
+///
+
 final class TextIndexAcceptanceTests: XCTestCase {
     
     typealias Data = (key: String, value: Int?)
@@ -21,39 +40,134 @@ final class TextIndexAcceptanceTests: XCTestCase {
         let searchScenarios: [SearchScenario]
     }
 
+    // MARK: Linear Index
+
+    func test_linearTextIndex_minimal() {
+        exerciseSubject(LinearTextIndex(), testCase: makeMinimalTestCase())
+    }
+
+    func test_linearTextIndex_empty() {
+        exerciseSubject(LinearTextIndex(), testCase: makeEmptyTestCase())
+    }
+
+    func test_linearTextIndex_duplicatedValues() {
+        exerciseSubject(LinearTextIndex(), testCase: makeDuplicatedValuesTestCase())
+    }
+
+    func test_linearTextIndex_duplicatedKeys() {
+        exerciseSubject(LinearTextIndex(), testCase: makeDuplicatedKeysTestCase())
+    }
+
+    func test_linearTextIndex_nilValues() {
+        exerciseSubject(LinearTextIndex(), testCase: makeNilValuesTestCase())
+    }
+
+    func test_linearTextIndex_medium() {
+        exerciseSubject(LinearTextIndex(), testCase: makeMediumTestCase())
+    }
+
+    func test_linearTextIndex_large_fillPerformance() {
+        let testCase = makeLargeTestCase()
+        var subject = LinearTextIndex()
+        measure(metrics: defaultMetrics()) {
+            fillSubject(&subject, with: testCase.data[0])
+        }
+    }
+
+    func test_linearTextIndex_large_subscriptPerformance() {
+        let testCase = makeLargeTestCase()
+        var subject = LinearTextIndex()
+        fillSubject(&subject, with: testCase.data[0])
+        measure(metrics: defaultMetrics()) {
+            exerciseSubscript(subject, with: testCase.subscriptScenarios, name: testCase.name, verify: false)
+        }
+    }
+
+    func test_linearTextIndex_large_searchPerformance() {
+        let testCase = makeLargeTestCase()
+        var subject = LinearTextIndex()
+        fillSubject(&subject, with: testCase.data[0])
+        measure(metrics: defaultMetrics()) {
+            exerciseSearch(subject, with: testCase.searchScenarios, name: testCase.name, verify: false)
+        }
+    }
+    
+    // MARK: Trie Index
+
+    func test_trieTextIndex_minimal() {
+        exerciseSubject(TrieTextIndex(), testCase: makeMinimalTestCase())
+    }
+
+    // MARK: Helpers
+    
     ///
-    /// Data for different cases we want to test. We are using a data-driven approach to testing. This
-    /// approach is not applicable to every circumstance, but can be useful in situations where the subject
-    /// is data oriented in nature.
     ///
-    /// In this particular case the approach works well as we mostly just want to push a lot of data through
-    /// the subject and check the outcome, with a very simple and repetative steps.
     ///
-    /// This also allows us to run identical tests on multiple different subjects. For our purposes we are using
-    /// this technique to rune tests against an oracle or reference implementation, to verify that the tests are
-    /// producing expected results. We run the same tests on our optimal solution(s) to verify their
-    /// correctness.
+    private func exerciseSubject<I>(_ makeSubject: @autoclosure () -> I, testCase: TestCase, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
+        testCase.data.forEach { data in
+            // Create an instance of the subject
+            var subject = makeSubject()
+            // Fill the subject with data
+            fillSubject(&subject, with: data)
+            // Exercise the subject
+            exerciseSubject(subject, with: testCase, file: file, line: line)
+        }
+    }
+
     ///
-    /// We define an array of test cases. Each test case consists of three pieces:
-    /// - data: Array of key-values we want to populate the subject with before performing testing.
-    /// - subscript scenarios: Array of key-values. We compare the value retrieved from the subject using
-    /// the key, to a known value.
-    /// - search scenarios: Array of key-values. We compare the search results from the subject using a
-    /// specific key against a known value.
+    /// Fill the subject with data.
     ///
-    private lazy var testCases = [
-        // A data set where keys are defined in alphabetical order
-        // We define a prefix string as: a substring that matches the initial
-        // characters of the target string. For instance, assume the following
-        // entries:
-        //
-        // * Alabama, US
-        // * Albuquerque, US
-        // * Anaheim, US
-        // * Arizona, US
-        // * Sydney, AU
-        //
-        // Note: We use values of `10` and `30` for some keys as a way to check that
+    private func fillSubject<I>(_ subject: inout I, with data: [Data]) where I: TextIndex {
+        data.forEach { datum in
+            subject[datum.key] = datum.value
+        }
+    }
+    
+    ///
+    /// Exercise the subject under various conditions..
+    ///
+    private func exerciseSubject<I>(_ subject: I, with testCase: TestCase, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
+        exerciseSubscript(subject, with: testCase.subscriptScenarios, name: testCase.name, file: file, line: line)
+        exerciseSearch(subject, with: testCase.searchScenarios, name: testCase.name, file: file, line: line)
+    }
+
+    ///
+    /// Verify that the test subject returns the expected value for a given key.
+    ///
+    private func exerciseSubscript<I>(_ subject: I, with scenarios: [SubscriptScenario], name: String, verify: Bool = true, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
+        scenarios.forEach { scenario in
+            let result = subject[scenario.key]
+            if verify {
+                XCTAssertEqual(result, scenario.result, "\(name) > Subscript > Expected \(scenario.result.map { String($0) } ?? "nil") for key \(scenario.key), but got \(result.map { String($0) } ?? "nil")", file: file, line: line)
+            }
+        }
+    }
+    
+    ///
+    /// Verify that the test subject returns the expected values for a given prefix.
+    ///
+    private func exerciseSearch<I>(_ subject: I, with scenarios: [SearchScenario], name: String, verify: Bool = true, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
+        scenarios.forEach { scenario in
+            let results = subject.search(prefix: scenario.query)
+            if verify {
+                XCTAssertEqual(Array(results), scenario.results, "\(name) > Search > Expected \(scenario.results) for prefix \(scenario.query), but got \(results)", file: file, line: line)
+            }
+        }
+    }
+    
+    ///
+    /// A data set where keys are defined in alphabetical order
+    ///
+    /// We define a prefix string as: a substring that matches the initial characters of the target string. For
+    /// instance, assume the following entries:
+    ///
+    /// * Alabama, US
+    /// * Albuquerque, US
+    /// * Anaheim, US
+    /// * Arizona, US
+    /// * Sydney, AU
+    ///
+    private func makeMinimalTestCase() -> TestCase {
         TestCase(
             name: "Specification",
             data: [
@@ -128,11 +242,35 @@ final class TextIndexAcceptanceTests: XCTestCase {
                 // empty collection should be returned.
                 (query: "z", results: []),
             ]
-        ),
-        
-        // A data set where some of the values are duplicated. Values are
-        // independent of each other - the same value may exist for some or all
-        // of the keys in the index.
+        )
+    }
+       
+    ///
+    /// An empty data set.
+    ///
+    private func makeEmptyTestCase() -> TestCase {
+        TestCase(
+            name: "Empty",
+            data: [],
+            subscriptScenarios: [
+                (key: "alabama, us", result: nil),
+                (key: "albuquerque, us", result: nil),
+                (key: "anaheim, us", result: nil),
+                (key: "arizona, us", result: nil),
+                (key: "sydney, au", result: nil),
+            ],
+            searchScenarios: [
+                (query: "a", results: []),
+                (query: "", results: []),
+            ]
+        )
+    }
+
+    ///
+    /// A data set where some of the values are duplicated. Values are independent of each other - the
+    /// same value may exist for some or all of the keys in the index.
+    ///
+    private func makeDuplicatedValuesTestCase() -> TestCase {
         TestCase(
             name: "Duplicate values",
             data: [
@@ -160,11 +298,14 @@ final class TextIndexAcceptanceTests: XCTestCase {
                 (query: "alb", results: [0]),
                 (query: "", results: [0, 0, 1, 1, 2]),
             ]
-        ),
-        
-        // A data set where some of the keys are duplicated. When a value is
-        // inserted with a key that already exists in the text index, the
-        // existing value should be replaced.
+        )
+    }
+    
+    ///
+    /// A data set where some of the keys are duplicated. When a value is inserted with a key that already
+    /// exists in the text index, the existing value should be replaced.
+    ///
+    private func makeDuplicatedKeysTestCase() -> TestCase {
         TestCase(
             name: "Duplicate keys",
             data: [
@@ -190,9 +331,13 @@ final class TextIndexAcceptanceTests: XCTestCase {
                 (query: "alb", results: []),
                 (query: "", results: [1, 3, 4]),
             ]
-        ),
-        
-        // A data set where some values are nil
+        )
+    }
+      
+    ///
+    /// A data set where some values are nil.
+    ///
+    private func makeNilValuesTestCase() -> TestCase {
         TestCase(
             name: "Nils",
             data: [
@@ -222,140 +367,36 @@ final class TextIndexAcceptanceTests: XCTestCase {
                 (query: "an", results: []),
                 (query: "", results: [10, 4]),
             ]
-        ),
-
-        // An empty data set.
-        TestCase(
-            name: "Empty",
-            data: [],
-            subscriptScenarios: [
-                (key: "alabama, us", result: nil),
-                (key: "albuquerque, us", result: nil),
-                (key: "anaheim, us", result: nil),
-                (key: "arizona, us", result: nil),
-                (key: "sydney, au", result: nil),
-            ],
-            searchScenarios: [
-                (query: "a", results: []),
-                (query: "", results: []),
-            ]
-        ),
-
-        // A larger data set.
-        makeTestCase(count: 100),
-    ]
-
-    // MARK: Linear Index
-
-    func test_linearTextIndex() {
-        exerciseSubject(LinearTextIndex())
-    }
-
-    func test_linearTextIndex_fill_performance() {
-        let testCase = makeTestCase(count: 2_000)
-        var subject = LinearTextIndex()
-        measure(metrics: defaultMetrics()) {
-            fillSubject(&subject, with: testCase.data[0])
-        }
-    }
-
-    func test_linearTextIndex_subscript_performance() {
-        let testCase = makeTestCase(count: 2_000)
-        var subject = LinearTextIndex()
-        fillSubject(&subject, with: testCase.data[0])
-        measure(metrics: defaultMetrics()) {
-            exerciseSubscript(subject, with: testCase.subscriptScenarios, name: testCase.name, verify: false)
-        }
-    }
-
-    func test_linearTextIndex_search_performance() {
-        let testCase = makeTestCase(count: 2_000)
-        var subject = LinearTextIndex()
-        fillSubject(&subject, with: testCase.data[0])
-        measure(metrics: defaultMetrics()) {
-            exerciseSearch(subject, with: testCase.searchScenarios, name: testCase.name, verify: false)
-        }
-    }
-    
-    // MARK: Helpers
-    
-    ///
-    ///
-    ///
-    private func exerciseSubject<I>(_ makeSubject: @autoclosure () -> I, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
-        testCases.forEach { testCase in
-            testCase.data.forEach { data in
-                // Create an instance of the subject
-                var subject = makeSubject()
-                // Fill the subject with data
-                fillSubject(&subject, with: data)
-                // Exercise the subject
-                exerciseSubject(subject, with: testCase, file: file, line: line)
-            }
-        }
+        )
     }
     
     ///
+    /// A medium sized data set.
     ///
+    private func makeMediumTestCase() -> TestCase {
+        makeTestCase(name: "Medium", count: 100)
+    }
+    
     ///
-    private func measureSubjectFill<I>(_ makeSubject: @autoclosure () -> I, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
-        testCases.forEach { testCase in
-            testCase.data.forEach { data in
-                // Create an instance of the subject
-                var subject = makeSubject()
-                // Fill the subject with data
-                fillSubject(&subject, with: data)
-                // Exercise the subject
-                exerciseSubject(subject, with: testCase, file: file, line: line)
-            }
-        }
+    /// A lerger sized data set containing more values.
+    ///
+    private func makeLargeTestCase() -> TestCase {
+        makeTestCase(name: "Large", count: 2_000)
     }
 
     ///
-    /// Fill the subject with data.
+    /// Creates a test case scenario for a given number of elements.
     ///
-    private func fillSubject<I>(_ subject: inout I, with data: [Data]) where I: TextIndex {
-        data.forEach { datum in
-            subject[datum.key] = datum.value
-        }
-    }
-    
+    /// - Parameter name: Name of the test case reported in test failures.
+    /// - Parameter count: Number of elements to include in the test case. Valid range is (100...)
     ///
-    /// Exercise the subject under various conditions..
+    /// - Returns: A test case with a data set containing `count` number of elements, and verification
+    /// criteria.
     ///
-    private func exerciseSubject<I>(_ subject: I, with testCase: TestCase, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
-        exerciseSubscript(subject, with: testCase.subscriptScenarios, name: testCase.name, file: file, line: line)
-        exerciseSearch(subject, with: testCase.searchScenarios, name: testCase.name, file: file, line: line)
-    }
-
-    ///
-    /// Verify that the test subject returns the expected value for a given key.
-    ///
-    private func exerciseSubscript<I>(_ subject: I, with scenarios: [SubscriptScenario], name: String, verify: Bool = true, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
-        scenarios.forEach { scenario in
-            let result = subject[scenario.key]
-            if verify {
-                XCTAssertEqual(result, scenario.result, "\(name) > Subscript > Expected \(scenario.result.map { String($0) } ?? "nil") for key \(scenario.key), but got \(result.map { String($0) } ?? "nil")", file: file, line: line)
-            }
-        }
-    }
-    
-    ///
-    /// Verify that the test subject returns the expected values for a given prefix.
-    ///
-    private func exerciseSearch<I>(_ subject: I, with scenarios: [SearchScenario], name: String, verify: Bool = true, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
-        scenarios.forEach { scenario in
-            let results = subject.search(prefix: scenario.query)
-            if verify {
-                XCTAssertEqual(results, scenario.results, "\(name) > Search > Expected \(scenario.results) for prefix \(scenario.query), but got \(results)", file: file, line: line)
-            }
-        }
-    }
-    
-    private func makeTestCase(count: Int) -> TestCase {
+    private func makeTestCase(name: String, count: Int) -> TestCase {
         let indices = Array((0 ..< count))
         let testCase = TestCase(
-            name: "Large",
+            name: name,
             data:[
                 indices.map { i in
                     (key: String(format: "a%09d", i), value: i)

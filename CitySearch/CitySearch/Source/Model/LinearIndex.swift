@@ -50,8 +50,8 @@ struct LinearTextIndex: TextIndex {
         }
     }
     
-    func search<S>(prefix: S) -> [Int] where S : StringProtocol {
-        elements
+    func search<S>(prefix: S) -> AnyIterator<Int> where S : StringProtocol {
+        let iterator = elements
             .filter { element in
                 element.key.prefix(prefix.count) == prefix
             }
@@ -61,5 +61,7 @@ struct LinearTextIndex: TextIndex {
             .map { element in
                 element.value
             }
+            .makeIterator()
+        return AnyIterator(iterator)
     }
 }

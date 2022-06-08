@@ -36,6 +36,6 @@ protocol TextIndex {
     /// - Returns: A collecion of values whose keys start with the given prefix. Values are returned
     /// sorted relative to the alphabetical order of their keys.
     ///
-    func search<S>(prefix: S) -> [Int] where S: StringProtocol
+    func search<S>(prefix: S) -> AnyIterator<Int> where S: StringProtocol
 }
 
