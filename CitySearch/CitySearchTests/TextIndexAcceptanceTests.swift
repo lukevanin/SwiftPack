@@ -148,9 +148,9 @@ final class TextIndexAcceptanceTests: XCTestCase {
     ///
     private func exerciseSearch<I>(_ subject: I, with scenarios: [SearchScenario], name: String, verify: Bool = true, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
         scenarios.forEach { scenario in
-            let results = subject.search(prefix: scenario.query)
+            let results = Array(subject.search(prefix: scenario.query))
             if verify {
-                XCTAssertEqual(Array(results), scenario.results, "\(name) > Search > Expected \(scenario.results) for prefix \(scenario.query), but got \(results)", file: file, line: line)
+                XCTAssertEqual(results, scenario.results, "\(name) > Search > Expected \(scenario.results) for prefix \(scenario.query), but got \(results)", file: file, line: line)
             }
         }
     }
@@ -169,7 +169,7 @@ final class TextIndexAcceptanceTests: XCTestCase {
     ///
     private func makeMinimalTestCase() -> TestCase {
         TestCase(
-            name: "Specification",
+            name: "Minimal acceptance criteria",
             data: [
                 // Original data set.
                 [
