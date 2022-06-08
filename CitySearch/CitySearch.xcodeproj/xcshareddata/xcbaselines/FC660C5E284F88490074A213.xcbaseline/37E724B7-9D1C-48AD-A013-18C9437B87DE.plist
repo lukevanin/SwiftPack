@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>classNames</key>
+	<dict>
+		<key>BaselineTests</key>
+		<dict>
+			<key>test_measure_withData_alwaysMapped()</key>
+			<dict>
+				<key>com.apple.dt.XCTMetric_Clock.time.monotonic</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000218</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000000</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical_peak</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000000</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+			</dict>
+			<key>test_measure_withData_uncached()</key>
+			<dict>
+				<key>com.apple.dt.XCTMetric_Clock.time.monotonic</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.003052</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000000</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical_peak</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000000</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+			</dict>
+			<key>test_measure_withJSONDecoder()</key>
+			<dict>
+				<key>com.apple.dt.XCTMetric_Clock.time.monotonic</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>1.982603</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>6.553600</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical_peak</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000000</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+			</dict>
+			<key>test_measure_withJSONSerialization()</key>
+			<dict>
+				<key>com.apple.dt.XCTMetric_Clock.time.monotonic</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.279189</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>3.276800</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical_peak</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000000</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+			</dict>
+		</dict>
+		<key>TextIndexAcceptanceTests</key>
+		<dict>
+			<key>test_linearTextIndex_1k_searchPerformance()</key>
+			<dict>
+				<key>com.apple.dt.XCTMetric_Clock.time.monotonic</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.828984</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>9.830400</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical_peak</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000000</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+			</dict>
+			<key>test_linearTextIndex_500_searchPerformance()</key>
+			<dict>
+				<key>com.apple.dt.XCTMetric_Clock.time.monotonic</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.205457</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000000</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical_peak</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000000</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+			</dict>
+			<key>test_trieTextIndex_100k_searchPerformance()</key>
+			<dict>
+				<key>com.apple.dt.XCTMetric_Clock.time.monotonic</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.381724</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000000</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical_peak</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000000</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+			</dict>
+			<key>test_trieTextIndex_10k_searchPerformance()</key>
+			<dict>
+				<key>com.apple.dt.XCTMetric_Clock.time.monotonic</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.043050</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>3.276800</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical_peak</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000000</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+			</dict>
+			<key>test_trieTextIndex_1k_searchPerformance()</key>
+			<dict>
+				<key>com.apple.dt.XCTMetric_Clock.time.monotonic</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.009162</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000000</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical_peak</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000000</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+			</dict>
+			<key>test_trieTextIndex_1m_searchPerformance()</key>
+			<dict>
+				<key>com.apple.dt.XCTMetric_Clock.time.monotonic</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000044</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000000</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical_peak</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000000</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+			</dict>
+			<key>test_trieTextIndex_200k_searchPerformance()</key>
+			<dict>
+				<key>com.apple.dt.XCTMetric_Clock.time.monotonic</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.758269</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000000</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+				<key>com.apple.dt.XCTMetric_Memory.physical_peak</key>
+				<dict>
+					<key>baselineAverage</key>
+					<real>0.000000</real>
+					<key>baselineIntegrationDisplayName</key>
+					<string>08 Jun 2022 at 23:19:14</string>
+				</dict>
+			</dict>
+		</dict>
+	</dict>
+</dict>
+</plist>

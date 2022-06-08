@@ -247,14 +247,6 @@ final class TextIndexAcceptanceTests: XCTestCase {
         exerciseSubject(TrieTextIndex(), testCase: makeTestCase(name: "100", count: 100))
     }
 
-    //    func test_linearTextIndex_large_fillPerformance() {
-    //        let testCase = makeLargeTestCase()
-    //        var subject = LinearTextIndex()
-    //        measure(metrics: defaultMetrics()) {
-    //            fillSubject(&subject, with: testCase.data[0])
-    //        }
-    //    }
-    
     func test_trieTextIndex_1k_searchPerformance() {
         let testCase = makeTestCase(name: "1k", count: 1_000)
         var subject = TrieTextIndex()
