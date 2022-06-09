@@ -3,7 +3,10 @@ import Foundation
 ///
 /// A collection of cities.
 ///
-struct CitiesRepository: CitiesRepositoryProtocol {
+/// Provides access to retrieving cities by their name. Implemented using a `TextIndex` (hence the
+/// name), to provide search capability.
+///
+struct IndexedCitiesRepository: CitiesRepositoryProtocol {
     
     /// List of all cities.
     let cities: [City]

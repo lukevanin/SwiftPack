@@ -10,8 +10,8 @@
 		FC38873A285077EA00F5922A /* XCTestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC388739285077EA00F5922A /* XCTestExtensions.swift */; };
 		FC38873C28507DFA00F5922A /* LinearIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC38873B28507DFA00F5922A /* LinearIndex.swift */; };
 		FC38873E28507E1400F5922A /* TrieTextIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC38873D28507E1400F5922A /* TrieTextIndex.swift */; };
-		FC5CC47C28514C5100D02FD1 /* CitiesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC47B28514C5100D02FD1 /* CitiesRepositoryTests.swift */; };
-		FC5CC47E2851DCCA00D02FD1 /* CitiesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC47D2851DCCA00D02FD1 /* CitiesRepository.swift */; };
+		FC5CC47C28514C5100D02FD1 /* IndexedCitiesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC47B28514C5100D02FD1 /* IndexedCitiesRepositoryTests.swift */; };
+		FC5CC47E2851DCCA00D02FD1 /* IndexedCitiesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC47D2851DCCA00D02FD1 /* IndexedCitiesRepository.swift */; };
 		FC5CC4802852004C00D02FD1 /* Repositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC47F2852004B00D02FD1 /* Repositories.swift */; };
 		FC660C4D284F88470074A213 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4C284F88470074A213 /* AppDelegate.swift */; };
 		FC660C4F284F88470074A213 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4E284F88470074A213 /* SceneDelegate.swift */; };
@@ -48,8 +48,8 @@
 		FC388739285077EA00F5922A /* XCTestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestExtensions.swift; sourceTree = "<group>"; };
 		FC38873B28507DFA00F5922A /* LinearIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LinearIndex.swift; sourceTree = "<group>"; };
 		FC38873D28507E1400F5922A /* TrieTextIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrieTextIndex.swift; sourceTree = "<group>"; };
-		FC5CC47B28514C5100D02FD1 /* CitiesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesRepositoryTests.swift; sourceTree = "<group>"; };
-		FC5CC47D2851DCCA00D02FD1 /* CitiesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitiesRepository.swift; sourceTree = "<group>"; };
+		FC5CC47B28514C5100D02FD1 /* IndexedCitiesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexedCitiesRepositoryTests.swift; sourceTree = "<group>"; };
+		FC5CC47D2851DCCA00D02FD1 /* IndexedCitiesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexedCitiesRepository.swift; sourceTree = "<group>"; };
 		FC5CC47F2852004B00D02FD1 /* Repositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repositories.swift; sourceTree = "<group>"; };
 		FC660C49284F88470074A213 /* CitySearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitySearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC660C4C284F88470074A213 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -129,7 +129,7 @@
 		FC660C62284F88490074A213 /* CitySearchTests */ = {
 			isa = PBXGroup;
 			children = (
-				FC5CC47B28514C5100D02FD1 /* CitiesRepositoryTests.swift */,
+				FC5CC47B28514C5100D02FD1 /* IndexedCitiesRepositoryTests.swift */,
 				FC660C81284F99520074A213 /* BaselineTests.swift */,
 				FC660C85284FA0390074A213 /* TextIndexAcceptanceTests.swift */,
 				FC388739285077EA00F5922A /* XCTestExtensions.swift */,
@@ -188,7 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				FC5CC47F2852004B00D02FD1 /* Repositories.swift */,
-				FC5CC47D2851DCCA00D02FD1 /* CitiesRepository.swift */,
+				FC5CC47D2851DCCA00D02FD1 /* IndexedCitiesRepository.swift */,
 				FC660C8B284FD6B00074A213 /* TextIndex.swift */,
 				FC38873B28507DFA00F5922A /* LinearIndex.swift */,
 				FC38873D28507E1400F5922A /* TrieTextIndex.swift */,
@@ -333,7 +333,7 @@
 				FC660C4D284F88470074A213 /* AppDelegate.swift in Sources */,
 				FC38873E28507E1400F5922A /* TrieTextIndex.swift in Sources */,
 				FC660C4F284F88470074A213 /* SceneDelegate.swift in Sources */,
-				FC5CC47E2851DCCA00D02FD1 /* CitiesRepository.swift in Sources */,
+				FC5CC47E2851DCCA00D02FD1 /* IndexedCitiesRepository.swift in Sources */,
 				FC5CC4802852004C00D02FD1 /* Repositories.swift in Sources */,
 				FC660C8C284FD6B00074A213 /* TextIndex.swift in Sources */,
 				FC38873C28507DFA00F5922A /* LinearIndex.swift in Sources */,
@@ -344,7 +344,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC5CC47C28514C5100D02FD1 /* CitiesRepositoryTests.swift in Sources */,
+				FC5CC47C28514C5100D02FD1 /* IndexedCitiesRepositoryTests.swift in Sources */,
 				FC660C82284F99520074A213 /* BaselineTests.swift in Sources */,
 				FC38873A285077EA00F5922A /* XCTestExtensions.swift in Sources */,
 				FC660C86284FA0390074A213 /* TextIndexAcceptanceTests.swift in Sources */,
