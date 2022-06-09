@@ -17,9 +17,11 @@
 		FC5CC4842852068300D02FD1 /* CitySearchModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4832852068300D02FD1 /* CitySearchModelTests.swift */; };
 		FC5CC48628520DE600D02FD1 /* MockTextIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC48528520DE600D02FD1 /* MockTextIndex.swift */; };
 		FC5CC48828520E0200D02FD1 /* MockCitiesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC48728520E0200D02FD1 /* MockCitiesRepository.swift */; };
+		FC5CC48D285235EB00D02FD1 /* SearchViewControllerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC48C285235EB00D02FD1 /* SearchViewControllerTests.swift */; };
+		FC5CC48F28523A2000D02FD1 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC48E28523A2000D02FD1 /* Models.swift */; };
 		FC660C4D284F88470074A213 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4C284F88470074A213 /* AppDelegate.swift */; };
 		FC660C4F284F88470074A213 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4E284F88470074A213 /* SceneDelegate.swift */; };
-		FC660C51284F88470074A213 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C50284F88470074A213 /* ViewController.swift */; };
+		FC660C51284F88470074A213 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C50284F88470074A213 /* SearchViewController.swift */; };
 		FC660C56284F88490074A213 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FC660C55284F88490074A213 /* Assets.xcassets */; };
 		FC660C59284F88490074A213 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FC660C57284F88490074A213 /* LaunchScreen.storyboard */; };
 		FC660C6E284F88490074A213 /* CitySearchUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C6D284F88490074A213 /* CitySearchUITests.swift */; };
@@ -59,10 +61,12 @@
 		FC5CC4832852068300D02FD1 /* CitySearchModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchModelTests.swift; sourceTree = "<group>"; };
 		FC5CC48528520DE600D02FD1 /* MockTextIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTextIndex.swift; sourceTree = "<group>"; };
 		FC5CC48728520E0200D02FD1 /* MockCitiesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCitiesRepository.swift; sourceTree = "<group>"; };
+		FC5CC48C285235EB00D02FD1 /* SearchViewControllerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewControllerTests.swift; sourceTree = "<group>"; };
+		FC5CC48E28523A2000D02FD1 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; sourceTree = "<group>"; };
 		FC660C49284F88470074A213 /* CitySearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitySearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC660C4C284F88470074A213 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC660C4E284F88470074A213 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		FC660C50284F88470074A213 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FC660C50284F88470074A213 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		FC660C55284F88490074A213 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		FC660C58284F88490074A213 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		FC660C5A284F88490074A213 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -156,6 +160,7 @@
 		FC660C62284F88490074A213 /* CitySearchTests */ = {
 			isa = PBXGroup;
 			children = (
+				FC5CC48C285235EB00D02FD1 /* SearchViewControllerTests.swift */,
 				FC5CC4832852068300D02FD1 /* CitySearchModelTests.swift */,
 				FC5CC47B28514C5100D02FD1 /* IndexedCitiesRepositoryTests.swift */,
 				FC660C81284F99520074A213 /* BaselineTests.swift */,
@@ -211,7 +216,7 @@
 		FC660C89284FD67C0074A213 /* View Controller */ = {
 			isa = PBXGroup;
 			children = (
-				FC660C50284F88470074A213 /* ViewController.swift */,
+				FC660C50284F88470074A213 /* SearchViewController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -219,6 +224,7 @@
 		FC660C8A284FD6870074A213 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FC5CC48E28523A2000D02FD1 /* Models.swift */,
 				FC5CC481285205AD00D02FD1 /* CitySearchModel.swift */,
 			);
 			path = Model;
@@ -357,7 +363,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FC660C51284F88470074A213 /* ViewController.swift in Sources */,
+				FC660C51284F88470074A213 /* SearchViewController.swift in Sources */,
 				FC660C4D284F88470074A213 /* AppDelegate.swift in Sources */,
 				FC38873E28507E1400F5922A /* TrieTextIndex.swift in Sources */,
 				FC5CC482285205AD00D02FD1 /* CitySearchModel.swift in Sources */,
@@ -366,6 +372,7 @@
 				FC5CC4802852004C00D02FD1 /* Repositories.swift in Sources */,
 				FC660C8C284FD6B00074A213 /* TextIndex.swift in Sources */,
 				FC38873C28507DFA00F5922A /* LinearIndex.swift in Sources */,
+				FC5CC48F28523A2000D02FD1 /* Models.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -375,6 +382,7 @@
 			files = (
 				FC5CC47C28514C5100D02FD1 /* IndexedCitiesRepositoryTests.swift in Sources */,
 				FC5CC4842852068300D02FD1 /* CitySearchModelTests.swift in Sources */,
+				FC5CC48D285235EB00D02FD1 /* SearchViewControllerTests.swift in Sources */,
 				FC660C82284F99520074A213 /* BaselineTests.swift in Sources */,
 				FC38873A285077EA00F5922A /* XCTestExtensions.swift in Sources */,
 				FC660C86284FA0390074A213 /* TextIndexAcceptanceTests.swift in Sources */,

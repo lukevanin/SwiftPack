@@ -63,7 +63,7 @@ final class CitySearchModelTests: XCTestCase {
         let expectation = expectation(description: "result")
         subject.citiesPublisher
             .sink { cities in
-                XCTAssertEqual(cities, [])
+                XCTAssertEqual(cities, [city])
                 expectation.fulfill()
             }
             .store(in: &cancellables)
