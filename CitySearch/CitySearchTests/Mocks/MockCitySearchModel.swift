@@ -1,8 +1,17 @@
-//
-//  MockCitySearchModel.swift
-//  CitySearchTests
-//
-//  Created by Luke Van In on 2022/06/09.
-//
+import XCTest
+import Combine
 
-import Foundation
+@testable import CitySearch
+
+final class MockCitySearchModel: CitySearchModelProtocol {
+    
+    lazy var citiesPublisher = citiesSubject.eraseToAnyPublisher()
+
+    var citiesSubject = CurrentValueSubject<[City], Never>([])
+    
+    var mockSearchByName: ((_ prefix: String) -> Void)!
+    
+    func searchByName(prefix: String) {
+        mockSearchByName(prefix)
+    }
+}

@@ -34,7 +34,9 @@ final class CitySearchModelTests: XCTestCase {
             XCTAssertEqual(query, "foo")
             return AnySequence([])
         }
+        
         subject.searchByName(prefix: "foo")
+        
         let expectation = expectation(description: "result")
         subject.citiesPublisher
             .sink { cities in
@@ -59,7 +61,9 @@ final class CitySearchModelTests: XCTestCase {
             XCTAssertEqual(query, "foo")
             return AnySequence([city])
         }
+        
         subject.searchByName(prefix: "foo")
+        
         let expectation = expectation(description: "result")
         subject.citiesPublisher
             .sink { cities in

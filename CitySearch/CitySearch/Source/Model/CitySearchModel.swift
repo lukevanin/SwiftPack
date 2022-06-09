@@ -18,11 +18,12 @@ import Combine
 ///
 final class CitySearchModel: CitySearchModelProtocol {
     
-    /// Cities from the last search request.
-    lazy var citiesPublisher = citiesSubject.eraseToAnyPublisher()
+    /// Cities from the last search request. We use `compactMap` to filter out and remove the initial nil
+    /// value from the current value subject. 
+    lazy var citiesPublisher = citiesSubject.compactMap({ $0 }).eraseToAnyPublisher()
     
     /// Internal subject used to publish results from search queries.
-    private let citiesSubject = CurrentValueSubject<[City], Never>([])
+    private let citiesSubject = CurrentValueSubject<[City]?, Never>(nil)
     
     /// Repository providing cities in a synchronous manner
     private let citiesRepository: CitiesRepositoryProtocol
@@ -38,6 +39,16 @@ final class CitySearchModel: CitySearchModelProtocol {
     /// - Parameters prefix: Prefix of the cities to search for.
     ///
     func searchByName(prefix: String) {
-        
+        Task { [weak self, citiesRepository] in
+            let cities = await citiesRepository.searchByName(prefix: prefix)
+            self?.publishCities(cities)
+        }
+    }
+    
+    ///
+    /// Updates the published cities with the results from a search.
+    ///
+    private func publishCities(_ cities: AnySequence<City>) {
+        citiesSubject.send(Array(cities))
     }
 }

@@ -22,6 +22,11 @@ protocol CitySearchModelProtocol {
     /// search results.
     var citiesPublisher: AnyPublisher<[City], Never> { get }
     
-    
+    ///
+    /// Searches for cities whose name matches a given prefix. Search results are published to the
+    /// `citiesPublisher` property.
+    ///
+    /// - Parameters prefix: Prefix of the cities to search for.
+    ///
     func searchByName(prefix: String)
 }

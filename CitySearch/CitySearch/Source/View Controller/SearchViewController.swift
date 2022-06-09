@@ -2,9 +2,9 @@ import UIKit
 
 final class SearchViewController: UICollectionViewController {
     
-    private let model: CitySearchModel
+    private let model: CitySearchModelProtocol
     
-    init(model: CitySearchModel) {
+    init(model: CitySearchModelProtocol) {
         self.model = model
         let layoutGroup = NSCollectionLayoutGroup(
             layoutSize: NSCollectionLayoutSize(
