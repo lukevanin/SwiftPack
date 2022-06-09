@@ -29,12 +29,20 @@ final class CitiesRepositoryTests: XCTestCase {
     }
     
     func testSearch_shouldReturnNothing_givenEmptyPrefixAndNoCities() {
+        nameIndex.mockSearch = { query in
+            XCTAssertEqual(query, "")
+            return []
+        }
         let subject = CitiesRepository(cities: [], nameIndex: nameIndex)
         let result = subject.searchByName(prefix: "")
         XCTAssertEqual(Array(result), [])
     }
     
     func testSearch_shouldReturnNothing_givenNonEmptyPrefixAndNoCities() {
+        nameIndex.mockSearch = { query in
+            XCTAssertEqual(query, "foobarbaz")
+            return []
+        }
         let subject = CitiesRepository(cities: [], nameIndex: nameIndex)
         let result = subject.searchByName(prefix: "foobarbaz")
         XCTAssertEqual(Array(result), [])
@@ -113,6 +121,6 @@ final class CitiesRepositoryTests: XCTestCase {
         }
         let subject = CitiesRepository(cities: [city0, city1], nameIndex: nameIndex)
         let result = subject.searchByName(prefix: "bar")
-        XCTAssertEqual(Array(result), [city0, city1])
+        XCTAssertEqual(Array(result), [])
     }
 }

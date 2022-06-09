@@ -65,6 +65,13 @@ struct CitiesRepository {
     /// - Returns: Sequence containing cities.
     ///
     func searchByName(prefix: String) -> AnySequence<City> {
-        AnySequence([])
+        // Look up the cities matching the given prefix.
+        let indices = AnySequence(nameIndex.search(prefix: prefix))
+        // Create an iterator that returns the cities for the indices from our
+        // search results.
+        let matchingCities = indices.lazy.map { index in
+            cities[index]
+        }
+        return AnySequence(matchingCities)
     }
 }

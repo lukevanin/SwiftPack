@@ -341,3 +341,10 @@ nodes in the tree, the operating system will load the the data from disk in
 chunks or _pages_. The overhead of loading many chunks of data from different 
 parts of the disk could introduce latency. This latency should be negligible
 on modern SSD hardware. 
+
+### Implementation note:
+ 
+I am undecided / unconvinced as to whether a `TextIndex` should return a 
+sequence of characters or an iterator. A lower-level iterator provides greater
+flexibility. Using a sequence provides a more _conventional_ API interface. The 
+correct answer may become obvious with time.   
