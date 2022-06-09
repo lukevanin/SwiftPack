@@ -8,9 +8,8 @@ final class SearchViewControllerTests: XCTestCase {
     private var subject: SearchViewController!
     
     override func setUp() {
-        mockCitiesRepository = MockCitiesRepository()
-        model = CitySearchModel(citiesRepository: mockCitiesRepository)
-        subject = SearchViewController(model: model)
+        mockModel = MockCitySearchModel()
+        subject = SearchViewController(model: mockModel)
     }
     
     override func tearDown() {
