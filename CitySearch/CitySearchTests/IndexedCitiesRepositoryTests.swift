@@ -4,20 +4,6 @@ import XCTest
 
 final class IndexedCitiesRepositoryTests: XCTestCase {
     
-    struct MockTextIndex: TextIndex {
-        
-        var mockInsert: ((_ key: String, _ value: Int) -> Void)!
-        var mockSearch: ((_ prefix: String) -> [Int])!
-        
-        func insert(key: String, value: Int) {
-            mockInsert(key, value)
-        }
-        
-        func search<S>(prefix: S) -> AnyIterator<Int> where S : StringProtocol {
-            AnyIterator(mockSearch(String(prefix)).makeIterator())
-        }
-    }
-    
     private var nameIndex: MockTextIndex!
     
     override func setUp() {
@@ -28,27 +14,27 @@ final class IndexedCitiesRepositoryTests: XCTestCase {
         nameIndex = nil
     }
     
-    func testSearch_shouldReturnNothing_givenEmptyPrefixAndNoCities() {
+    func testSearch_shouldReturnNothing_givenEmptyPrefixAndNoCities() async {
         nameIndex.mockSearch = { query in
             XCTAssertEqual(query, "")
             return []
         }
         let subject = IndexedCitiesRepository(cities: [], nameIndex: nameIndex)
-        let result = subject.searchByName(prefix: "")
+        let result = await subject.searchByName(prefix: "")
         XCTAssertEqual(Array(result), [])
     }
     
-    func testSearch_shouldReturnNothing_givenNonEmptyPrefixAndNoCities() {
+    func testSearch_shouldReturnNothing_givenNonEmptyPrefixAndNoCities() async {
         nameIndex.mockSearch = { query in
             XCTAssertEqual(query, "foobarbaz")
             return []
         }
         let subject = IndexedCitiesRepository(cities: [], nameIndex: nameIndex)
-        let result = subject.searchByName(prefix: "foobarbaz")
+        let result = await subject.searchByName(prefix: "foobarbaz")
         XCTAssertEqual(Array(result), [])
     }
     
-    func testSearch_shouldReturnCity_givenExactPrefixMatchingCity() {
+    func testSearch_shouldReturnCity_givenExactPrefixMatchingCity() async {
         let city = City(
             _id: 0,
             country: "AA",
@@ -60,11 +46,11 @@ final class IndexedCitiesRepositoryTests: XCTestCase {
             return [0]
         }
         let subject = IndexedCitiesRepository(cities: [city], nameIndex: nameIndex)
-        let result = subject.searchByName(prefix: "fooville")
+        let result = await subject.searchByName(prefix: "fooville")
         XCTAssertEqual(Array(result), [city])
     }
     
-    func testSearch_shouldReturnCity_givenPrefixMatchingCity() {
+    func testSearch_shouldReturnCity_givenPrefixMatchingCity() async {
         let city = City(
             _id: 0,
             country: "AA",
@@ -76,11 +62,11 @@ final class IndexedCitiesRepositoryTests: XCTestCase {
             return [0]
         }
         let subject = IndexedCitiesRepository(cities: [city], nameIndex: nameIndex)
-        let result = subject.searchByName(prefix: "foo")
+        let result = await subject.searchByName(prefix: "foo")
         XCTAssertEqual(Array(result), [city])
     }
     
-    func testSearch_shouldReturnCities_givenPrefixMatchingCities() {
+    func testSearch_shouldReturnCities_givenPrefixMatchingCities() async {
         let city0 = City(
             _id: 0,
             country: "AA",
@@ -98,11 +84,11 @@ final class IndexedCitiesRepositoryTests: XCTestCase {
             return [0, 1]
         }
         let subject = IndexedCitiesRepository(cities: [city0, city1], nameIndex: nameIndex)
-        let result = subject.searchByName(prefix: "foo")
+        let result = await subject.searchByName(prefix: "foo")
         XCTAssertEqual(Array(result), [city0, city1])
     }
     
-    func testSearch_shouldReturnNothing_givenPrefixMatchingNoCities() {
+    func testSearch_shouldReturnNothing_givenPrefixMatchingNoCities() async {
         let city0 = City(
             _id: 0,
             country: "AA",
@@ -120,7 +106,7 @@ final class IndexedCitiesRepositoryTests: XCTestCase {
             return []
         }
         let subject = IndexedCitiesRepository(cities: [city0, city1], nameIndex: nameIndex)
-        let result = subject.searchByName(prefix: "bar")
+        let result = await subject.searchByName(prefix: "bar")
         XCTAssertEqual(Array(result), [])
     }
 }

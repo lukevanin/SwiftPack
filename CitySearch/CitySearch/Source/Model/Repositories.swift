@@ -71,5 +71,5 @@ struct City: Equatable {
 /// use a database, web service, or other means to supply information about cities.
 ///
 protocol CitiesRepositoryProtocol {
-    func searchByName(prefix: String) -> AnySequence<City>
+    func searchByName(prefix: String) async -> AnySequence<City>
 }

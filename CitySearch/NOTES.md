@@ -342,9 +342,28 @@ chunks or _pages_. The overhead of loading many chunks of data from different
 parts of the disk could introduce latency. This latency should be negligible
 on modern SSD hardware. 
 
-### Implementation note:
+---
  
 I am undecided / unconvinced as to whether a `TextIndex` should return a 
 sequence of characters or an iterator. A lower-level iterator provides greater
 flexibility. Using a sequence provides a more _conventional_ API interface. The 
-correct answer may become obvious with time.   
+correct answer may become obvious with time.
+
+---
+
+It may be useful for our purposes to implement a `Collection` type that returns 
+values lazily. Currently we return search results as a `Sequence`. If we want
+to display search results in a UI then we will need to at least know the number
+of items in the collection. For now we convert the sequence to an `Array`. This
+has the downside that we need to iterate over all of the items in the 
+sequence at least once.  
+
+This iteration can increase latency. It would be better if we could return a 
+colletion where the number of items is known ahead of time. We can store a 
+counter in our trie nodes, and increment the counter whenver a value is inserted
+into the node or one of its descendants.
+
+We would need to implement a new type that provides a count, and allows 
+sequential iteration.
+
+---  
