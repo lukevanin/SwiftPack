@@ -20,7 +20,7 @@ protocol CitySearchModelProtocol {
     /// type that offers persistent behaviour. We use a type-erased `AnyPublisher` here instead of
     /// exposing the underlying subject, so that users of our class cannot accidentally modify
     /// search results.
-    var citiesPublisher: AnyPublisher<City> { get }
+    var citiesPublisher: AnyPublisher<[City], Never> { get }
     
     
     func searchByName(prefix: String)
