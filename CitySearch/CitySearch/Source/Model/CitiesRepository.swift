@@ -1,56 +1,9 @@
 import Foundation
 
-
-///
-/// ```
-/// "coord":{
-///     "lon":34.283333,
-///     "lat":44.549999
-/// }
-/// ```
-///
-struct Coordinate: Equatable {
-    // Longitude
-    let lon: Double
-    
-    // Latitude
-    let lat: Double
-}
-
-
-///
-/// ```
-/// {
-///     "country":"UA",
-///     "name":"Hurzuf",
-///     "_id":707860,
-///     "coord":{
-///         "lon":34.283333,
-///         "lat":44.549999
-///     }
-/// }
-/// ```
-///
-struct City: Equatable {
-    
-    /// Unique identifier
-    let _id: UInt64
-    
-    /// Country
-    let country: String
-    
-    /// Name of the city
-    let name: String
-    
-    /// Geographic location of the city
-    let coord: Coordinate
-}
-
-
 ///
 /// A collection of cities.
 ///
-struct CitiesRepository {
+struct CitiesRepository: CitiesRepositoryProtocol {
     
     /// List of all cities.
     let cities: [City]
