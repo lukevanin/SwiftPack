@@ -22,6 +22,7 @@
 		FC5CC49228523C8C00D02FD1 /* SearchModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC49128523C8C00D02FD1 /* SearchModuleBuilder.swift */; };
 		FC5CC49428523ED700D02FD1 /* Builders.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC49328523ED700D02FD1 /* Builders.swift */; };
 		FC5CC4962852418400D02FD1 /* MockCitySearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4952852418400D02FD1 /* MockCitySearchModel.swift */; };
+		FC5CC49C285245C300D02FD1 /* CitySampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC49B285245C300D02FD1 /* CitySampleData.swift */; };
 		FC660C4D284F88470074A213 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4C284F88470074A213 /* AppDelegate.swift */; };
 		FC660C4F284F88470074A213 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4E284F88470074A213 /* SceneDelegate.swift */; };
 		FC660C51284F88470074A213 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C50284F88470074A213 /* SearchViewController.swift */; };
@@ -69,6 +70,7 @@
 		FC5CC49128523C8C00D02FD1 /* SearchModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchModuleBuilder.swift; sourceTree = "<group>"; };
 		FC5CC49328523ED700D02FD1 /* Builders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builders.swift; sourceTree = "<group>"; };
 		FC5CC4952852418400D02FD1 /* MockCitySearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCitySearchModel.swift; sourceTree = "<group>"; };
+		FC5CC49B285245C300D02FD1 /* CitySampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySampleData.swift; sourceTree = "<group>"; };
 		FC660C49284F88470074A213 /* CitySearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitySearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC660C4C284F88470074A213 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC660C4E284F88470074A213 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -171,6 +173,14 @@
 			path = Utilities;
 			sourceTree = "<group>";
 		};
+		FC5CC49A285245B600D02FD1 /* Sample Data */ = {
+			isa = PBXGroup;
+			children = (
+				FC5CC49B285245C300D02FD1 /* CitySampleData.swift */,
+			);
+			path = "Sample Data";
+			sourceTree = "<group>";
+		};
 		FC660C40284F88470074A213 = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +215,7 @@
 		FC660C62284F88490074A213 /* CitySearchTests */ = {
 			isa = PBXGroup;
 			children = (
+				FC5CC49A285245B600D02FD1 /* Sample Data */,
 				FC5CC4972852418700D02FD1 /* Tests */,
 				FC5CC4982852419100D02FD1 /* Mocks */,
 				FC5CC4992852419C00D02FD1 /* Utilities */,
@@ -429,6 +440,7 @@
 				FC5CC48D285235EB00D02FD1 /* SearchViewControllerTests.swift in Sources */,
 				FC660C82284F99520074A213 /* BaselineTests.swift in Sources */,
 				FC38873A285077EA00F5922A /* XCTestExtensions.swift in Sources */,
+				FC5CC49C285245C300D02FD1 /* CitySampleData.swift in Sources */,
 				FC660C86284FA0390074A213 /* TextIndexAcceptanceTests.swift in Sources */,
 				FC5CC48828520E0200D02FD1 /* MockCitiesRepository.swift in Sources */,
 				FC5CC48628520DE600D02FD1 /* MockTextIndex.swift in Sources */,

@@ -6,11 +6,18 @@ final class SearchViewController: UICollectionViewController {
     
     init(model: CitySearchModelProtocol) {
         self.model = model
-        let layoutGroup = NSCollectionLayoutGroup(
+        let layoutItem = NSCollectionLayoutItem(
+            layoutSize: NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .fractionalHeight(1.0)
+            )
+        )
+        let layoutGroup = NSCollectionLayoutGroup.vertical(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
                 heightDimension: .absolute(300)
-            )
+            ),
+            subitems: [layoutItem]
         )
         let layoutSection = NSCollectionLayoutSection(
             group: layoutGroup

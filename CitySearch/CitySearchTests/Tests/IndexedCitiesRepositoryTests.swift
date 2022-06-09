@@ -35,28 +35,18 @@ final class IndexedCitiesRepositoryTests: XCTestCase {
     }
     
     func testSearch_shouldReturnCity_givenExactPrefixMatchingCity() async {
-        let city = City(
-            _id: 0,
-            country: "AA",
-            name: "fooville",
-            coord: Coordinate(lon: 180, lat: -90)
-        )
+        let city = City.foovilleAA()
         nameIndex.mockSearch = { query in
-            XCTAssertEqual(query, "fooville")
+            XCTAssertEqual(query, "wellington")
             return [0]
         }
         let subject = IndexedCitiesRepository(cities: [city], nameIndex: nameIndex)
-        let result = await subject.searchByName(prefix: "fooville")
+        let result = await subject.searchByName(prefix: "wellington")
         XCTAssertEqual(Array(result), [city])
     }
     
     func testSearch_shouldReturnCity_givenPrefixMatchingCity() async {
-        let city = City(
-            _id: 0,
-            country: "AA",
-            name: "fooville",
-            coord: Coordinate(lon: 180, lat: -90)
-        )
+        let city = City.foovilleAA()
         nameIndex.mockSearch = { query in
             XCTAssertEqual(query, "foo")
             return [0]
@@ -67,18 +57,8 @@ final class IndexedCitiesRepositoryTests: XCTestCase {
     }
     
     func testSearch_shouldReturnCities_givenPrefixMatchingCities() async {
-        let city0 = City(
-            _id: 0,
-            country: "AA",
-            name: "fooville",
-            coord: Coordinate(lon: 180, lat: -90)
-        )
-        let city1 = City(
-            _id: 1,
-            country: "AA",
-            name: "footopia",
-            coord: Coordinate(lon: 180, lat: -90)
-        )
+        let city0 = City.foovilleAA()
+        let city1 = City.footopiaAA()
         nameIndex.mockSearch = { query in
             XCTAssertEqual(query, "foo")
             return [0, 1]
@@ -89,18 +69,8 @@ final class IndexedCitiesRepositoryTests: XCTestCase {
     }
     
     func testSearch_shouldReturnNothing_givenPrefixMatchingNoCities() async {
-        let city0 = City(
-            _id: 0,
-            country: "AA",
-            name: "fooville",
-            coord: Coordinate(lon: 180, lat: -90)
-        )
-        let city1 = City(
-            _id: 1,
-            country: "AA",
-            name: "footopia",
-            coord: Coordinate(lon: 180, lat: -90)
-        )
+        let city0 = City.foovilleAA()
+        let city1 = City.footopiaAA()
         nameIndex.mockSearch = { query in
             XCTAssertEqual(query, "bar")
             return []

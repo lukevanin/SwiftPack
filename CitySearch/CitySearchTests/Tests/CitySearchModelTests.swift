@@ -48,15 +48,7 @@ final class CitySearchModelTests: XCTestCase {
     }
 
     func testSearch_shouldReturnCities_givenMatchingPrefix() {
-        let city = City(
-            _id: 0,
-            country: "ZA",
-            name: "Wellington",
-            coord: Coordinate(
-                lon: 19.0112,
-                lat: -33.639809
-            )
-        )
+        let city = City.wellingtonZA()
         mockRepository.mockSearch = { query in
             XCTAssertEqual(query, "foo")
             return AnySequence([city])
