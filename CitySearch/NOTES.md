@@ -234,6 +234,8 @@ to be acceptable:
 than 1 ms.
 - Performing 100k searches on a tree containing 100k entries takes 300ms.
 
+**Performance**
+
 Performance seems to scale exactly linearly with the number of queries. 100k 
 queries on a set containing 100k entries takes ~400ms, compared to 10k queries 
 on a data set containing 10k entries which takes ~40ms.
@@ -247,3 +249,95 @@ Performing 1k queries with the trie index takes 10ms (80x faster).
 
 The next step is to combine the text index with the array of data, so that we
 can return entities related to keys.
+
+### 09/06
+
+We need to provide a search model object which can provide search results for 
+the application. The model needs to:
+- Load the searchable data from a file.
+- Create a key for each item in the list.
+- Fill the index structure with the key and index of each item.
+- Provide an interface for retrieving items based on a key prefix.
+
+The model should perform the load and search operations asynchronously on a 
+background thread, so that the caller and main thread are not blocked waiting
+for operations to complete.
+
+Loading data would currently take some amount of time. Based on current 
+performance tests, it would seem to take ~3 seconds (MacBook Pro M1):
+- 2 seconds to load and decode JSONd data.
+- 1 second to fill the index.
+
+The straightforward approach is to simply load the data at once.
+
+**Amortization**
+
+It may also be possible to amortize the cost over time by reading and filling
+the index incrementally in a background thread, and repeat the current query 
+as the model is updated. The application could be usable immediately after 
+launch, and search results would be back-filled as the data is loaded. 
+
+Amortizing the cost only hides the issue, but does not actually reduce the 
+amount of time and resources used.
+
+We could potentially reduce the loading time by storing data in a file format
+that is more efficient for loading, such as a binary property list, or other 
+binary representation. We could also use a format such as CSV, which would let
+us load data line by line, instead of needing to load the entire data set into
+memory at once as we need to do with PList and JSON. 
+
+**Memory mapping**
+
+Yet another idea would be to use memory mapping. If we can store the contents
+of the trie on disk, in a form that exactly matches how it is used at runtime,
+then we do not even need to "load" the data in the usual sense. We can use Data
+to open the file with mapping enabled. The file is available immediately but no
+actual data is loaded from disk. `Data` is loaded by the operating system on 
+demand only when we access the data. A nice additional benefit is that the 
+operating system will also automatically free memory when it is no longer being
+used.
+
+We will need to have an offline tool that we can run at build time, which
+loads the raw JSON data, and creates the binary file for our data structure. An
+easy, but potentially fragile, way to do this is to fill the true structure, 
+then dereference and save the raw bytes.
+
+At runtime we need to load the data into our structure. We can use `Data` to 
+reference the file, then bind our structure to the raw byte pointer.
+
+The risks with this method is that it will only work if the memory layout of the
+structure remains consistent. The memory layout used in the tool needs to be 
+identical to the memory layout on every device where the data is used. This
+should hold true due to data layout requirements for Swift ABI:
+
+https://github.com/apple/swift/blob/main/docs/ABIStabilityManifesto.md#data-layout
+https://github.com/apple/swift/blob/main/docs/ABI/TypeLayout.rst
+
+Our trie implementation uses *trivial* data types as defined by ABI, we should
+be able to depend on the _bitwise movable_ property to ensure that memory
+layout us consistent between runtime invocations. 
+
+Data layout may still vary due to differences in CPU architecture, and compiler
+optimisation flags used at build time. We may potentially need to provide data
+for multiple environments, and ensure the correct data is loaded at runtime. 
+
+Endiannes could also potentially be a relevant issue. Our demo will probably 
+only be running on Apple ARM hardware and devices. We can assume file and 
+memory layout is consistent. 
+
+For example, we may have data layouts for all combinations of: 
+- CPU: arm64 / x86_64 / x86 (and other older arm architectures)
+- Compile time: Debug / Release 
+
+If data compatability does become problematic, a potential solution would be to
+define data using C structs. Structs defind by the C language have well known 
+and predictable memory layout, largely due to the simplicity of the language. 
+The trie structure could access an underlying data structure composed of C 
+structs, which could also be encoded and decoded to a raw file format.
+
+Simply storing on disk as it is laid out in memory may not be efficient for 
+memory mapping when the data needs to be accessed. If we need to visit multiple
+nodes in the tree, the operating system will load the the data from disk in 
+chunks or _pages_. The overhead of loading many chunks of data from different 
+parts of the disk could introduce latency. This latency should be negligible
+on modern SSD hardware. 
