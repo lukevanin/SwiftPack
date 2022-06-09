@@ -103,6 +103,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		FC5CC4892852348000D02FD1 /* Repository */ = {
+			isa = PBXGroup;
+			children = (
+				FC5CC47F2852004B00D02FD1 /* Repositories.swift */,
+				FC5CC47D2851DCCA00D02FD1 /* IndexedCitiesRepository.swift */,
+			);
+			path = Repository;
+			sourceTree = "<group>";
+		};
+		FC5CC48A2852348D00D02FD1 /* Index */ = {
+			isa = PBXGroup;
+			children = (
+				FC660C8B284FD6B00074A213 /* TextIndex.swift */,
+				FC38873B28507DFA00F5922A /* LinearIndex.swift */,
+				FC38873D28507E1400F5922A /* TrieTextIndex.swift */,
+			);
+			path = Index;
+			sourceTree = "<group>";
+		};
 		FC660C40284F88470074A213 = {
 			isa = PBXGroup;
 			children = (
@@ -163,6 +182,8 @@
 				FC660C88284FD6750074A213 /* App */,
 				FC660C89284FD67C0074A213 /* View Controller */,
 				FC660C8A284FD6870074A213 /* Model */,
+				FC5CC4892852348000D02FD1 /* Repository */,
+				FC5CC48A2852348D00D02FD1 /* Index */,
 			);
 			path = Source;
 			sourceTree = "<group>";
@@ -198,12 +219,7 @@
 		FC660C8A284FD6870074A213 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				FC5CC47F2852004B00D02FD1 /* Repositories.swift */,
 				FC5CC481285205AD00D02FD1 /* CitySearchModel.swift */,
-				FC5CC47D2851DCCA00D02FD1 /* IndexedCitiesRepository.swift */,
-				FC660C8B284FD6B00074A213 /* TextIndex.swift */,
-				FC38873B28507DFA00F5922A /* LinearIndex.swift */,
-				FC38873D28507E1400F5922A /* TrieTextIndex.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
