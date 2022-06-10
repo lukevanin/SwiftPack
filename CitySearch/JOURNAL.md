@@ -212,5 +212,7 @@ sequential iteration.
 Completed UI tests for search. We can work on the UI aesthetics for search as 
 well as showing the map view.
 
+---
 
+Added implementation for generic coordinators. 
 

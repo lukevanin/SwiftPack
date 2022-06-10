@@ -5,13 +5,22 @@ import UIKit
 ///
 /// Creates and presents a view controller when activated
 ///
-class PresentingCoordinator: ActivatingCoordinatorProtocol {
+class PresentingCoordinator: AnyCoordinator, ActivatingCoordinatorProtocol {
     
-    unowned var parent: PresentingCoordinatorProtocol?
+    var errorHandler: ((Error) -> Void)?
     
-    final func activate() async throws  {
-        let viewController = try makeViewController()
-        await parent?.present(viewController: viewController)
+    final func activate()  {
+        let viewController: UIViewController
+        do {
+            viewController = try makeViewController()
+        }
+        catch {
+            errorHandler?(error)
+            return
+        }
+        Task {
+            await parent?.present(viewController: viewController)
+        }
     }
     
     func makeViewController() throws -> UIViewController {

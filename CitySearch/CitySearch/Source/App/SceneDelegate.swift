@@ -2,25 +2,22 @@ import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
-    var window: UIWindow?
-
+    var coordinator: ActivatingCoordinatorProtocol?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else {
             return
         }
-        let builder = ApplicationModuleBuilder()
-//        let city = City(
-//            _id: 5128638,
-//            country: "US",
-//            name: "New York",
-//            coord: Coordinate(lon: -75.499901, lat: 43.000351)
-//        )
-//        let builder = MapModuleBuilder(city: city)
-        let viewController = builder.build()
-        window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = viewController
-        window?.makeKeyAndVisible()
+        
+        let navigationBarAppearance = UINavigationBarAppearance()
+        navigationBarAppearance.configureWithDefaultBackground()
+        UINavigationBar.appearance().standardAppearance = navigationBarAppearance
+        UINavigationBar.appearance().compactAppearance = navigationBarAppearance
+        UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
+        
+        let builder = ApplicationCoordinatorBuilder(windowScene: windowScene)
+        coordinator = builder.build()
+        coordinator?.activate()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

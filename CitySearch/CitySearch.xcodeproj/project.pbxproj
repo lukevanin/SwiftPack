@@ -37,6 +37,11 @@
 		FC5CC4B728537F7C00D02FD1 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4B628537F7C00D02FD1 /* CoordinatorProtocol.swift */; };
 		FC5CC4BB285384F700D02FD1 /* PresentingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4BA285384F700D02FD1 /* PresentingCoordinator.swift */; };
 		FC5CC4BD2853872E00D02FD1 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4BC2853872E00D02FD1 /* NavigationCoordinator.swift */; };
+		FC5CC4BF28538C2500D02FD1 /* SearchCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4BE28538C2500D02FD1 /* SearchCoordinator.swift */; };
+		FC5CC4C128538E0000D02FD1 /* WindowCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4C028538DFF00D02FD1 /* WindowCoordinator.swift */; };
+		FC5CC4C5285391D800D02FD1 /* AnyCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4C4285391D800D02FD1 /* AnyCoordinator.swift */; };
+		FC5CC4C72853F6B800D02FD1 /* ApplicationCoordinatorBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4C62853F6B800D02FD1 /* ApplicationCoordinatorBuilder.swift */; };
+		FC5CC4C92853FA5F00D02FD1 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4C82853FA5E00D02FD1 /* Environment.swift */; };
 		FC660C4D284F88470074A213 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4C284F88470074A213 /* AppDelegate.swift */; };
 		FC660C4F284F88470074A213 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4E284F88470074A213 /* SceneDelegate.swift */; };
 		FC660C51284F88470074A213 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C50284F88470074A213 /* SearchViewController.swift */; };
@@ -100,6 +105,11 @@
 		FC5CC4B628537F7C00D02FD1 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
 		FC5CC4BA285384F700D02FD1 /* PresentingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentingCoordinator.swift; sourceTree = "<group>"; };
 		FC5CC4BC2853872E00D02FD1 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
+		FC5CC4BE28538C2500D02FD1 /* SearchCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCoordinator.swift; sourceTree = "<group>"; };
+		FC5CC4C028538DFF00D02FD1 /* WindowCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WindowCoordinator.swift; sourceTree = "<group>"; };
+		FC5CC4C4285391D800D02FD1 /* AnyCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyCoordinator.swift; sourceTree = "<group>"; };
+		FC5CC4C62853F6B800D02FD1 /* ApplicationCoordinatorBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationCoordinatorBuilder.swift; sourceTree = "<group>"; };
+		FC5CC4C82853FA5E00D02FD1 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		FC660C49284F88470074A213 /* CitySearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitySearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC660C4C284F88470074A213 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC660C4E284F88470074A213 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -167,6 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				FC5CC49328523ED700D02FD1 /* Builders.swift */,
+				FC5CC4C62853F6B800D02FD1 /* ApplicationCoordinatorBuilder.swift */,
 				FC5CC4A42853282D00D02FD1 /* ApplicationModuleBuilder.swift */,
 				FC5CC49128523C8C00D02FD1 /* SearchModuleBuilder.swift */,
 				FC5CC4A028531B2A00D02FD1 /* TestSearchModuleBuilder.swift */,
@@ -228,9 +239,12 @@
 			isa = PBXGroup;
 			children = (
 				FC5CC4B628537F7C00D02FD1 /* CoordinatorProtocol.swift */,
+				FC5CC4C4285391D800D02FD1 /* AnyCoordinator.swift */,
 				FC5CC4BA285384F700D02FD1 /* PresentingCoordinator.swift */,
+				FC5CC4C028538DFF00D02FD1 /* WindowCoordinator.swift */,
 				FC5CC4BC2853872E00D02FD1 /* NavigationCoordinator.swift */,
 				FC5CC4B428537E0F00D02FD1 /* BuilderPresentingCoordinator.swift */,
+				FC5CC4BE28538C2500D02FD1 /* SearchCoordinator.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -320,6 +334,7 @@
 			children = (
 				FC660C4C284F88470074A213 /* AppDelegate.swift */,
 				FC660C4E284F88470074A213 /* SceneDelegate.swift */,
+				FC5CC4C82853FA5E00D02FD1 /* Environment.swift */,
 			);
 			path = App;
 			sourceTree = "<group>";
@@ -475,10 +490,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC5CC4C5285391D800D02FD1 /* AnyCoordinator.swift in Sources */,
 				FC5CC4BD2853872E00D02FD1 /* NavigationCoordinator.swift in Sources */,
 				FC660C51284F88470074A213 /* SearchViewController.swift in Sources */,
 				FC5CC49228523C8C00D02FD1 /* SearchModuleBuilder.swift in Sources */,
 				FC660C4D284F88470074A213 /* AppDelegate.swift in Sources */,
+				FC5CC4BF28538C2500D02FD1 /* SearchCoordinator.swift in Sources */,
 				FC38873E28507E1400F5922A /* TrieTextIndex.swift in Sources */,
 				FC5CC482285205AD00D02FD1 /* CitySearchModel.swift in Sources */,
 				FC660C4F284F88470074A213 /* SceneDelegate.swift in Sources */,
@@ -490,9 +507,12 @@
 				FC5CC4802852004C00D02FD1 /* Repositories.swift in Sources */,
 				FC5CC49F28524AA800D02FD1 /* SearchResultView.swift in Sources */,
 				FC5CC4B528537E0F00D02FD1 /* BuilderPresentingCoordinator.swift in Sources */,
+				FC5CC4C92853FA5F00D02FD1 /* Environment.swift in Sources */,
 				FC5CC4A728533B5B00D02FD1 /* SearchResultCellConfigurationBuilder.swift in Sources */,
+				FC5CC4C128538E0000D02FD1 /* WindowCoordinator.swift in Sources */,
 				FC660C8C284FD6B00074A213 /* TextIndex.swift in Sources */,
 				FC5CC4A52853282D00D02FD1 /* ApplicationModuleBuilder.swift in Sources */,
+				FC5CC4C72853F6B800D02FD1 /* ApplicationCoordinatorBuilder.swift in Sources */,
 				FC38873C28507DFA00F5922A /* LinearIndex.swift in Sources */,
 				FC5CC48F28523A2000D02FD1 /* Models.swift in Sources */,
 				FC5CC49428523ED700D02FD1 /* Builders.swift in Sources */,

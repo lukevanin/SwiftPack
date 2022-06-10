@@ -1,14 +1,12 @@
 import UIKit
 
-final class NavigationCoordinator: PresentingCoordinatorProtocol {
+final class NavigationCoordinator: AnyCoordinator {
     
     weak var context: UIViewController?
-    
-    func present(viewController: UIViewController) async {
-        await withCheckedContinuation { continuation in
-            context?.present(viewController, animated: true) {
-                continuation.resume()
-            }
-        }
+
+    override func present(viewController: UIViewController) async {
+        let navigationController = (context as? UINavigationController) ?? context?.navigationController
+        navigationController?.pushViewController(viewController, animated: true)
+        #warning("TODO: Wait for navigation animation to finish")
     }
 }

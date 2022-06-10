@@ -1,10 +1,15 @@
 import UIKit
 import Combine
 
+protocol SearchViewControllerDelegate: AnyObject {
+    func selectItem(item: City)
+}
+
 final class SearchViewController: UICollectionViewController {
     
     typealias MakeCellConfiguration = (_ city: City) -> UIContentConfiguration
-    typealias SelectCell = (City) -> Void
+    
+    weak var delegate: SearchViewControllerDelegate?
 
     private var query: String = ""
     private var cities: [City] = []
@@ -15,16 +20,13 @@ final class SearchViewController: UICollectionViewController {
     private let searchViewController: UISearchController
     private let model: CitySearchModelProtocol
     private let makeCellConfiguration: MakeCellConfiguration
-    private let selectCell: SelectCell
     
     init(
         model: CitySearchModelProtocol,
-        makeCellConfiguration: @escaping MakeCellConfiguration,
-        selectCell: @escaping SelectCell
+        makeCellConfiguration: @escaping MakeCellConfiguration
     ) {
         self.model = model
         self.makeCellConfiguration = makeCellConfiguration
-        self.selectCell = selectCell
         self.searchViewController = UISearchController()
         let layoutItem = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
@@ -55,8 +57,6 @@ final class SearchViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        view.backgroundColor = .systemGreen
         
         cellRegistration = UICollectionView.CellRegistration { cell, indexPath, configuration in
             cell.contentConfiguration = configuration
@@ -130,7 +130,7 @@ final class SearchViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        selectCell(cities[indexPath.item])
+        delegate?.selectItem(item: cities[indexPath.item])
     }
     
     // MARK: UICollectionViewDataSource

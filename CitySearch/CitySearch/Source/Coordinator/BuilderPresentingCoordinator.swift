@@ -3,7 +3,7 @@ import UIKit
 ///
 /// Creates and presents a view controller constructed with a builder.
 ///
-final class BuilderPresentingCoordinator: PresentingCoordinator {
+class BuilderPresentingCoordinator: PresentingCoordinator {
     
     private let builder: AnyBuilder<UIViewController>
     

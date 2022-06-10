@@ -167,3 +167,5 @@ nodes to avoid having to re-sort each array when a value is inserted.
 - Localize text.
 - Make search index and query case insensitive.
 - Test non-latin characters (e.g. emoji)
+- Loggin abstration.
+- Metrics.

@@ -2,32 +2,28 @@ import UIKit
 
 struct ApplicationModuleBuilder: BuilderProtocol {
     
+    let environment: Environment
+    
     func build() -> UIViewController {
-        let coordinator = NavigationCoordinator()
-        let rootViewController = makeRootViewController(coordinator: coordinator)
+        let initialViewController = makeRootViewController()
         let navigationController = UINavigationController(
-            rootViewController: rootViewController
+            rootViewController: initialViewController
         )
-        coordinator.context = navigationController
-        navigationController.view.tintColor = .systemRed
+        navigationController.navigationBar.barTintColor = .red
         return navigationController
     }
     
-    private func makeRootViewController(coordinator: PresentingCoordinatorProtocol) -> UIViewController {
+    private func makeRootViewController() -> UIViewController {
         let arguments = ProcessInfo.processInfo.arguments
         if arguments.contains("test") {
             // We are running under developmenu or automated or testing
             // conditions. Use the testing module.
-            let builder = TestSearchModuleBuilder(
-                parentCoordinator: coordinator
-            )
+            let builder = TestSearchModuleBuilder(environment: environment)
             return builder.build()
         }
         else {
             // Use the production module.
-            let builder = SearchModuleBuilder(
-                parentCoordinator: coordinator
-            )
+            let builder = SearchModuleBuilder(environment: environment)
             return builder.build()
         }
     }
