@@ -11,7 +11,7 @@ struct CitySearchResultCellContentBuilder: BuilderProtocol {
         let lat = city.coord.lat.formatted(coordinateFormat)
         return SearchResultViewContentConfiguration(
             title: "\(city.name), \(city.country)",
-            subtitle: "lon: \(lon), lat: \(lat)"
+            subtitle: "\(lon) \(lat)"
         )
     }
 }

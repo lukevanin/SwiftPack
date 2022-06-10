@@ -25,10 +25,11 @@ final class SearchViewController: UICollectionViewController {
                 heightDimension: .fractionalHeight(1.0)
             )
         )
+        layoutItem.contentInsets = NSDirectionalEdgeInsets(top: 8, leading: 8, bottom: 8, trailing: 8)
         let layoutGroup = NSCollectionLayoutGroup.vertical(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(100)
+                heightDimension: .estimated(80)
             ),
             subitems: [layoutItem]
         )

@@ -7,6 +7,7 @@ struct ApplicationModuleBuilder: BuilderProtocol {
         let navigationController = UINavigationController(
             rootViewController: rootViewController
         )
+        navigationController.view.tintColor = .systemRed
         return navigationController
     }
     

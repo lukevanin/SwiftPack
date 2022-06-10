@@ -164,3 +164,6 @@ basic tasks. This often makes  development slow and prone to bugs.
 - Document "test" command line argument
 - Use binary insertion sort when inserting characters and values into trie 
 nodes to avoid having to re-sort each array when a value is inserted. 
+- Localize text.
+- Make search index and query case insensitive.
+- Test non-latin characters (e.g. emoji)

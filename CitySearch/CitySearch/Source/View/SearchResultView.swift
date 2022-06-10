@@ -22,7 +22,7 @@ final class SearchResultView: UIView, UIContentView {
         let label = UILabel()
         label.accessibilityIdentifier = "title"
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .body)
+        label.font = .preferredFont(forTextStyle: .headline)
         label.textColor = .label
         label.numberOfLines = 1
         return label
@@ -32,7 +32,7 @@ final class SearchResultView: UIView, UIContentView {
         let label = UILabel()
         label.accessibilityIdentifier = "subtitle"
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .caption1)
+        label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .secondaryLabel
         label.numberOfLines = 1
         return label
@@ -56,7 +56,40 @@ final class SearchResultView: UIView, UIContentView {
     }
     
     private func initializeLayout() {
-        let layout: UIStackView = {
+        
+        let mapIconImageView: UIImageView = {
+            let image = UIImage(
+                systemName: "map.fill",
+                withConfiguration: UIImage.SymbolConfiguration(
+                    font: subtitleLabel.font
+                )
+            )
+            let view = UIImageView(image: image)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.tintColor = subtitleLabel.textColor
+            return view
+        }()
+
+        let disclosureImageView: UIImageView = {
+            let image = UIImage(systemName: "chevron.right")
+            let view = UIImageView(image: image)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            return view
+        }()
+
+        let secondaryLayout: UIStackView = {
+            let view = UIStackView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.axis = .horizontal
+            view.spacing = 8
+            view.alignment = .leading
+            view.distribution = .fill
+            view.addArrangedSubview(mapIconImageView)
+            view.addArrangedSubview(subtitleLabel)
+            return view
+        }()
+        
+        let textLayout: UIStackView = {
             let view = UIStackView()
             view.translatesAutoresizingMaskIntoConstraints = false
             view.axis = .vertical
@@ -64,27 +97,34 @@ final class SearchResultView: UIView, UIContentView {
             view.alignment = .leading
             view.distribution = .fillProportionally
             view.addArrangedSubview(titleLabel)
-            view.addArrangedSubview(subtitleLabel)
+            view.addArrangedSubview(secondaryLayout)
             return view
         }()
         
-        titleLabel.backgroundColor = .cyan
-        subtitleLabel.backgroundColor = .green
-        backgroundColor = .magenta
+        let contentLayout: UIStackView = {
+            let view = UIStackView()
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.axis = .horizontal
+            view.alignment = .center
+            view.distribution = .fill
+            view.addArrangedSubview(textLayout)
+            view.addArrangedSubview(disclosureImageView)
+            return view
+        }()
 
-        addSubview(layout)
+        addSubview(contentLayout)
         
         NSLayoutConstraint.activate([
-            layout.leftAnchor.constraint(
+            contentLayout.leftAnchor.constraint(
                 equalTo: layoutMarginsGuide.leftAnchor
             ),
-            layout.rightAnchor.constraint(
+            contentLayout.rightAnchor.constraint(
                 equalTo: layoutMarginsGuide.rightAnchor
             ),
-            layout.topAnchor.constraint(
+            contentLayout.topAnchor.constraint(
                 equalTo: layoutMarginsGuide.topAnchor
             ),
-            layout.bottomAnchor.constraint(
+            contentLayout.bottomAnchor.constraint(
                 equalTo: layoutMarginsGuide.bottomAnchor
             ),
         ])
