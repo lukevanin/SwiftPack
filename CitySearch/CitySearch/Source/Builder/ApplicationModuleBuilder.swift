@@ -3,6 +3,14 @@ import UIKit
 struct ApplicationModuleBuilder: BuilderProtocol {
     
     func build() -> UIViewController {
+        let rootViewController = makeRootViewController()
+        let navigationController = UINavigationController(
+            rootViewController: rootViewController
+        )
+        return navigationController
+    }
+    
+    private func makeRootViewController() -> UIViewController {
         let arguments = ProcessInfo.processInfo.arguments
         if arguments.contains("test") {
             // We are running under developmenu or automated or testing

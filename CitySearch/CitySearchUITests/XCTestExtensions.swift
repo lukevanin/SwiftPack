@@ -1,2 +1,5 @@
 import XCTest
 
+extension XCTestCase {
+    
+}

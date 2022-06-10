@@ -11,12 +11,14 @@ final class SearchViewController: UICollectionViewController {
     private var citiesCancellable: AnyCancellable?
     private var cellRegistration: UICollectionView.CellRegistration<UICollectionViewCell, UIContentConfiguration>!
     
+    private let searchViewController: UISearchController
     private let model: CitySearchModelProtocol
     private let makeCellConfiguration: MakeCellConfiguration
     
     init(model: CitySearchModelProtocol, makeCellConfiguration: @escaping MakeCellConfiguration) {
         self.model = model
         self.makeCellConfiguration = makeCellConfiguration
+        self.searchViewController = UISearchController()
         let layoutItem = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
@@ -55,6 +57,9 @@ final class SearchViewController: UICollectionViewController {
         collectionView.accessibilityIdentifier = "search-results"
         collectionView.dataSource = self
         collectionView.delegate = self
+        
+        searchViewController.searchResultsUpdater = self
+        navigationItem.searchController = searchViewController
         
         invalidateQuery()
     }
@@ -124,5 +129,13 @@ final class SearchViewController: UICollectionViewController {
             for: indexPath,
             item: makeCellConfiguration(cities[indexPath.item])
         )
+    }
+}
+
+extension SearchViewController: UISearchResultsUpdating {
+
+    func updateSearchResults(for searchController: UISearchController) {
+        query = searchController.searchBar.text ?? ""
+        invalidateQuery()
     }
 }
