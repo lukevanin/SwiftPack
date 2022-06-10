@@ -3,7 +3,7 @@ import UIKit
 ///
 /// Constructs a view controller, and required dependencies, for providing search capabilities using real data/
 ///
-final class SearchModuleBuilder: BuilderProtocol {
+struct SearchModuleBuilder: BuilderProtocol {
     
     func build() -> UIViewController {
         let searchIndex = TrieTextIndex()
@@ -11,11 +11,8 @@ final class SearchModuleBuilder: BuilderProtocol {
         let searchModel = CitySearchModel(citiesRepository: searchRepository)
         let viewController = SearchViewController(
             model: searchModel,
-            makeCellConfiguration: { cell in
-                SearchResultViewContentConfiguration(
-                    title: cell.name,
-                    subtitle: ""
-                )
+            makeCellConfiguration: { city in
+                CitySearchResultCellContentBuilder(city: city).build()
             }
         )
         return viewController

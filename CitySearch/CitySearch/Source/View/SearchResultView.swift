@@ -20,6 +20,7 @@ final class SearchResultView: UIView, UIContentView {
     
     let titleLabel: UILabel = {
         let label = UILabel()
+        label.accessibilityIdentifier = "title"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         label.textColor = .label
@@ -29,6 +30,7 @@ final class SearchResultView: UIView, UIContentView {
     
     let subtitleLabel: UILabel = {
         let label = UILabel()
+        label.accessibilityIdentifier = "subtitle"
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .caption1)
         label.textColor = .secondaryLabel

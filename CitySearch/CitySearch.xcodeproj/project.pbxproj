@@ -23,10 +23,13 @@
 		FC5CC49428523ED700D02FD1 /* Builders.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC49328523ED700D02FD1 /* Builders.swift */; };
 		FC5CC4962852418400D02FD1 /* MockCitySearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4952852418400D02FD1 /* MockCitySearchModel.swift */; };
 		FC5CC49C285245C300D02FD1 /* CitySampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC49B285245C300D02FD1 /* CitySampleData.swift */; };
-		FC5CC49F28524AA800D02FD1 /* SearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC49E28524AA800D02FD1 /* SearchResultCollectionViewCell.swift */; };
+		FC5CC49F28524AA800D02FD1 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC49E28524AA800D02FD1 /* SearchResultView.swift */; };
 		FC5CC4A128531B2A00D02FD1 /* TestSearchModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4A028531B2A00D02FD1 /* TestSearchModuleBuilder.swift */; };
 		FC5CC4A3285324F000D02FD1 /* CombineExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4A2285324F000D02FD1 /* CombineExtensions.swift */; };
 		FC5CC4A52853282D00D02FD1 /* ApplicationModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4A42853282D00D02FD1 /* ApplicationModuleBuilder.swift */; };
+		FC5CC4A728533B5B00D02FD1 /* SearchResultCellConfigurationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4A628533B5B00D02FD1 /* SearchResultCellConfigurationBuilder.swift */; };
+		FC5CC4A928534AD500D02FD1 /* TestCitiesRepositoryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4A828534AD500D02FD1 /* TestCitiesRepositoryBuilder.swift */; };
+		FC5CC4AB28534D4A00D02FD1 /* XCTestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4AA28534D4A00D02FD1 /* XCTestExtensions.swift */; };
 		FC660C4D284F88470074A213 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4C284F88470074A213 /* AppDelegate.swift */; };
 		FC660C4F284F88470074A213 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4E284F88470074A213 /* SceneDelegate.swift */; };
 		FC660C51284F88470074A213 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C50284F88470074A213 /* SearchViewController.swift */; };
@@ -75,10 +78,13 @@
 		FC5CC49328523ED700D02FD1 /* Builders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Builders.swift; sourceTree = "<group>"; };
 		FC5CC4952852418400D02FD1 /* MockCitySearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCitySearchModel.swift; sourceTree = "<group>"; };
 		FC5CC49B285245C300D02FD1 /* CitySampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySampleData.swift; sourceTree = "<group>"; };
-		FC5CC49E28524AA800D02FD1 /* SearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
+		FC5CC49E28524AA800D02FD1 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
 		FC5CC4A028531B2A00D02FD1 /* TestSearchModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSearchModuleBuilder.swift; sourceTree = "<group>"; };
 		FC5CC4A2285324F000D02FD1 /* CombineExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineExtensions.swift; sourceTree = "<group>"; };
 		FC5CC4A42853282D00D02FD1 /* ApplicationModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationModuleBuilder.swift; sourceTree = "<group>"; };
+		FC5CC4A628533B5B00D02FD1 /* SearchResultCellConfigurationBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCellConfigurationBuilder.swift; sourceTree = "<group>"; };
+		FC5CC4A828534AD500D02FD1 /* TestCitiesRepositoryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCitiesRepositoryBuilder.swift; sourceTree = "<group>"; };
+		FC5CC4AA28534D4A00D02FD1 /* XCTestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestExtensions.swift; sourceTree = "<group>"; };
 		FC660C49284F88470074A213 /* CitySearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitySearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC660C4C284F88470074A213 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC660C4E284F88470074A213 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -149,6 +155,8 @@
 				FC5CC4A42853282D00D02FD1 /* ApplicationModuleBuilder.swift */,
 				FC5CC49128523C8C00D02FD1 /* SearchModuleBuilder.swift */,
 				FC5CC4A028531B2A00D02FD1 /* TestSearchModuleBuilder.swift */,
+				FC5CC4A628533B5B00D02FD1 /* SearchResultCellConfigurationBuilder.swift */,
+				FC5CC4A828534AD500D02FD1 /* TestCitiesRepositoryBuilder.swift */,
 			);
 			path = Builder;
 			sourceTree = "<group>";
@@ -195,7 +203,7 @@
 		FC5CC49D28524A9800D02FD1 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				FC5CC49E28524AA800D02FD1 /* SearchResultCollectionViewCell.swift */,
+				FC5CC49E28524AA800D02FD1 /* SearchResultView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -247,6 +255,7 @@
 			children = (
 				FC660C6D284F88490074A213 /* CitySearchUITests.swift */,
 				FC660C6F284F88490074A213 /* CitySearchUITestsLaunchTests.swift */,
+				FC5CC4AA28534D4A00D02FD1 /* XCTestExtensions.swift */,
 			);
 			path = CitySearchUITests;
 			sourceTree = "<group>";
@@ -442,8 +451,10 @@
 				FC5CC482285205AD00D02FD1 /* CitySearchModel.swift in Sources */,
 				FC660C4F284F88470074A213 /* SceneDelegate.swift in Sources */,
 				FC5CC47E2851DCCA00D02FD1 /* IndexedCitiesRepository.swift in Sources */,
+				FC5CC4A928534AD500D02FD1 /* TestCitiesRepositoryBuilder.swift in Sources */,
 				FC5CC4802852004C00D02FD1 /* Repositories.swift in Sources */,
-				FC5CC49F28524AA800D02FD1 /* SearchResultCollectionViewCell.swift in Sources */,
+				FC5CC49F28524AA800D02FD1 /* SearchResultView.swift in Sources */,
+				FC5CC4A728533B5B00D02FD1 /* SearchResultCellConfigurationBuilder.swift in Sources */,
 				FC660C8C284FD6B00074A213 /* TextIndex.swift in Sources */,
 				FC5CC4A52853282D00D02FD1 /* ApplicationModuleBuilder.swift in Sources */,
 				FC38873C28507DFA00F5922A /* LinearIndex.swift in Sources */,
@@ -476,6 +487,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC660C6E284F88490074A213 /* CitySearchUITests.swift in Sources */,
+				FC5CC4AB28534D4A00D02FD1 /* XCTestExtensions.swift in Sources */,
 				FC660C70284F88490074A213 /* CitySearchUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

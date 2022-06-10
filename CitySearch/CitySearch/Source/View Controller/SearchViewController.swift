@@ -52,6 +52,7 @@ final class SearchViewController: UICollectionViewController {
             cell.contentConfiguration = configuration
         }
         
+        collectionView.accessibilityIdentifier = "search-results"
         collectionView.dataSource = self
         collectionView.delegate = self
         

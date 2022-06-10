@@ -367,3 +367,9 @@ We would need to implement a new type that provides a count, and allows
 sequential iteration.
 
 ---  
+
+10/06
+
+TODO: Document "test" command line argument
+
+---
