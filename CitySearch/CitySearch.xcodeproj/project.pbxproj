@@ -31,6 +31,12 @@
 		FC5CC4A928534AD500D02FD1 /* TestCitiesRepositoryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4A828534AD500D02FD1 /* TestCitiesRepositoryBuilder.swift */; };
 		FC5CC4AB28534D4A00D02FD1 /* XCTestExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4AA28534D4A00D02FD1 /* XCTestExtensions.swift */; };
 		FC5CC4AE2853763600D02FD1 /* CitySearchUIPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4AD2853763600D02FD1 /* CitySearchUIPerformanceTests.swift */; };
+		FC5CC4B028537C2300D02FD1 /* MapModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4AF28537C2300D02FD1 /* MapModuleBuilder.swift */; };
+		FC5CC4B228537CDC00D02FD1 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4B128537CDC00D02FD1 /* MapViewController.swift */; };
+		FC5CC4B528537E0F00D02FD1 /* BuilderPresentingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4B428537E0F00D02FD1 /* BuilderPresentingCoordinator.swift */; };
+		FC5CC4B728537F7C00D02FD1 /* CoordinatorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4B628537F7C00D02FD1 /* CoordinatorProtocol.swift */; };
+		FC5CC4BB285384F700D02FD1 /* PresentingCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4BA285384F700D02FD1 /* PresentingCoordinator.swift */; };
+		FC5CC4BD2853872E00D02FD1 /* NavigationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4BC2853872E00D02FD1 /* NavigationCoordinator.swift */; };
 		FC660C4D284F88470074A213 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4C284F88470074A213 /* AppDelegate.swift */; };
 		FC660C4F284F88470074A213 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4E284F88470074A213 /* SceneDelegate.swift */; };
 		FC660C51284F88470074A213 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C50284F88470074A213 /* SearchViewController.swift */; };
@@ -88,6 +94,12 @@
 		FC5CC4AA28534D4A00D02FD1 /* XCTestExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = XCTestExtensions.swift; sourceTree = "<group>"; };
 		FC5CC4AC285374A300D02FD1 /* JOURNAL.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = JOURNAL.md; sourceTree = "<group>"; };
 		FC5CC4AD2853763600D02FD1 /* CitySearchUIPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySearchUIPerformanceTests.swift; sourceTree = "<group>"; };
+		FC5CC4AF28537C2300D02FD1 /* MapModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapModuleBuilder.swift; sourceTree = "<group>"; };
+		FC5CC4B128537CDC00D02FD1 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		FC5CC4B428537E0F00D02FD1 /* BuilderPresentingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuilderPresentingCoordinator.swift; sourceTree = "<group>"; };
+		FC5CC4B628537F7C00D02FD1 /* CoordinatorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorProtocol.swift; sourceTree = "<group>"; };
+		FC5CC4BA285384F700D02FD1 /* PresentingCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentingCoordinator.swift; sourceTree = "<group>"; };
+		FC5CC4BC2853872E00D02FD1 /* NavigationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationCoordinator.swift; sourceTree = "<group>"; };
 		FC660C49284F88470074A213 /* CitySearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitySearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC660C4C284F88470074A213 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC660C4E284F88470074A213 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -158,6 +170,7 @@
 				FC5CC4A42853282D00D02FD1 /* ApplicationModuleBuilder.swift */,
 				FC5CC49128523C8C00D02FD1 /* SearchModuleBuilder.swift */,
 				FC5CC4A028531B2A00D02FD1 /* TestSearchModuleBuilder.swift */,
+				FC5CC4AF28537C2300D02FD1 /* MapModuleBuilder.swift */,
 				FC5CC4A628533B5B00D02FD1 /* SearchResultCellConfigurationBuilder.swift */,
 				FC5CC4A828534AD500D02FD1 /* TestCitiesRepositoryBuilder.swift */,
 			);
@@ -209,6 +222,17 @@
 				FC5CC49E28524AA800D02FD1 /* SearchResultView.swift */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		FC5CC4B328537E0000D02FD1 /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				FC5CC4B628537F7C00D02FD1 /* CoordinatorProtocol.swift */,
+				FC5CC4BA285384F700D02FD1 /* PresentingCoordinator.swift */,
+				FC5CC4BC2853872E00D02FD1 /* NavigationCoordinator.swift */,
+				FC5CC4B428537E0F00D02FD1 /* BuilderPresentingCoordinator.swift */,
+			);
+			path = Coordinator;
 			sourceTree = "<group>";
 		};
 		FC660C40284F88470074A213 = {
@@ -270,6 +294,7 @@
 			children = (
 				FC660C88284FD6750074A213 /* App */,
 				FC5CC49028523C7D00D02FD1 /* Builder */,
+				FC5CC4B328537E0000D02FD1 /* Coordinator */,
 				FC660C89284FD67C0074A213 /* View Controller */,
 				FC5CC49D28524A9800D02FD1 /* View */,
 				FC660C8A284FD6870074A213 /* Model */,
@@ -303,6 +328,7 @@
 			isa = PBXGroup;
 			children = (
 				FC660C50284F88470074A213 /* SearchViewController.swift */,
+				FC5CC4B128537CDC00D02FD1 /* MapViewController.swift */,
 			);
 			path = "View Controller";
 			sourceTree = "<group>";
@@ -449,6 +475,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FC5CC4BD2853872E00D02FD1 /* NavigationCoordinator.swift in Sources */,
 				FC660C51284F88470074A213 /* SearchViewController.swift in Sources */,
 				FC5CC49228523C8C00D02FD1 /* SearchModuleBuilder.swift in Sources */,
 				FC660C4D284F88470074A213 /* AppDelegate.swift in Sources */,
@@ -456,9 +483,13 @@
 				FC5CC482285205AD00D02FD1 /* CitySearchModel.swift in Sources */,
 				FC660C4F284F88470074A213 /* SceneDelegate.swift in Sources */,
 				FC5CC47E2851DCCA00D02FD1 /* IndexedCitiesRepository.swift in Sources */,
+				FC5CC4B228537CDC00D02FD1 /* MapViewController.swift in Sources */,
 				FC5CC4A928534AD500D02FD1 /* TestCitiesRepositoryBuilder.swift in Sources */,
+				FC5CC4B028537C2300D02FD1 /* MapModuleBuilder.swift in Sources */,
+				FC5CC4BB285384F700D02FD1 /* PresentingCoordinator.swift in Sources */,
 				FC5CC4802852004C00D02FD1 /* Repositories.swift in Sources */,
 				FC5CC49F28524AA800D02FD1 /* SearchResultView.swift in Sources */,
+				FC5CC4B528537E0F00D02FD1 /* BuilderPresentingCoordinator.swift in Sources */,
 				FC5CC4A728533B5B00D02FD1 /* SearchResultCellConfigurationBuilder.swift in Sources */,
 				FC660C8C284FD6B00074A213 /* TextIndex.swift in Sources */,
 				FC5CC4A52853282D00D02FD1 /* ApplicationModuleBuilder.swift in Sources */,
@@ -466,6 +497,7 @@
 				FC5CC48F28523A2000D02FD1 /* Models.swift in Sources */,
 				FC5CC49428523ED700D02FD1 /* Builders.swift in Sources */,
 				FC5CC4A128531B2A00D02FD1 /* TestSearchModuleBuilder.swift in Sources */,
+				FC5CC4B728537F7C00D02FD1 /* CoordinatorProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

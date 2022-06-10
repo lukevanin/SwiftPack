@@ -5,6 +5,8 @@ import UIKit
 ///
 struct TestSearchModuleBuilder: BuilderProtocol {
     
+    var parentCoordinator: PresentingCoordinatorProtocol
+
     func build() -> UIViewController {
         let cities = TestCitiesBuilder().build()
         var searchIndex = TrieTextIndex()
@@ -18,6 +20,15 @@ struct TestSearchModuleBuilder: BuilderProtocol {
             model: searchModel,
             makeCellConfiguration: { city in
                 CitySearchResultCellContentBuilder(city: city).build()
+            },
+            selectCell: { city in
+                Task {
+                    let coordinator = BuilderPresentingCoordinator(
+                        builder: AnyBuilder(MapModuleBuilder(city: city))
+                    )
+                    coordinator.parent = parentCoordinator
+                    try await coordinator.activate()
+                }
             }
         )
         return viewController

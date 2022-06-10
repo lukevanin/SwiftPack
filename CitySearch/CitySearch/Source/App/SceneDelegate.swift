@@ -10,7 +10,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             return
         }
         let builder = ApplicationModuleBuilder()
-        let viewController = try builder.build()
+//        let city = City(
+//            _id: 5128638,
+//            country: "US",
+//            name: "New York",
+//            coord: Coordinate(lon: -75.499901, lat: 43.000351)
+//        )
+//        let builder = MapModuleBuilder(city: city)
+        let viewController = builder.build()
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = viewController
         window?.makeKeyAndVisible()

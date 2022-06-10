@@ -25,6 +25,8 @@ final class CitySearchUITests: XCTestCase {
         app = nil
     }
     
+    // MARK: Search
+    
     @MainActor func testSearch_shouldShowAllCities_givenNoSearchInput() async throws {
         launchApp()
         verifySearchResults(cells: allCities)
@@ -67,12 +69,26 @@ final class CitySearchUITests: XCTestCase {
         addScreenshot()
         verifySearchResults(cells: ["Madrid, ES"])
     }
+    
+    // MARK: Map
+    
+    @MainActor func testSearch_shouldShowMap_whenCellIsTapped() {
+        launchApp()
+        tapSearchResult(at: 0)
+        let mapView = app
+            .descendants(matching: .map)
+            .firstMatch
+        let mapVisible = mapView.exists
+        XCTAssertTrue(mapVisible, "Expected map does not exist")
+        addScreenshot()
+    }
 
     // MARK: Helpers
 
     private func launchApp() {
         app.launchArguments = ["test"]
         app.launch()
+        addScreenshot()
     }
     
     private func enterSearch(text: String) {
@@ -102,6 +118,15 @@ final class CitySearchUITests: XCTestCase {
                 .label
             XCTAssertEqual(titleLabel, cell, file: file, line: line)
         }
+    }
+    
+    private func tapSearchResult(at index: Int) {
+        let cell = app
+            .descendants(matching: .collectionView)
+            .matching(identifier: "search-results")
+            .cells
+            .element(boundBy: 0)
+        cell.tap()
     }
     
     func addScreenshot() {

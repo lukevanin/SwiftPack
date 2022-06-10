@@ -1,7 +1,7 @@
 import Foundation
 
 ///
-/// Creates an instance of the product type.
+/// Creates an instance of the associated artefact type.
 ///
 /// Builders are used to product instances of objects, while hiding the procedure used to create the object:
 /// - Isolates potentially complex procedures and deependency graphs from the rest of the

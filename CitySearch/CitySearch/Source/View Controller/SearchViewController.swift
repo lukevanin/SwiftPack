@@ -4,6 +4,7 @@ import Combine
 final class SearchViewController: UICollectionViewController {
     
     typealias MakeCellConfiguration = (_ city: City) -> UIContentConfiguration
+    typealias SelectCell = (City) -> Void
 
     private var query: String = ""
     private var cities: [City] = []
@@ -14,10 +15,16 @@ final class SearchViewController: UICollectionViewController {
     private let searchViewController: UISearchController
     private let model: CitySearchModelProtocol
     private let makeCellConfiguration: MakeCellConfiguration
+    private let selectCell: SelectCell
     
-    init(model: CitySearchModelProtocol, makeCellConfiguration: @escaping MakeCellConfiguration) {
+    init(
+        model: CitySearchModelProtocol,
+        makeCellConfiguration: @escaping MakeCellConfiguration,
+        selectCell: @escaping SelectCell
+    ) {
         self.model = model
         self.makeCellConfiguration = makeCellConfiguration
+        self.selectCell = selectCell
         self.searchViewController = UISearchController()
         let layoutItem = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
@@ -120,6 +127,10 @@ final class SearchViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         cities.count
+    }
+    
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        selectCell(cities[indexPath.item])
     }
     
     // MARK: UICollectionViewDataSource
