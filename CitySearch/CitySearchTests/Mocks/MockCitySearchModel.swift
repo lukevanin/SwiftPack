@@ -5,9 +5,9 @@ import Combine
 
 final class MockCitySearchModel: CitySearchModelProtocol {
     
-    lazy var citiesPublisher = citiesSubject.eraseToAnyPublisher()
+    lazy var citiesPublisher = citiesSubject.compactMap({ $0 }).eraseToAnyPublisher()
 
-    var citiesSubject = CurrentValueSubject<[City], Never>([])
+    var citiesSubject = CurrentValueSubject<[City]?, Never>(nil)
     
     var mockSearchByName: ((_ prefix: String) -> Void)!
     

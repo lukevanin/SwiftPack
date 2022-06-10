@@ -1,7 +1,7 @@
 import UIKit
 
 ///
-/// Constructs a view controller, and required dependencies, for providing search capabilities.
+/// Constructs a view controller, and required dependencies, for providing search capabilities using real data/
 ///
 final class SearchModuleBuilder: BuilderProtocol {
     

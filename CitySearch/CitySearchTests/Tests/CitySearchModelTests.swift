@@ -29,6 +29,8 @@ final class CitySearchModelTests: XCTestCase {
         cancellables = nil
     }
     
+    #warning("TODO: Test that search query is case-insensitive")
+    
     func testSearch_shouldReturnNothing_givenNonMatchingPrefix() {
         mockRepository.mockSearch = { query in
             XCTAssertEqual(query, "foo")
@@ -65,5 +67,4 @@ final class CitySearchModelTests: XCTestCase {
             .store(in: &cancellables)
         wait(for: [expectation], timeout: 0.1)
     }
-
 }
