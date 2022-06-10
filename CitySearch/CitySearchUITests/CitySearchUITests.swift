@@ -1,10 +1,3 @@
-//
-//  CitySearchUITests.swift
-//  CitySearchUITests
-//
-//  Created by Luke Van In on 2022/06/07.
-//
-
 import XCTest
 
 @testable import CitySearch
