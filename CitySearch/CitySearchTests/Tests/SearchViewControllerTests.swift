@@ -11,7 +11,15 @@ final class SearchViewControllerTests: XCTestCase {
     
     override func setUp() {
         mockModel = MockCitySearchModel()
-        subject = SearchViewController(model: mockModel)
+        subject = SearchViewController(
+            model: mockModel,
+            makeCellConfiguration: { cell in
+                SearchResultViewContentConfiguration(
+                    title: cell.name,
+                    subtitle: ""
+                )
+            }
+        )
         cancellables = Set()
         loadView()
     }
@@ -33,9 +41,11 @@ final class SearchViewControllerTests: XCTestCase {
         wait(for: [searchExpectation], timeout: 0.1)
     }
     
-    @MainActor func testCollectionView_shouldShowNothing_givenNoCities() {
+    // MARK: View life cycle
+    
+    @MainActor func testCollectionView_shouldShowNothing_givenNoCities() async throws {
         subject.viewWillAppear(false)
-        sleep(1)
+        try await Task.sleep(seconds: 0.1)
         XCTAssertEqual(subject.collectionView.numberOfSections, 1)
         XCTAssertEqual(subject.collectionView.numberOfItems(inSection: 0), 0)
     }
@@ -46,7 +56,7 @@ final class SearchViewControllerTests: XCTestCase {
         subject.viewWillAppear(false)
         try await Task.sleep(seconds: 0.1)
         XCTAssertEqual(subject.collectionView.numberOfSections, 1)
-        XCTAssertEqual(subject.collectionView.numberOfItems(inSection: 0), 1)
+        XCTAssertEqual(subject.collectionView.numberOfItems(inSection: 0), cities.count)
     }
 
     @MainActor func testCollectionView_shouldShowCities_givenSomeCities() async throws {
@@ -59,7 +69,7 @@ final class SearchViewControllerTests: XCTestCase {
         subject.viewWillAppear(false)
         try await Task.sleep(seconds: 0.1)
         XCTAssertEqual(subject.collectionView.numberOfSections, 1)
-        XCTAssertEqual(subject.collectionView.numberOfItems(inSection: 0), 3)
+        XCTAssertEqual(subject.collectionView.numberOfItems(inSection: 0), cities.count)
     }
 
     @MainActor func testCollectionView_shouldUpdate_whenModelPublishesChangesAfterViewWillAppear() async throws {
@@ -71,7 +81,7 @@ final class SearchViewControllerTests: XCTestCase {
         mockModel.citiesSubject.send(cities)
         try await Task.sleep(seconds: 0.1)
         XCTAssertEqual(subject.collectionView.numberOfSections, 1)
-        XCTAssertEqual(subject.collectionView.numberOfItems(inSection: 0), 1)
+        XCTAssertEqual(subject.collectionView.numberOfItems(inSection: 0), cities.count)
     }
 
     @MainActor func testCollectionView_shouldNotUpdate_whenModelPublishesChangesAfterViewWillDisappear() async throws {
@@ -84,20 +94,22 @@ final class SearchViewControllerTests: XCTestCase {
         XCTAssertEqual(subject.collectionView.numberOfSections, 1)
         XCTAssertEqual(subject.collectionView.numberOfItems(inSection: 0), 0)
     }
+    
+    // MARK: Search
 
-//    func testSearchInput_shouldShowNothing_givenNoCities() {
-//        
-//    }
-//
-//    func testSearchInput_shouldShowNothing_givenNoMatchingCities() {
-//        
-//    }
-//
-//    func testSearchInput_shouldShowCities_givenMatchingCities() {
-//        
-//    }
-//    
-//    func testClearSearch_shouldShowAllCities_givenSomeCities() {
-//        
-//    }
+    func testSearchInput_shouldShowNothing_givenNoCities() {
+        
+    }
+
+    func testSearchInput_shouldShowNothing_givenNoMatchingCities() {
+        
+    }
+
+    func testSearchInput_shouldShowCities_givenMatchingCities() {
+        
+    }
+    
+    func testClearSearch_shouldShowAllCities_givenSomeCities() {
+        
+    }
 }

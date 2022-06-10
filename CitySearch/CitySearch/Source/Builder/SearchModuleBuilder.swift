@@ -9,7 +9,15 @@ final class SearchModuleBuilder: BuilderProtocol {
         let searchIndex = TrieTextIndex()
         let searchRepository = IndexedCitiesRepository(cities: [], nameIndex: searchIndex)
         let searchModel = CitySearchModel(citiesRepository: searchRepository)
-        let viewController = SearchViewController(model: searchModel)
+        let viewController = SearchViewController(
+            model: searchModel,
+            makeCellConfiguration: { cell in
+                SearchResultViewContentConfiguration(
+                    title: cell.name,
+                    subtitle: ""
+                )
+            }
+        )
         return viewController
     }
 }

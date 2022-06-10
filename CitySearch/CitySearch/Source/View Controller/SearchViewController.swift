@@ -2,17 +2,21 @@ import UIKit
 import Combine
 
 final class SearchViewController: UICollectionViewController {
+    
+    typealias MakeCellConfiguration = (_ city: City) -> UIContentConfiguration
 
     private var query: String = ""
     private var cities: [City] = []
 
     private var citiesCancellable: AnyCancellable?
-    private var cellRegistration: UICollectionView.CellRegistration<UICollectionViewCell, City>!
+    private var cellRegistration: UICollectionView.CellRegistration<UICollectionViewCell, UIContentConfiguration>!
     
     private let model: CitySearchModelProtocol
+    private let makeCellConfiguration: MakeCellConfiguration
     
-    init(model: CitySearchModelProtocol) {
+    init(model: CitySearchModelProtocol, makeCellConfiguration: @escaping MakeCellConfiguration) {
         self.model = model
+        self.makeCellConfiguration = makeCellConfiguration
         let layoutItem = NSCollectionLayoutItem(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
@@ -22,7 +26,7 @@ final class SearchViewController: UICollectionViewController {
         let layoutGroup = NSCollectionLayoutGroup.vertical(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .absolute(300)
+                heightDimension: .absolute(100)
             ),
             subitems: [layoutItem]
         )
@@ -44,11 +48,7 @@ final class SearchViewController: UICollectionViewController {
         // Do any additional setup after loading the view.
         view.backgroundColor = .systemGreen
         
-        cellRegistration = UICollectionView.CellRegistration { cell, indexPath, city in
-            let configuration = SearchResultViewContentConfiguration(
-                title: "",
-                subtitle: ""
-            )
+        cellRegistration = UICollectionView.CellRegistration { cell, indexPath, configuration in
             cell.contentConfiguration = configuration
         }
         
@@ -121,7 +121,7 @@ final class SearchViewController: UICollectionViewController {
         collectionView.dequeueConfiguredReusableCell(
             using: cellRegistration,
             for: indexPath,
-            item: cities[indexPath.item]
+            item: makeCellConfiguration(cities[indexPath.item])
         )
     }
 }

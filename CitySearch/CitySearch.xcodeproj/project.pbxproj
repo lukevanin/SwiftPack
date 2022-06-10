@@ -26,6 +26,7 @@
 		FC5CC49F28524AA800D02FD1 /* SearchResultCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC49E28524AA800D02FD1 /* SearchResultCollectionViewCell.swift */; };
 		FC5CC4A128531B2A00D02FD1 /* TestSearchModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4A028531B2A00D02FD1 /* TestSearchModuleBuilder.swift */; };
 		FC5CC4A3285324F000D02FD1 /* CombineExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4A2285324F000D02FD1 /* CombineExtensions.swift */; };
+		FC5CC4A52853282D00D02FD1 /* ApplicationModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4A42853282D00D02FD1 /* ApplicationModuleBuilder.swift */; };
 		FC660C4D284F88470074A213 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4C284F88470074A213 /* AppDelegate.swift */; };
 		FC660C4F284F88470074A213 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4E284F88470074A213 /* SceneDelegate.swift */; };
 		FC660C51284F88470074A213 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C50284F88470074A213 /* SearchViewController.swift */; };
@@ -77,6 +78,7 @@
 		FC5CC49E28524AA800D02FD1 /* SearchResultCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCollectionViewCell.swift; sourceTree = "<group>"; };
 		FC5CC4A028531B2A00D02FD1 /* TestSearchModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSearchModuleBuilder.swift; sourceTree = "<group>"; };
 		FC5CC4A2285324F000D02FD1 /* CombineExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineExtensions.swift; sourceTree = "<group>"; };
+		FC5CC4A42853282D00D02FD1 /* ApplicationModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationModuleBuilder.swift; sourceTree = "<group>"; };
 		FC660C49284F88470074A213 /* CitySearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitySearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC660C4C284F88470074A213 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC660C4E284F88470074A213 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 			isa = PBXGroup;
 			children = (
 				FC5CC49328523ED700D02FD1 /* Builders.swift */,
+				FC5CC4A42853282D00D02FD1 /* ApplicationModuleBuilder.swift */,
 				FC5CC49128523C8C00D02FD1 /* SearchModuleBuilder.swift */,
 				FC5CC4A028531B2A00D02FD1 /* TestSearchModuleBuilder.swift */,
 			);
@@ -442,6 +445,7 @@
 				FC5CC4802852004C00D02FD1 /* Repositories.swift in Sources */,
 				FC5CC49F28524AA800D02FD1 /* SearchResultCollectionViewCell.swift in Sources */,
 				FC660C8C284FD6B00074A213 /* TextIndex.swift in Sources */,
+				FC5CC4A52853282D00D02FD1 /* ApplicationModuleBuilder.swift in Sources */,
 				FC38873C28507DFA00F5922A /* LinearIndex.swift in Sources */,
 				FC5CC48F28523A2000D02FD1 /* Models.swift in Sources */,
 				FC5CC49428523ED700D02FD1 /* Builders.swift in Sources */,

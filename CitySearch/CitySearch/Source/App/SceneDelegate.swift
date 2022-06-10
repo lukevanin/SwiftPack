@@ -9,11 +9,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else {
             return
         }
-//        let builder = TestSearchModuleBuilder()
-//        let initialViewController = builder.build()
-        let initialViewController = UIViewController()
+        let builder = ApplicationModuleBuilder()
+        let viewController = try builder.build()
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = initialViewController
+        window?.rootViewController = viewController
         window?.makeKeyAndVisible()
     }
 

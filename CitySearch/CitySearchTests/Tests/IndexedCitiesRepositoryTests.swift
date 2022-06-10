@@ -14,6 +14,10 @@ final class IndexedCitiesRepositoryTests: XCTestCase {
         nameIndex = nil
     }
     
+    #warning("TODO: Test unicode characters")
+
+    #warning("TODO: Test invalid characters?")
+
     func testSearch_shouldReturnNothing_givenEmptyPrefixAndNoCities() async {
         nameIndex.mockSearch = { query in
             XCTAssertEqual(query, "")
