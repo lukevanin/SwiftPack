@@ -49,6 +49,8 @@
 		FC5CC4D92854BEDC00D02FD1 /* TrieTextIndexPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4D82854BEDC00D02FD1 /* TrieTextIndexPerformanceTests.swift */; };
 		FC5CC4DB2854BF1F00D02FD1 /* LinearTextIndexPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4DA2854BF1F00D02FD1 /* LinearTextIndexPerformanceTests.swift */; };
 		FC5CC4DE2854C06F00D02FD1 /* IndexedCitiesRepositoryPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4DD2854C06F00D02FD1 /* IndexedCitiesRepositoryPerformanceTests.swift */; };
+		FC5CC4E02854CD5300D02FD1 /* SequentialIndexedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4DF2854CD5300D02FD1 /* SequentialIndexedCollection.swift */; };
+		FC5CC4E22854D05A00D02FD1 /* SequentialIndexedCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4E12854D05A00D02FD1 /* SequentialIndexedCollectionTests.swift */; };
 		FC660C4D284F88470074A213 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4C284F88470074A213 /* AppDelegate.swift */; };
 		FC660C4F284F88470074A213 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4E284F88470074A213 /* SceneDelegate.swift */; };
 		FC660C51284F88470074A213 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C50284F88470074A213 /* SearchViewController.swift */; };
@@ -124,6 +126,8 @@
 		FC5CC4D82854BEDC00D02FD1 /* TrieTextIndexPerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrieTextIndexPerformanceTests.swift; sourceTree = "<group>"; };
 		FC5CC4DA2854BF1F00D02FD1 /* LinearTextIndexPerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearTextIndexPerformanceTests.swift; sourceTree = "<group>"; };
 		FC5CC4DD2854C06F00D02FD1 /* IndexedCitiesRepositoryPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexedCitiesRepositoryPerformanceTests.swift; sourceTree = "<group>"; };
+		FC5CC4DF2854CD5300D02FD1 /* SequentialIndexedCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequentialIndexedCollection.swift; sourceTree = "<group>"; };
+		FC5CC4E12854D05A00D02FD1 /* SequentialIndexedCollectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequentialIndexedCollectionTests.swift; sourceTree = "<group>"; };
 		FC660C49284F88470074A213 /* CitySearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitySearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC660C4C284F88470074A213 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC660C4E284F88470074A213 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -184,6 +188,7 @@
 				FC38873B28507DFA00F5922A /* LinearIndex.swift */,
 				FC38873D28507E1400F5922A /* TrieTextIndex.swift */,
 				FC5CC4D22854B20C00D02FD1 /* CaseInsensitiveTextIndex.swift */,
+				FC5CC4DF2854CD5300D02FD1 /* SequentialIndexedCollection.swift */,
 			);
 			path = Index;
 			sourceTree = "<group>";
@@ -212,6 +217,7 @@
 				FC5CC4CA28548E6800D02FD1 /* JSONCitiesRepositoryBuilderTests.swift */,
 				FC5CC4D02854B0C000D02FD1 /* CaseInsensitiveTextIndexTests.swift */,
 				FC5CC4D62854BEAA00D02FD1 /* LinearTextIndexTests.swift */,
+				FC5CC4E12854D05A00D02FD1 /* SequentialIndexedCollectionTests.swift */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -531,6 +537,7 @@
 				FC5CC4CF2854A5B700D02FD1 /* PlaceholderView.swift in Sources */,
 				FC5CC482285205AD00D02FD1 /* CitySearchModel.swift in Sources */,
 				FC660C4F284F88470074A213 /* SceneDelegate.swift in Sources */,
+				FC5CC4E02854CD5300D02FD1 /* SequentialIndexedCollection.swift in Sources */,
 				FC5CC47E2851DCCA00D02FD1 /* IndexedCitiesRepository.swift in Sources */,
 				FC5CC4B228537CDC00D02FD1 /* MapViewController.swift in Sources */,
 				FC5CC4A928534AD500D02FD1 /* TestCitiesRepositoryBuilder.swift in Sources */,
@@ -561,6 +568,7 @@
 				FC5CC4D92854BEDC00D02FD1 /* TrieTextIndexPerformanceTests.swift in Sources */,
 				FC5CC48D285235EB00D02FD1 /* SearchViewControllerTests.swift in Sources */,
 				FC5CC4D72854BEAA00D02FD1 /* LinearTextIndexTests.swift in Sources */,
+				FC5CC4E22854D05A00D02FD1 /* SequentialIndexedCollectionTests.swift in Sources */,
 				FC5CC4D52854BE1100D02FD1 /* TextIndexTestCase.swift in Sources */,
 				FC5CC4A3285324F000D02FD1 /* CombineExtensions.swift in Sources */,
 				FC660C82284F99520074A213 /* FilePerformanceTests.swift in Sources */,

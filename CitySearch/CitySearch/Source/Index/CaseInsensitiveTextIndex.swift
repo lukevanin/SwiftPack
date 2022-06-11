@@ -25,7 +25,7 @@ struct CaseInsensitiveTextIndex: TextIndex {
     /// - Parameter prefix: The case insensitive prefix of the values to search for.
     /// - Returns: Values whose key starts with the given prefix.
     ///
-    func search<S>(prefix: S) -> AnyIterator<Int> where S : StringProtocol {
+    func search<S>(prefix: S) -> TextIndexSearchResult where S : StringProtocol {
         index.search(prefix: transform(prefix))
     }
     

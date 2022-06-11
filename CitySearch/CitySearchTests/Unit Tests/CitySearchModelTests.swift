@@ -32,61 +32,57 @@ final class CitySearchModelTests: XCTestCase {
     
     #warning("TODO: Test that search query is case-insensitive")
     
-    func testSearch_shouldReturnNothing_givenEmptyPrefix() {
+    func testSearch_shouldReturnNil_givenEmptyPrefix() async throws {
         let searchNotExpected = expectation(description: "search")
         searchNotExpected.isInverted = true
         mockRepository.mockSearch = { query in
             XCTAssertEqual(query, "")
             searchNotExpected.fulfill()
-            return AnySequence([])
+            return AnyCollection([])
         }
         
         subject.searchByName(prefix: "")
         
-        let resultExpected = expectation(description: "result")
-        subject.citiesPublisher
-            .sink { cities in
-                XCTAssertEqual(cities, [])
-                resultExpected.fulfill()
-            }
-            .store(in: &cancellables)
-        wait(for: [searchNotExpected, resultExpected], timeout: 0.1)
+        wait(for: [searchNotExpected], timeout: 0.1)
+        try await Task.sleep(seconds: 0.1)
+        await verifyCities(nil)
     }
 
-    func testSearch_shouldReturnNothing_givenNonMatchingPrefix() {
+    func testSearch_shouldReturnEmpty_givenNonMatchingPrefix() async throws {
         mockRepository.mockSearch = { query in
             XCTAssertEqual(query, "foo")
-            return AnySequence([])
+            return AnyCollection([])
         }
         
         subject.searchByName(prefix: "foo")
-        
-        let expectation = expectation(description: "result")
-        subject.citiesPublisher
-            .sink { cities in
-                XCTAssertEqual(cities, [])
-                expectation.fulfill()
-            }
-            .store(in: &cancellables)
-        wait(for: [expectation], timeout: 0.1)
-    }
+        try await Task.sleep(seconds: 0.1)
+        await verifyCities([])
+   }
 
-    func testSearch_shouldReturnCities_givenMatchingPrefix() {
+    func testSearch_shouldReturnCities_givenMatchingPrefix() async throws {
         let city = City.wellingtonZA()
         mockRepository.mockSearch = { query in
             XCTAssertEqual(query, "foo")
-            return AnySequence([city])
+            return AnyCollection([city])
         }
-        
         subject.searchByName(prefix: "foo")
-        
-        let expectation = expectation(description: "result")
-        subject.citiesPublisher
-            .sink { cities in
-                XCTAssertEqual(cities, [city])
-                expectation.fulfill()
+        try await Task.sleep(seconds: 0.1)
+        await verifyCities([city])
+    }
+    
+    // MARK: Helpers
+    
+    private func verifyCities(_ cities: [City]?, file: StaticString = #file, line: UInt = #line) async {
+        var values = subject
+            .citiesPublisher
+            .map { collection in
+                collection.flatMap { collection in
+                    Array(collection)
+                }
             }
-            .store(in: &cancellables)
-        wait(for: [expectation], timeout: 0.1)
+            .values
+            .makeAsyncIterator()
+        let results = await values.next()
+        XCTAssertEqual(results, cities, file: file, line: line)
     }
 }

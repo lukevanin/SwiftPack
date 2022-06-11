@@ -30,34 +30,34 @@ final class TrieTextIndexAcceptanceTests: TextIndexTestCase {
     func test_trieIndex_search_shouldReturnEmptySet_givenNoValues_noPrefix() {
         let subject = TrieTextIndex()
         let result = subject.search(prefix: "")
-        XCTAssertEqual(Array(result), [])
+        XCTAssertEqual(Array(result.iterator), [])
     }
 
     func test_trieIndex_search_shouldReturnEmptySet_givenNoValues_somePrefix() {
         let subject = TrieTextIndex()
         let result = subject.search(prefix: "foo")
-        XCTAssertEqual(Array(result), [])
+        XCTAssertEqual(Array(result.iterator), [])
     }
 
     func test_trieIndex_search_shouldReturnValue_givenOneValueForKey_exactPrefix() {
         var subject = TrieTextIndex()
         subject.insert(key: "foo", value: 7)
         let result = subject.search(prefix: "foo")
-        XCTAssertEqual(Array(result), [7])
+        XCTAssertEqual(Array(result.iterator), [7])
     }
     
     func test_trieIndex_search_shouldReturnValue_givenOneValueForKey_norefix() {
         var subject = TrieTextIndex()
         subject.insert(key: "foo", value: 7)
         let result = subject.search(prefix: "")
-        XCTAssertEqual(Array(result), [7])
+        XCTAssertEqual(Array(result.iterator), [7])
     }
 
     func test_trieIndex_search_shouldReturnEmptySet_givenOneValueForKey_mismatchPrefix() {
         var subject = TrieTextIndex()
         subject.insert(key: "foo", value: 7)
         let result = subject.search(prefix: "bar")
-        XCTAssertEqual(Array(result), [])
+        XCTAssertEqual(Array(result.iterator), [])
     }
 
     func test_trieIndex_search_shouldReturnValues_givenMultipleOrderedValuesForKey_exactPrefix() {
@@ -65,7 +65,7 @@ final class TrieTextIndexAcceptanceTests: TextIndexTestCase {
         subject.insert(key: "foo", value: 7)
         subject.insert(key: "foo", value: 13)
         let result = subject.search(prefix: "foo")
-        XCTAssertEqual(Array(result), [7, 13])
+        XCTAssertEqual(Array(result.iterator), [7, 13])
     }
 
     func test_trieIndex_search_shouldReturnValues_givenMultipleOrderedValuesForKey_noPrefix() {
@@ -73,7 +73,7 @@ final class TrieTextIndexAcceptanceTests: TextIndexTestCase {
         subject.insert(key: "foo", value: 7)
         subject.insert(key: "foo", value: 13)
         let result = subject.search(prefix: "")
-        XCTAssertEqual(Array(result), [7, 13])
+        XCTAssertEqual(Array(result.iterator), [7, 13])
     }
 
     func test_trieIndex_search_shouldReturnValues_givenDuplicateValuesForKey_exactPrefix() {
@@ -82,7 +82,7 @@ final class TrieTextIndexAcceptanceTests: TextIndexTestCase {
         subject.insert(key: "foo", value: 13)
         subject.insert(key: "foo", value: 7)
         let result = subject.search(prefix: "foo")
-        XCTAssertEqual(Array(result), [7, 13])
+        XCTAssertEqual(Array(result.iterator), [7, 13])
     }
 
     func test_trieIndex_search_shouldReturnValues_givenMultipleDeepOrderedValuesForKey_noPrefix() {
@@ -92,7 +92,7 @@ final class TrieTextIndexAcceptanceTests: TextIndexTestCase {
         subject.insert(key: "foo", value: 7)
         subject.insert(key: "foo", value: 13)
         let result = subject.search(prefix: "")
-        XCTAssertEqual(Array(result), [1, 3, 7, 13])
+        XCTAssertEqual(Array(result.iterator), [1, 3, 7, 13])
     }
 
     func test_trieIndex_search_shouldReturnValuesInCorrectOrder_givenMultipleUnorderedValuesForKey_exactPrefix() {
@@ -100,7 +100,7 @@ final class TrieTextIndexAcceptanceTests: TextIndexTestCase {
         subject.insert(key: "foo", value: 13)
         subject.insert(key: "foo", value: 7)
         let result = subject.search(prefix: "foo")
-        XCTAssertEqual(Array(result), [7, 13])
+        XCTAssertEqual(Array(result.iterator), [7, 13])
     }
     
     func test_trieIndex_search_shouldReturnValues_givenMultipleKeys_exactPrefix() {
@@ -108,7 +108,7 @@ final class TrieTextIndexAcceptanceTests: TextIndexTestCase {
         subject.insert(key: "foo", value: 7)
         subject.insert(key: "bar", value: 13)
         let result = subject.search(prefix: "foo")
-        XCTAssertEqual(Array(result), [7])
+        XCTAssertEqual(Array(result.iterator), [7])
     }
 
     func test_trieIndex_search_shouldReturnDescendantValues_givenOrderedDeepKeys_partialPrefix() {
@@ -116,7 +116,7 @@ final class TrieTextIndexAcceptanceTests: TextIndexTestCase {
         subject.insert(key: "fo", value: 7)
         subject.insert(key: "foo", value: 13)
         let result = subject.search(prefix: "fo")
-        XCTAssertEqual(Array(result), [7, 13])
+        XCTAssertEqual(Array(result.iterator), [7, 13])
     }
 
     func test_trieIndex_search_shouldReturnDescendantValues_givenUnorderedDeepKeys_partialPrefix() {
@@ -124,7 +124,7 @@ final class TrieTextIndexAcceptanceTests: TextIndexTestCase {
         subject.insert(key: "foo", value: 13)
         subject.insert(key: "fo", value: 7)
         let result = subject.search(prefix: "fo")
-        XCTAssertEqual(Array(result), [7, 13])
+        XCTAssertEqual(Array(result.iterator), [7, 13])
     }
 
     func test_trieIndex_search_shouldReturnDescendantValues_givenMultipleDeepKeys_partialPrefix() {
@@ -134,7 +134,7 @@ final class TrieTextIndexAcceptanceTests: TextIndexTestCase {
         subject.insert(key: "fo", value: 7)
         subject.insert(key: "foo", value: 13)
         let result = subject.search(prefix: "fo")
-        XCTAssertEqual(Array(result), [7, 13])
+        XCTAssertEqual(Array(result.iterator), [7, 13])
     }
 
     func test_trieIndex_search_shouldReturnDescendantValues_givenMultipleDeepOrderedKeys_noPrefix() {
@@ -144,7 +144,7 @@ final class TrieTextIndexAcceptanceTests: TextIndexTestCase {
         subject.insert(key: "fo", value: 5)
         subject.insert(key: "foo", value: 7)
         let result = subject.search(prefix: "")
-        XCTAssertEqual(Array(result), [1, 3, 5, 7])
+        XCTAssertEqual(Array(result.iterator), [1, 3, 5, 7])
     }
 
     func test_trieIndex_search_shouldReturnDescendantValues_givenMultipleUnorderedKeys_noPrefix() {
@@ -154,7 +154,7 @@ final class TrieTextIndexAcceptanceTests: TextIndexTestCase {
         subject.insert(key: "bar", value: 3)
         subject.insert(key: "ba", value: 1)
         let result = subject.search(prefix: "")
-        XCTAssertEqual(Array(result), [1, 3, 5, 7])
+        XCTAssertEqual(Array(result.iterator), [1, 3, 5, 7])
     }
 
     func test_trieIndex_search_shouldReturnDescendantValues_givenMultipleDeepDuplicateOrderedKeys_noPrefix() {
@@ -172,7 +172,7 @@ final class TrieTextIndexAcceptanceTests: TextIndexTestCase {
         subject.insert(key: "foo", value: 11)
         subject.insert(key: "foobar", value: 13)
         let result = subject.search(prefix: "")
-        XCTAssertEqual(Array(result), [1, 3, 5, 7, 11, 13])
+        XCTAssertEqual(Array(result.iterator), [1, 3, 5, 7, 11, 13])
     }
 
     func test_trieTextIndex_minimal() {

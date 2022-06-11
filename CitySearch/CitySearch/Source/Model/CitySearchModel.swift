@@ -23,7 +23,7 @@ final class CitySearchModel: CitySearchModelProtocol {
     lazy var citiesPublisher = citiesSubject.eraseToAnyPublisher()
     
     /// Internal subject used to publish results from search queries.
-    private let citiesSubject = CurrentValueSubject<[City]?, Never>(nil)
+    private let citiesSubject = CurrentValueSubject<AnyCollection<City>?, Never>(nil)
     
     /// Repository providing cities in a synchronous manner
     private let citiesRepository: CitiesRepositoryProtocol
@@ -40,15 +40,14 @@ final class CitySearchModel: CitySearchModelProtocol {
     ///
     func searchByName(prefix: String) {
         Task { [weak self, citiesRepository] in
-            let cities: [City]?
+            let cities: AnyCollection<City>?
             if prefix.isEmpty == true {
                 // Publish nil when prefix is empty.
                 cities = nil
             }
             else {
                 // Search for cities.
-                let result = await citiesRepository.searchByName(prefix: prefix)
-                cities = Array(result)
+                cities = await citiesRepository.searchByName(prefix: prefix)
             }
             self?.publishCities(cities)
         }
@@ -57,7 +56,7 @@ final class CitySearchModel: CitySearchModelProtocol {
     ///
     /// Updates the published cities with the results from a search.
     ///
-    private func publishCities(_ cities: [City]?) {
+    private func publishCities(_ cities: AnyCollection<City>?) {
         citiesSubject.send(cities)
     }
 }

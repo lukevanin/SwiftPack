@@ -1,5 +1,17 @@
 import Foundation
 
+
+///
+/// A result from a `TextIndex` search.
+///
+/// Contains the number of items returned from the result, and an iterator for accessing the result values.
+///
+struct TextIndexSearchResult {
+    let count: Int
+    var iterator: AnyIterator<Int>
+}
+
+
 ///
 /// A collection where keys are strings and values are integers.
 ///
@@ -30,6 +42,6 @@ protocol TextIndex {
     /// - Returns: A collecion of values whose keys start with the given prefix. Values are returned
     /// sorted relative to the alphabetical order of their keys.
     ///
-    func search<S>(prefix: S) -> AnyIterator<Int> where S: StringProtocol
+    func search<S>(prefix: S) -> TextIndexSearchResult where S: StringProtocol
 }
 

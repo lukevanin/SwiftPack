@@ -4,9 +4,9 @@ import Foundation
 
 final class MockCitiesRepository: CitiesRepositoryProtocol {
     
-    var mockSearch: ((_ prefix: String) -> AnySequence<City>)!
+    var mockSearch: ((_ prefix: String) -> AnyCollection<City>)!
     
-    func searchByName(prefix: String) async -> AnySequence<City> {
+    func searchByName(prefix: String) async -> AnyCollection<City> {
         mockSearch(prefix)
     }
 }

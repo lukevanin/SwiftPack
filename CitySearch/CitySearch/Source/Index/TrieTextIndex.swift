@@ -50,6 +50,9 @@ struct TrieTextIndex: TextIndex {
     ///
     private struct Node {
         
+        /// Number of values contained within the node and all of its descendants.
+        private(set) var count = 0
+        
         /// Values assigned to the node. V
         private(set) var values = [Int]()
         
@@ -66,18 +69,22 @@ struct TrieTextIndex: TextIndex {
         ///
         /// - Parameter key: Unique key used to locate the value.
         /// - Parameter value: Value to store for the key.
-        /// - Returns: Previous value for the key if one is present.
+        /// - Returns: Previous `true` if a value was inserted, or false otherwise.
         ///
-        mutating func insert<S>(key: S, value: Int) where S: StringProtocol {
+        mutating func insert<S>(key: S, value: Int) -> Bool where S: StringProtocol {
             // Examine the first character in the given key.
             guard let character = key.first else {
                 // Key is empty. Insert the given value at the current node.
-                #warning("TODO: Use a binary insertion sort when inserting a new value")
                 if values.contains(value) == false {
+                    count += 1
+                    #warning("TODO: Use a binary insertion sort when inserting a new value")
                     values.append(value)
                     values.sort()
+                    return true
                 }
-                return
+                else {
+                    return false
+                }
             }
             // Get the child node corresponding to the character.
             if childNodes[character] == nil {
@@ -91,7 +98,12 @@ struct TrieTextIndex: TextIndex {
             // Insert the value with the remainder of the key into the
             // child node.
             let suffix = key.dropFirst()
-            childNodes[character]!.insert(key: suffix, value: value)
+            let inserted = childNodes[character]!.insert(key: suffix, value: value)
+            if inserted == true {
+                // Increment the value count if a value was inserted.
+                count += 1
+            }
+            return inserted
         }
         
         ///
@@ -211,10 +223,16 @@ struct TrieTextIndex: TextIndex {
         root.insert(key: key, value: value)
     }
     
-    func search<S>(prefix: S) -> AnyIterator<Int> where S : StringProtocol {
+    func search<S>(prefix: S) -> TextIndexSearchResult where S : StringProtocol {
         guard let node = root.search(query: prefix) else {
-            return AnyIterator { return nil }
+            return TextIndexSearchResult(
+                count: 0,
+                iterator: AnyIterator { return nil }
+            )
         }
-        return AnyIterator(NodesIterator(node: node))
+        return TextIndexSearchResult(
+            count: node.count,
+            iterator: AnyIterator(NodesIterator(node: node))
+        )
     }
 }

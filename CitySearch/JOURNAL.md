@@ -298,3 +298,16 @@ through the entire list of results when the list is large, and so we avoid doing
 work that is never needed.
 
 ---
+
+Implemented `SequentialIndexedCollection`, which provides efficient access to 
+search results. Performance tests indicate the following:
+
+- Locating the search result: 0.5ms
+- Counting search results using `SequentialIndexedCollection`: 5ms
+- Counting search results using `Array`: 500ms
+
+Counting the results using the `SequentialIndexedCollection` is an order of 
+magnitude slower than simply returning the node, but still two orders of 
+magnitude faster than converting the results to an array.
+
+---

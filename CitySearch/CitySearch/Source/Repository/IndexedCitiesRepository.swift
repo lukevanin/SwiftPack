@@ -20,18 +20,16 @@ struct IndexedCitiesRepository: CitiesRepositoryProtocol {
     /// - Parameter prefix: Start of the name of the cities to search for.
     /// - Returns: Sequence containing cities.
     ///
-    func searchByName(prefix: String) async -> AnySequence<City> {
+    func searchByName(prefix: String) async -> AnyCollection<City> {
         await withCheckedContinuation { continuation in
             // Look up the cities matching the given prefix.
-            let indices = AnySequence(nameIndex.search(prefix: prefix))
-            // Create an iterator that returns the cities for the indices from
-            // our search results. We lazily map the sequence so that we can
-            // defer iterating the underlying tree until we actually need to.
-            let matchingCities = indices.lazy.map { index in
-                cities[index]
-            }
-            let output = AnySequence(matchingCities)
-            continuation.resume(returning: output)
+            let result = nameIndex.search(prefix: prefix)
+            let collection = SequentialIndexedCollection(
+                count: result.count,
+                indices: result.iterator,
+                elements: cities
+            )
+            continuation.resume(returning: AnyCollection(collection))
         }
     }
 }

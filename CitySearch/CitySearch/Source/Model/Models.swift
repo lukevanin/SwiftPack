@@ -20,7 +20,7 @@ protocol CitySearchModelProtocol {
     /// type that offers persistent behaviour. We use a type-erased `AnyPublisher` here instead of
     /// exposing the underlying subject, so that users of our class cannot accidentally modify
     /// search results.
-    var citiesPublisher: AnyPublisher<[City]?, Never> { get }
+    var citiesPublisher: AnyPublisher<AnyCollection<City>?, Never> { get }
     
     ///
     /// Searches for cities whose name matches a given prefix. Search results are published to the

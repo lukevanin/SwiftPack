@@ -2,7 +2,7 @@ import XCTest
 
 @testable import CitySearch
 
-final class BaselineTests: XCTestCase {
+final class FilePerformanceTests: XCTestCase {
 
     ///    ```
     ///    {

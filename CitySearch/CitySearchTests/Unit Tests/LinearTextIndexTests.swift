@@ -25,7 +25,7 @@ import XCTest
 /// specific key against a known value.
 ///
 
-final class TextIndexAcceptanceTests: TextIndexTestCase {
+final class LinearTextIndexAcceptanceTests: TextIndexTestCase {
 
     // MARK: Linear Index
 

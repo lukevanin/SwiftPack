@@ -12,7 +12,7 @@ final class CaseInsensitiveTextIndexTests: XCTestCase {
             keyValues.append((key, value))
         }
         
-        func search<S>(prefix: S) -> AnyIterator<Int> where S : StringProtocol {
+        func search<S>(prefix: S) -> TextIndexSearchResult where S : StringProtocol {
             let values = keyValues
                 .filter { (key, value) in
                     key.prefix(prefix.count) == prefix
@@ -20,7 +20,10 @@ final class CaseInsensitiveTextIndexTests: XCTestCase {
                 .map { (key, value) in
                     value
                 }
-            return AnyIterator(values.makeIterator())
+            return TextIndexSearchResult(
+                count: values.count,
+                iterator: AnyIterator(values.makeIterator())
+            )
         }
     }
     
@@ -42,8 +45,8 @@ final class CaseInsensitiveTextIndexTests: XCTestCase {
         subject.insert(key: "foo", value: 7)
         let controlResult = control.search(prefix: "")
         let testResult = subject.search(prefix: "")
-        XCTAssertEqual(Array(controlResult), [7])
-        XCTAssertEqual(Array(testResult), [7])
+        XCTAssertEqual(Array(controlResult.iterator), [7])
+        XCTAssertEqual(Array(testResult.iterator), [7])
     }
 
     func testSearch_shouldReturnValue_givenLowerCaseKeyAndPrefix() {
@@ -51,8 +54,8 @@ final class CaseInsensitiveTextIndexTests: XCTestCase {
         subject.insert(key: "foo", value: 7)
         let controlResult = control.search(prefix: "foo")
         let testResult = subject.search(prefix: "foo")
-        XCTAssertEqual(Array(controlResult), [7])
-        XCTAssertEqual(Array(testResult), [7])
+        XCTAssertEqual(Array(controlResult.iterator), [7])
+        XCTAssertEqual(Array(testResult.iterator), [7])
     }
     
     func testSearch_shouldReturnValue_givenUpperCaseKeyAndPrefix() {
@@ -60,8 +63,8 @@ final class CaseInsensitiveTextIndexTests: XCTestCase {
         subject.insert(key: "FOO", value: 7)
         let controlResult = control.search(prefix: "FOO")
         let testResult = subject.search(prefix: "FOO")
-        XCTAssertEqual(Array(controlResult), [7])
-        XCTAssertEqual(Array(testResult), [7])
+        XCTAssertEqual(Array(controlResult.iterator), [7])
+        XCTAssertEqual(Array(testResult.iterator), [7])
     }
 
     func testSearch_shouldReturnValue_givenLowercaseKeyAndUppercasePrefix() {
@@ -69,8 +72,8 @@ final class CaseInsensitiveTextIndexTests: XCTestCase {
         subject.insert(key: "foo", value: 7)
         let controlResult = control.search(prefix: "FOO")
         let testResult = subject.search(prefix: "FOO")
-        XCTAssertEqual(Array(controlResult), [])
-        XCTAssertEqual(Array(testResult), [7])
+        XCTAssertEqual(Array(controlResult.iterator), [])
+        XCTAssertEqual(Array(testResult.iterator), [7])
     }
     
     func testSearch_shouldReturnValue_givenUppercaseKeyAndLowercasePrefix() {
@@ -78,7 +81,7 @@ final class CaseInsensitiveTextIndexTests: XCTestCase {
         subject.insert(key: "FOO", value: 7)
         let controlResult = control.search(prefix: "foo")
         let testResult = subject.search(prefix: "foo")
-        XCTAssertEqual(Array(controlResult), [])
-        XCTAssertEqual(Array(testResult), [7])
+        XCTAssertEqual(Array(controlResult.iterator), [])
+        XCTAssertEqual(Array(testResult.iterator), [7])
     }
 }

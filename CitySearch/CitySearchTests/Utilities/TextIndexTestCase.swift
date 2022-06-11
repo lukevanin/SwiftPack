@@ -42,7 +42,7 @@ class TextIndexTestCase: XCTestCase {
     ///
     func exerciseSearch<I>(_ subject: I, with scenarios: [SearchScenario], name: String, verify: Bool = true, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
         scenarios.forEach { scenario in
-            let results = Array(subject.search(prefix: scenario.query))
+            let results = Array(subject.search(prefix: scenario.query).iterator)
             if verify {
                 XCTAssertEqual(results, scenario.results, "\(name) > Search > Expected \(scenario.results) for prefix \(scenario.query), but got \(results)", file: file, line: line)
             }

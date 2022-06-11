@@ -15,9 +15,9 @@ class IndexedCitiesRepositoryUnitTests: XCTestCase {
 
     ///
     /// Test the performance of the`IndexedCitiesRepository` with the data set used in the
-    /// application. The result sequence is converted to an array and counted, which causes the result
-    /// array to be allocated. This emulates the behaviour of the app at runtime and gives an indication of
-    /// the latency of the app as experienced by the user.
+    /// application.
+    ///
+    /// The returned collection is counted. This emulates the performance as experienced by the user.
     ///
     func test_searchChecked() throws {
         try loadSubject()
@@ -29,7 +29,24 @@ class IndexedCitiesRepositoryUnitTests: XCTestCase {
 
     ///
     /// Test the performance of the`IndexedCitiesRepository` with the data set used in the
+    /// application.
+    ///
+    /// The result sequence is converted to an array and counted. This emulates the worst case behaviour
+    /// where the entire result set is enumerated.
+    ///
+    func test_searchCheckedArray() throws {
+        try loadSubject()
+        let options = XCTMeasureOptions()
+        measure(metrics: defaultMetrics(), options: options) {
+            searchCheckedArray()
+        }
+    }
+
+    ///
+    /// Test the performance of the`IndexedCitiesRepository` with the data set used in the
     /// application. The results are not checked.
+    ///
+    /// This test indicates the upper limit of performance expected from the repository
     ///
     func test_searchUnchecked() throws {
         try loadSubject()
@@ -49,7 +66,7 @@ class IndexedCitiesRepositoryUnitTests: XCTestCase {
         Task.detached { [subject] in
             for (query, count) in queries {
                 let result = await subject!.searchByName(prefix: query)
-                let actualCount = Array(result).count
+                let actualCount = result.count
                 XCTAssertEqual(actualCount, count, "Expected \(count) for query '\(query)', but got \(actualCount)")
             }
             group.leave()
@@ -57,6 +74,24 @@ class IndexedCitiesRepositoryUnitTests: XCTestCase {
         group.wait()
     }
     
+    ///
+    /// Performs searches on the repository and checks the results as an array.
+    ///
+    private func searchCheckedArray(file: StaticString = #file, line: UInt = #line) {
+        let queries = alphabetQueries()
+        let group = DispatchGroup()
+        group.enter()
+        Task.detached { [subject] in
+            for (query, count) in queries {
+                let result = await subject!.searchByName(prefix: query)
+                let actualCount = Array(result).count
+                XCTAssertEqual(actualCount, count, "Expected \(count) for query '\(query)', but got \(actualCount)")
+            }
+            group.leave()
+        }
+        group.wait()
+    }
+
     ///
     /// Performs searches on the repository but does not check the results..
     ///
@@ -110,7 +145,7 @@ class IndexedCitiesRepositoryUnitTests: XCTestCase {
     ///
     ///
     ///
-    private func loadSubject() {
+    private func loadSubject() throws {
         let url = Bundle.main.url(forResource: "cities", withExtension: "json")!
         let data = try Data(contentsOf: url)
         let decoder = JSONDecoder()

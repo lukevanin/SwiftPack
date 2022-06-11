@@ -11,7 +11,11 @@ struct MockTextIndex: TextIndex {
         mockInsert(key, value)
     }
     
-    func search<S>(prefix: S) -> AnyIterator<Int> where S : StringProtocol {
-        AnyIterator(mockSearch(String(prefix)).makeIterator())
+    func search<S>(prefix: S) -> TextIndexSearchResult where S : StringProtocol {
+        let result = mockSearch(String(prefix))
+        return TextIndexSearchResult(
+            count: result.count,
+            iterator: AnyIterator(result.makeIterator())
+        )
     }
 }

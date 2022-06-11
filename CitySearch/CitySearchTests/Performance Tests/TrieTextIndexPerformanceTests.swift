@@ -60,9 +60,9 @@ final class TrieTextIndexPerformanceTests: TextIndexTestCase {
             let _ = subject.search(prefix: "a0000")
             let _ = subject.search(prefix: "a000")
             let _ = subject.search(prefix: "a00")
-            XCTAssertEqual(Array(subject.search(prefix: "a000000000")), [0])
-            XCTAssertEqual(Array(subject.search(prefix: "a000555555")), [555555])
-            XCTAssertEqual(Array(subject.search(prefix: "a000999999")), [999999])
+            XCTAssertEqual(Array(subject.search(prefix: "a000000000").iterator), [0])
+            XCTAssertEqual(Array(subject.search(prefix: "a000555555").iterator), [555555])
+            XCTAssertEqual(Array(subject.search(prefix: "a000999999").iterator), [999999])
         }
     }
 }

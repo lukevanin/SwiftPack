@@ -28,7 +28,7 @@ final class SearchViewController: UICollectionViewController {
     }()
 
     private var query: String = ""
-    private var cities: [City] = []
+    private var cities: AnyCollection<City> = AnyCollection([])
 
     private var citiesCancellable: AnyCancellable?
     private var cellRegistration: UICollectionView.CellRegistration<UICollectionViewCell, UIContentConfiguration>!
@@ -153,9 +153,9 @@ final class SearchViewController: UICollectionViewController {
     ///
     /// Update the list of cities displayed.
     ///
-    private func updateCities(_ cities: [City]?) {
+    private func updateCities(_ cities: AnyCollection<City>?) {
         #warning("TODO: use animated diffable data source update - size permitting")
-        self.cities = cities ?? []
+        self.cities = cities ?? AnyCollection([])
         if let cities = cities {
             if cities.count > 0 {
                 // Cities are visible. Hide the placeholders.
@@ -182,6 +182,9 @@ final class SearchViewController: UICollectionViewController {
         collectionView.reloadData()
     }
     
+    ///
+    /// Sets visibility of view elements.
+    ///
     private func setVisible(queryPlaceholder: Bool, resultsPlaceholder: Bool) {
         queryPlaceholderView.isHidden = !queryPlaceholder
         resultsPlaceholderView.isHidden = !resultsPlaceholder
@@ -194,6 +197,14 @@ final class SearchViewController: UICollectionViewController {
         model.searchByName(prefix: query)
     }
     
+    ///
+    /// Returns the city for the given index path
+    ///
+    func getCity(at indexPath: IndexPath) -> City {
+        cities[cities.index(cities.startIndex, offsetBy: indexPath.item)]
+    }
+    
+    
     // MARK: : UICollectionViewDelegate
     
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -205,7 +216,7 @@ final class SearchViewController: UICollectionViewController {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        delegate?.selectItem(item: cities[indexPath.item])
+        delegate?.selectItem(item: getCity(at: indexPath))
     }
     
     // MARK: UICollectionViewDataSource
@@ -214,7 +225,7 @@ final class SearchViewController: UICollectionViewController {
         collectionView.dequeueConfiguredReusableCell(
             using: cellRegistration,
             for: indexPath,
-            item: makeCellConfiguration(cities[indexPath.item])
+            item: makeCellConfiguration(getCity(at: indexPath))
         )
     }
 }
