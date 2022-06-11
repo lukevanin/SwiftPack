@@ -41,6 +41,7 @@
 		FC5CC4C92853FA5F00D02FD1 /* Environment.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4C82853FA5E00D02FD1 /* Environment.swift */; };
 		FC5CC4CB28548E6800D02FD1 /* JSONCitiesRepositoryBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4CA28548E6800D02FD1 /* JSONCitiesRepositoryBuilderTests.swift */; };
 		FC5CC4CD2854908100D02FD1 /* JSONCitiesRepositoryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4CC2854908100D02FD1 /* JSONCitiesRepositoryBuilder.swift */; };
+		FC5CC4CF2854A5B700D02FD1 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4CE2854A5B700D02FD1 /* PlaceholderView.swift */; };
 		FC660C4D284F88470074A213 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4C284F88470074A213 /* AppDelegate.swift */; };
 		FC660C4F284F88470074A213 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4E284F88470074A213 /* SceneDelegate.swift */; };
 		FC660C51284F88470074A213 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C50284F88470074A213 /* SearchViewController.swift */; };
@@ -108,6 +109,7 @@
 		FC5CC4C82853FA5E00D02FD1 /* Environment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Environment.swift; sourceTree = "<group>"; };
 		FC5CC4CA28548E6800D02FD1 /* JSONCitiesRepositoryBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONCitiesRepositoryBuilderTests.swift; sourceTree = "<group>"; };
 		FC5CC4CC2854908100D02FD1 /* JSONCitiesRepositoryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONCitiesRepositoryBuilder.swift; sourceTree = "<group>"; };
+		FC5CC4CE2854A5B700D02FD1 /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
 		FC660C49284F88470074A213 /* CitySearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitySearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC660C4C284F88470074A213 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC660C4E284F88470074A213 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 			isa = PBXGroup;
 			children = (
 				FC5CC49E28524AA800D02FD1 /* SearchResultView.swift */,
+				FC5CC4CE2854A5B700D02FD1 /* PlaceholderView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -495,6 +498,7 @@
 				FC660C4D284F88470074A213 /* AppDelegate.swift in Sources */,
 				FC5CC4BF28538C2500D02FD1 /* SearchCoordinator.swift in Sources */,
 				FC38873E28507E1400F5922A /* TrieTextIndex.swift in Sources */,
+				FC5CC4CF2854A5B700D02FD1 /* PlaceholderView.swift in Sources */,
 				FC5CC482285205AD00D02FD1 /* CitySearchModel.swift in Sources */,
 				FC660C4F284F88470074A213 /* SceneDelegate.swift in Sources */,
 				FC5CC47E2851DCCA00D02FD1 /* IndexedCitiesRepository.swift in Sources */,

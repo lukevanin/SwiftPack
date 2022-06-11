@@ -27,9 +27,11 @@ final class CitySearchUITests: XCTestCase {
     
     // MARK: Search
     
-    @MainActor func testSearch_shouldShowAllCities_givenNoSearchInput() async throws {
+    @MainActor func testSearch_shouldShowPlaceholder_givenNoSearchInput() async throws {
         launchApp()
-        verifySearchResults(cells: allCities)
+        addScreenshot(name: "Search Screen")
+        verifySearchResults(cells: [])
+        verifyPlaceholder(visible: true)
     }
     
     @MainActor func testSearch_shouldShowNoCities_givenQueryMatchingNoCities() async throws {
@@ -37,43 +39,51 @@ final class CitySearchUITests: XCTestCase {
         enterSearch(text: "z")
         addScreenshot(name: "Search Screen")
         verifySearchResults(cells: [])
+        verifyPlaceholder(visible: true)
     }
 
     @MainActor func testSearch_shouldShowOneCity_givenQueryMatchingOneCity() async throws {
         launchApp()
-        enterSearch(text: "p")
+        enterSearch(text: "P")
         addScreenshot(name: "Search Screen")
         verifySearchResults(cells: ["Paris, FR"])
+        verifyPlaceholder(visible: false)
     }
 
-    @MainActor func testSearch_shouldShowCities_givenQueryMatchingSomeCities() async throws {
+    @MainActor func testSearch_shouldShowMatchingCities_givenQueryMatchingSomeCities() async throws {
         launchApp()
-        enterSearch(text: "b")
+        enterSearch(text: "B")
         addScreenshot(name: "Search Screen")
         verifySearchResults(cells: ["Bangkok, TH", "Berlin, DE"])
+        verifyPlaceholder(visible: false)
     }
 
-    @MainActor func testSearch_shouldShowAllCities_givenSearchCancelled() async throws {
+    @MainActor func testSearch_shouldShowPlaceholder_givenSearchCancelled() async throws {
         launchApp()
-        enterSearch(text: "p")
+        enterSearch(text: "P")
+        verifySearchResults(cells: ["Paris, FR"])
+        verifyPlaceholder(visible: false)
         clearSearch()
         addScreenshot(name: "Search Screen")
-        verifySearchResults(cells: allCities)
+        verifySearchResults(cells: [])
+        verifyPlaceholder(visible: true)
     }
 
-    @MainActor func testSearch_shouldShowCity_givenFinalQueryMatchingOneCity() async throws {
+    @MainActor func testSearch_shouldShowOneCity_givenFinalQueryMatchingOneCity() async throws {
         launchApp()
-        enterSearch(text: "p")
+        enterSearch(text: "P")
         clearSearch()
-        enterSearch(text: "m")
+        enterSearch(text: "M")
         addScreenshot(name: "Search Screen")
         verifySearchResults(cells: ["Madrid, ES"])
+        verifyPlaceholder(visible: false)
     }
     
     // MARK: Map
     
     @MainActor func testSearch_shouldShowMap_whenCellIsTapped() {
         launchApp()
+        enterSearch(text: "P")
         addScreenshot(name: "Search Screen")
         tapSearchResult(at: 0)
         let mapView = app
@@ -119,6 +129,15 @@ final class CitySearchUITests: XCTestCase {
                 .label
             XCTAssertEqual(titleLabel, cell, file: file, line: line)
         }
+    }
+    
+    private func verifyPlaceholder(visible: Bool, file: StaticString = #file, line: UInt = #line) {
+        let placeholderLabel = app
+            .descendants(matching: .staticText)
+            .matching(identifier: "placeholder")
+            .firstMatch
+        let exists = placeholderLabel.waitForExistence(timeout: 0.1)
+        XCTAssertEqual(exists, visible, file: file, line: line)
     }
     
     private func tapSearchResult(at index: Int) {

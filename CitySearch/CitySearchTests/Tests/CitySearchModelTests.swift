@@ -26,11 +26,33 @@ final class CitySearchModelTests: XCTestCase {
     override func tearDown() {
         mockRepository = nil
         subject = nil
+        cancellables.forEach { $0.cancel() }
         cancellables = nil
     }
     
     #warning("TODO: Test that search query is case-insensitive")
     
+    func testSearch_shouldReturnNothing_givenEmptyPrefix() {
+        let searchNotExpected = expectation(description: "search")
+        searchNotExpected.isInverted = true
+        mockRepository.mockSearch = { query in
+            XCTAssertEqual(query, "")
+            searchNotExpected.fulfill()
+            return AnySequence([])
+        }
+        
+        subject.searchByName(prefix: "")
+        
+        let resultExpected = expectation(description: "result")
+        subject.citiesPublisher
+            .sink { cities in
+                XCTAssertEqual(cities, [])
+                resultExpected.fulfill()
+            }
+            .store(in: &cancellables)
+        wait(for: [searchNotExpected, resultExpected], timeout: 0.1)
+    }
+
     func testSearch_shouldReturnNothing_givenNonMatchingPrefix() {
         mockRepository.mockSearch = { query in
             XCTAssertEqual(query, "foo")

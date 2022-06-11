@@ -10,6 +10,22 @@ final class SearchViewController: UICollectionViewController {
     typealias MakeCellConfiguration = (_ city: City) -> UIContentConfiguration
     
     weak var delegate: SearchViewControllerDelegate?
+    
+    private let queryPlaceholderView: PlaceholderView = {
+        let view = PlaceholderView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.caption = "Enter a city to search for" // TODO: Localize
+        view.iconImageName = "map.fill"
+        return view
+    }()
+
+    private let resultsPlaceholderView: PlaceholderView = {
+        let view = PlaceholderView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.caption = "No cities found" // TODO: Localize
+        view.iconImageName = "map.circle"
+        return view
+    }()
 
     private var query: String = ""
     private var cities: [City] = []
@@ -62,6 +78,36 @@ final class SearchViewController: UICollectionViewController {
             cell.contentConfiguration = configuration
         }
         
+        collectionView.backgroundView = {
+            let view = UIView()
+            view.addSubview(queryPlaceholderView)
+            view.addSubview(resultsPlaceholderView)
+            NSLayoutConstraint.activate([
+                queryPlaceholderView.widthAnchor.constraint(
+                    equalTo: view.safeAreaLayoutGuide.widthAnchor,
+                    constant: -64
+                ),
+                queryPlaceholderView.centerXAnchor.constraint(
+                    equalTo: view.safeAreaLayoutGuide.centerXAnchor
+                ),
+                queryPlaceholderView.centerYAnchor.constraint(
+                    equalTo: view.safeAreaLayoutGuide.centerYAnchor
+                ),
+                
+                resultsPlaceholderView.widthAnchor.constraint(
+                    equalTo: view.safeAreaLayoutGuide.widthAnchor,
+                    constant: -64
+                ),
+                resultsPlaceholderView.centerXAnchor.constraint(
+                    equalTo: view.safeAreaLayoutGuide.centerXAnchor
+                ),
+                resultsPlaceholderView.centerYAnchor.constraint(
+                    equalTo: view.safeAreaLayoutGuide.centerYAnchor
+                ),
+            ])
+            return view
+        }()
+        
         collectionView.accessibilityIdentifier = "search-results"
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -69,6 +115,7 @@ final class SearchViewController: UICollectionViewController {
         searchViewController.searchResultsUpdater = self
         navigationItem.searchController = searchViewController
         
+        setVisible(queryPlaceholder: false, resultsPlaceholder: false)
         invalidateQuery()
     }
 
@@ -106,10 +153,38 @@ final class SearchViewController: UICollectionViewController {
     ///
     /// Update the list of cities displayed.
     ///
-    private func updateCities(_ cities: [City]) {
-        #warning("TODO: use diffable data source update - size permitting")
-        self.cities = cities
+    private func updateCities(_ cities: [City]?) {
+        #warning("TODO: use animated diffable data source update - size permitting")
+        self.cities = cities ?? []
+        if let cities = cities {
+            if cities.count > 0 {
+                // Cities are visible. Hide the placeholders.
+                setVisible(
+                    queryPlaceholder: false,
+                    resultsPlaceholder: false
+                )
+            }
+            else {
+                // No cities match the query. Show the results placeholder.
+                setVisible(
+                    queryPlaceholder: false,
+                    resultsPlaceholder: true
+                )
+            }
+        }
+        else {
+            // No query. Show query placeholder.
+            setVisible(
+                queryPlaceholder: true,
+                resultsPlaceholder: false
+            )
+        }
         collectionView.reloadData()
+    }
+    
+    private func setVisible(queryPlaceholder: Bool, resultsPlaceholder: Bool) {
+        queryPlaceholderView.isHidden = !queryPlaceholder
+        resultsPlaceholderView.isHidden = !resultsPlaceholder
     }
     
     ///

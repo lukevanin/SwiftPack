@@ -20,7 +20,7 @@ final class CitySearchModel: CitySearchModelProtocol {
     
     /// Cities from the last search request. We use `compactMap` to filter out and remove the initial nil
     /// value from the current value subject. 
-    lazy var citiesPublisher = citiesSubject.compactMap({ $0 }).eraseToAnyPublisher()
+    lazy var citiesPublisher = citiesSubject.eraseToAnyPublisher()
     
     /// Internal subject used to publish results from search queries.
     private let citiesSubject = CurrentValueSubject<[City]?, Never>(nil)
@@ -40,7 +40,16 @@ final class CitySearchModel: CitySearchModelProtocol {
     ///
     func searchByName(prefix: String) {
         Task { [weak self, citiesRepository] in
-            let cities = await citiesRepository.searchByName(prefix: prefix)
+            let cities: [City]?
+            if prefix.isEmpty == true {
+                // Publish nil when prefix is empty.
+                cities = nil
+            }
+            else {
+                // Search for cities.
+                let result = await citiesRepository.searchByName(prefix: prefix)
+                cities = Array(result)
+            }
             self?.publishCities(cities)
         }
     }
@@ -48,7 +57,7 @@ final class CitySearchModel: CitySearchModelProtocol {
     ///
     /// Updates the published cities with the results from a search.
     ///
-    private func publishCities(_ cities: AnySequence<City>) {
-        citiesSubject.send(Array(cities))
+    private func publishCities(_ cities: [City]?) {
+        citiesSubject.send(cities)
     }
 }

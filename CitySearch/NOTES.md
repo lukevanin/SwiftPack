@@ -169,3 +169,5 @@ nodes to avoid having to re-sort each array when a value is inserted.
 - Test non-latin characters (e.g. emoji)
 - Loggin abstration.
 - Metrics.
+- Keyboard avoidance for placeholders.
+- Dismiss keyboard on search screen while keeping current query.
