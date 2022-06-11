@@ -217,6 +217,7 @@
 				FC5CC4CA28548E6800D02FD1 /* JSONCitiesRepositoryBuilderTests.swift */,
 				FC5CC4D02854B0C000D02FD1 /* CaseInsensitiveTextIndexTests.swift */,
 				FC5CC4D62854BEAA00D02FD1 /* LinearTextIndexTests.swift */,
+				FC660C85284FA0390074A213 /* TrieTextIndexAcceptanceTests.swift */,
 				FC5CC4E12854D05A00D02FD1 /* SequentialIndexedCollectionTests.swift */,
 			);
 			path = "Unit Tests";
@@ -276,7 +277,6 @@
 			children = (
 				FC660C81284F99520074A213 /* FilePerformanceTests.swift */,
 				FC5CC4DA2854BF1F00D02FD1 /* LinearTextIndexPerformanceTests.swift */,
-				FC660C85284FA0390074A213 /* TrieTextIndexAcceptanceTests.swift */,
 				FC5CC4D82854BEDC00D02FD1 /* TrieTextIndexPerformanceTests.swift */,
 				FC5CC4DD2854C06F00D02FD1 /* IndexedCitiesRepositoryPerformanceTests.swift */,
 			);

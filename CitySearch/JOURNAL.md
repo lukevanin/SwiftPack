@@ -296,7 +296,7 @@ This would amortize the cost of retrieving results, over the time it takes the
 user to scroll through the list. Most of the times the user will not scroll
 through the entire list of results when the list is large, and so we avoid doing
 work that is never needed.
-
+ 
 ---
 
 Implemented `SequentialIndexedCollection`, which provides efficient access to 
