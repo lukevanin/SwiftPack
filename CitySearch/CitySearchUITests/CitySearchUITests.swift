@@ -35,21 +35,21 @@ final class CitySearchUITests: XCTestCase {
     @MainActor func testSearch_shouldShowNoCities_givenQueryMatchingNoCities() async throws {
         launchApp()
         enterSearch(text: "z")
-        addScreenshot()
+        addScreenshot(name: "Search Screen")
         verifySearchResults(cells: [])
     }
 
     @MainActor func testSearch_shouldShowOneCity_givenQueryMatchingOneCity() async throws {
         launchApp()
         enterSearch(text: "p")
-        addScreenshot()
+        addScreenshot(name: "Search Screen")
         verifySearchResults(cells: ["Paris, FR"])
     }
 
     @MainActor func testSearch_shouldShowCities_givenQueryMatchingSomeCities() async throws {
         launchApp()
         enterSearch(text: "b")
-        addScreenshot()
+        addScreenshot(name: "Search Screen")
         verifySearchResults(cells: ["Bangkok, TH", "Berlin, DE"])
     }
 
@@ -57,7 +57,7 @@ final class CitySearchUITests: XCTestCase {
         launchApp()
         enterSearch(text: "p")
         clearSearch()
-        addScreenshot()
+        addScreenshot(name: "Search Screen")
         verifySearchResults(cells: allCities)
     }
 
@@ -66,7 +66,7 @@ final class CitySearchUITests: XCTestCase {
         enterSearch(text: "p")
         clearSearch()
         enterSearch(text: "m")
-        addScreenshot()
+        addScreenshot(name: "Search Screen")
         verifySearchResults(cells: ["Madrid, ES"])
     }
     
@@ -74,13 +74,14 @@ final class CitySearchUITests: XCTestCase {
     
     @MainActor func testSearch_shouldShowMap_whenCellIsTapped() {
         launchApp()
+        addScreenshot(name: "Search Screen")
         tapSearchResult(at: 0)
         let mapView = app
             .descendants(matching: .map)
             .firstMatch
-        let mapVisible = mapView.exists
-        XCTAssertTrue(mapVisible, "Expected map does not exist")
-        addScreenshot()
+        let mapExists = mapView.waitForExistence(timeout: 0.5)
+        XCTAssertTrue(mapExists, "Expected map not visible")
+        addScreenshot(name: "Map Screen")
     }
 
     // MARK: Helpers
@@ -88,7 +89,7 @@ final class CitySearchUITests: XCTestCase {
     private func launchApp() {
         app.launchArguments = ["test"]
         app.launch()
-        addScreenshot()
+        addScreenshot(name: "Launch Screen")
     }
     
     private func enterSearch(text: String) {
@@ -129,9 +130,9 @@ final class CitySearchUITests: XCTestCase {
         cell.tap()
     }
     
-    func addScreenshot() {
+    func addScreenshot(name: String) {
         let attachment = XCTAttachment(screenshot: app.screenshot())
-        attachment.name = "Search Screen"
+        attachment.name = name
         attachment.lifetime = .keepAlways
         add(attachment)
     }
