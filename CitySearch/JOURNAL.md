@@ -214,5 +214,28 @@ well as showing the map view.
 
 ---
 
-Added implementation for generic coordinators. 
+Added implementation for generic coordinators. Added  
+
+---
+
+11/06
+
+The app conforms to most of the requirements of the specification. Until now we
+have been using sample data to test the app. Our tests verify that the app 
+behaves as expected in theory. The final challenge is test the app with real 
+data to ensure it provides sufficient performance under real world conditions.
+
+We also need to ensure strict conformance to the specification, namely:
+- Search should be case insensitive. We can implement this by creating a wrapper
+for the text index that normalises the case of the input text when inserting
+and searching. By separating this behaviour from the trie text index, our 
+implementation and tests become much simpler. We can implement the case wrapper 
+and tests independently of the other text index objects. All text index objects 
+can benefit from the feature. N+M instead of NxM. 
+-  Test that searching works with the full example text including comma, 
+spaces, and name of country. Also test extended characters such as emoji and
+foreign language characters.
+
+---
+
 
