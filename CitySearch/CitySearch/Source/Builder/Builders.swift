@@ -10,7 +10,7 @@ import Foundation
 ///
 protocol BuilderProtocol {
     associatedtype Artefact
-    func build() throws -> Artefact
+    func build() async throws -> Artefact
 }
 
 
@@ -21,13 +21,13 @@ protocol BuilderProtocol {
 ///
 struct AnyBuilder<Artefact>: BuilderProtocol {
     
-    private let wrappedBuild: () throws -> Artefact
+    private let wrappedBuild: () async throws -> Artefact
     
     init<B>(_ builder: B) where B: BuilderProtocol, B.Artefact == Artefact {
         self.wrappedBuild = builder.build
     }
     
-    func build() throws -> Artefact {
-        try wrappedBuild()
+    func build() async throws -> Artefact {
+        try await wrappedBuild()
     }
 }

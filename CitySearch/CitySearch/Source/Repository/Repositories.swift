@@ -26,6 +26,10 @@ struct Coordinate: Equatable {
     let lat: Double
 }
 
+extension Coordinate: Decodable {
+    
+}
+
 
 ///
 /// A description of a city
@@ -61,6 +65,9 @@ struct City: Equatable {
     
     /// Geographic location of the city
     let coord: Coordinate
+}
+
+extension City: Decodable {
 }
 
 

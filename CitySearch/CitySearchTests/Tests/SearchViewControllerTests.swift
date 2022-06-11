@@ -18,11 +18,7 @@ final class SearchViewControllerTests: XCTestCase {
                     title: cell.name,
                     subtitle: ""
                 )
-            },
-            selectCell: { city in
-                
-            }
-        )
+            }        )
         cancellables = Set()
         loadView()
     }
