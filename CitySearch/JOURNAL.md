@@ -238,4 +238,19 @@ foreign language characters.
 
 ---
 
+Implemented loading data from JSON using straightforward JSON decoder. The app
+takes ~5 seconds (MacBook Pro M1) to become usable after launch. The is a delay 
+of several seconds when the list displays all of the cities in the dataset when 
+the search query is empty. 
 
+It is it is not useful to display all of the cities as the list is too large to 
+be scrolled through practically. We can update the behaviour of the app so that 
+when the query is empty, the app shows a placeholder with a prompt. We should 
+update our model to return an empty result set when the query prefix is empty.
+The repository should keep the current behaviour, where it returns all cities
+when the query is empty, as this facilitates testing.
+
+It would also be nice to be able to dismiss the keyboard on the search screen,
+so that that it is easier to browse the search results.  
+
+---

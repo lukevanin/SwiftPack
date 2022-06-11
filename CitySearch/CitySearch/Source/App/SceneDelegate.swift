@@ -1,4 +1,10 @@
 import UIKit
+import OSLog
+
+private let logger = Logger(
+    subsystem: Bundle.main.bundleIdentifier!,
+    category: "scene-delegate"
+)
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
@@ -6,6 +12,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else {
+            logger.error("Cannot initialize application. Missing window scene.")
             return
         }
         
@@ -16,7 +23,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         UINavigationBar.appearance().scrollEdgeAppearance = navigationBarAppearance
         
         let builder = ApplicationCoordinatorBuilder(windowScene: windowScene)
-        coordinator = builder.build()
+        do {
+            coordinator = try builder.build()
+        }
+        catch {
+            logger.error("Cannot initialize application. \(error.localizedDescription)")
+        }
         coordinator?.activate()
     }
 

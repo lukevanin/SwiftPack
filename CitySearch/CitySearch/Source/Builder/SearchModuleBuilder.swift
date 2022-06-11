@@ -8,9 +8,9 @@ struct SearchModuleBuilder: BuilderProtocol {
     var environment: Environment
     
     func build() -> UIViewController {
-        let searchIndex = TrieTextIndex()
-        let searchRepository = IndexedCitiesRepository(cities: [], nameIndex: searchIndex)
-        let searchModel = CitySearchModel(citiesRepository: searchRepository)
+        let searchModel = CitySearchModel(
+            citiesRepository: environment.citiesRepository
+        )
         let viewController = SearchViewController(
             model: searchModel,
             makeCellConfiguration: { city in

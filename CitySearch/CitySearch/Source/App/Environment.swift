@@ -1,5 +1,6 @@
 import Foundation
 
-final class Environment {
+struct Environment {
+    var citiesRepository: CitiesRepositoryProtocol
     var searchDelegate: SearchViewControllerDelegate?
 }

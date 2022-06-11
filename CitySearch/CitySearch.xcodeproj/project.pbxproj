@@ -24,7 +24,6 @@
 		FC5CC4962852418400D02FD1 /* MockCitySearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4952852418400D02FD1 /* MockCitySearchModel.swift */; };
 		FC5CC49C285245C300D02FD1 /* CitySampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC49B285245C300D02FD1 /* CitySampleData.swift */; };
 		FC5CC49F28524AA800D02FD1 /* SearchResultView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC49E28524AA800D02FD1 /* SearchResultView.swift */; };
-		FC5CC4A128531B2A00D02FD1 /* TestSearchModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4A028531B2A00D02FD1 /* TestSearchModuleBuilder.swift */; };
 		FC5CC4A3285324F000D02FD1 /* CombineExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4A2285324F000D02FD1 /* CombineExtensions.swift */; };
 		FC5CC4A52853282D00D02FD1 /* ApplicationModuleBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4A42853282D00D02FD1 /* ApplicationModuleBuilder.swift */; };
 		FC5CC4A728533B5B00D02FD1 /* SearchResultCellConfigurationBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4A628533B5B00D02FD1 /* SearchResultCellConfigurationBuilder.swift */; };
@@ -91,7 +90,6 @@
 		FC5CC4952852418400D02FD1 /* MockCitySearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockCitySearchModel.swift; sourceTree = "<group>"; };
 		FC5CC49B285245C300D02FD1 /* CitySampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CitySampleData.swift; sourceTree = "<group>"; };
 		FC5CC49E28524AA800D02FD1 /* SearchResultView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultView.swift; sourceTree = "<group>"; };
-		FC5CC4A028531B2A00D02FD1 /* TestSearchModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestSearchModuleBuilder.swift; sourceTree = "<group>"; };
 		FC5CC4A2285324F000D02FD1 /* CombineExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CombineExtensions.swift; sourceTree = "<group>"; };
 		FC5CC4A42853282D00D02FD1 /* ApplicationModuleBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplicationModuleBuilder.swift; sourceTree = "<group>"; };
 		FC5CC4A628533B5B00D02FD1 /* SearchResultCellConfigurationBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchResultCellConfigurationBuilder.swift; sourceTree = "<group>"; };
@@ -180,7 +178,6 @@
 				FC5CC4C62853F6B800D02FD1 /* ApplicationCoordinatorBuilder.swift */,
 				FC5CC4A42853282D00D02FD1 /* ApplicationModuleBuilder.swift */,
 				FC5CC49128523C8C00D02FD1 /* SearchModuleBuilder.swift */,
-				FC5CC4A028531B2A00D02FD1 /* TestSearchModuleBuilder.swift */,
 				FC5CC4AF28537C2300D02FD1 /* MapModuleBuilder.swift */,
 				FC5CC4A628533B5B00D02FD1 /* SearchResultCellConfigurationBuilder.swift */,
 				FC5CC4A828534AD500D02FD1 /* TestCitiesRepositoryBuilder.swift */,
@@ -515,7 +512,6 @@
 				FC38873C28507DFA00F5922A /* LinearIndex.swift in Sources */,
 				FC5CC48F28523A2000D02FD1 /* Models.swift in Sources */,
 				FC5CC49428523ED700D02FD1 /* Builders.swift in Sources */,
-				FC5CC4A128531B2A00D02FD1 /* TestSearchModuleBuilder.swift in Sources */,
 				FC5CC4B728537F7C00D02FD1 /* CoordinatorProtocol.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

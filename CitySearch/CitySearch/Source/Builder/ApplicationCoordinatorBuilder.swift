@@ -4,10 +4,13 @@ struct ApplicationCoordinatorBuilder: BuilderProtocol {
     
     let windowScene: UIWindowScene
     
-    func build() -> ActivatingCoordinatorProtocol {
+    func build() throws -> ActivatingCoordinatorProtocol {
         let searchCoordinator = CitySearchCoordinator()
-        let environment = Environment()
-        environment.searchDelegate = searchCoordinator
+        #warning("TODO: Refactor environment constructor into its own builder")
+        let environment = Environment(
+            citiesRepository: try makeCitiesRepository(),
+            searchDelegate: searchCoordinator
+        )
         let moduleBuilder = ApplicationModuleBuilder(environment: environment)
         let viewController = moduleBuilder.build()
         let navigationCoordinator = NavigationCoordinator()
@@ -18,5 +21,36 @@ struct ApplicationCoordinatorBuilder: BuilderProtocol {
         windowCoordinator.viewController = viewController
         windowCoordinator.add(child: navigationCoordinator)
         return windowCoordinator
+    }
+    
+    private func makeCitiesRepository() throws -> CitiesRepositoryProtocol {
+        let arguments = ProcessInfo.processInfo.arguments
+        let repository: CitiesRepositoryProtocol
+        if arguments.contains("test") {
+            // We are running under developmenu or automated or testing
+            // conditions. Use the testing module.
+            let builder = TestCitiesRepositoryBuilder(
+                makeKey: makeKey
+            )
+            repository = builder.build()
+        }
+        else {
+            // Use the production module.
+            let fileURL = Bundle.main.url(
+                forResource: "cities",
+                withExtension: "json"
+            )!
+            let data = try Data(contentsOf: fileURL)
+            let builder = JSONCitiesRepositoryBuilder(
+                data: data,
+                makeKey: makeKey
+            )
+            repository = try builder.build()
+        }
+        return repository
+    }
+    
+    private func makeKey(city: City) -> String {
+        return city.name
     }
 }
