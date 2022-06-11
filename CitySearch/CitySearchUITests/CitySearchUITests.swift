@@ -36,7 +36,7 @@ final class CitySearchUITests: XCTestCase {
     
     @MainActor func testSearch_shouldShowNoCities_givenQueryMatchingNoCities() async throws {
         launchApp()
-        enterSearch(text: "z")
+        enterSearch(text: "Z")
         addScreenshot(name: "Search Screen")
         verifySearchResults(cells: [])
         verifyPlaceholder(visible: true)
@@ -50,6 +50,14 @@ final class CitySearchUITests: XCTestCase {
         verifyPlaceholder(visible: false)
     }
 
+    @MainActor func testSearch_shouldShowOneCity_givenFullQueryMatchingOneCity() async throws {
+        launchApp()
+        enterSearch(text: "new york")
+        addScreenshot(name: "Search Screen")
+        verifySearchResults(cells: ["New York, US"])
+        verifyPlaceholder(visible: false)
+    }
+
     @MainActor func testSearch_shouldShowMatchingCities_givenQueryMatchingSomeCities() async throws {
         launchApp()
         enterSearch(text: "B")
@@ -60,7 +68,7 @@ final class CitySearchUITests: XCTestCase {
 
     @MainActor func testSearch_shouldShowPlaceholder_givenSearchCancelled() async throws {
         launchApp()
-        enterSearch(text: "P")
+        enterSearch(text: "p")
         verifySearchResults(cells: ["Paris, FR"])
         verifyPlaceholder(visible: false)
         clearSearch()

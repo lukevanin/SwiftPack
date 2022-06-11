@@ -2,6 +2,7 @@ import Foundation
 
 struct TestCitiesRepositoryBuilder: BuilderProtocol {
     
+    var index: TextIndex = CaseInsensitiveTextIndex(index: TrieTextIndex())
     var makeKey: (City) -> String
     
     func build() -> CitiesRepositoryProtocol {
@@ -13,7 +14,7 @@ struct TestCitiesRepositoryBuilder: BuilderProtocol {
             City(_id: 6359304, country: "ES", name: "Madrid", coord: Coordinate(lon: -3.68275, lat: 40.489349)),
             City(_id: 2968815, country: "FR", name: "Paris", coord: Coordinate(lon: 2.3486,lat: 48.853401)),
         ]
-        var searchIndex = TrieTextIndex()
+        var searchIndex = self.index
         cities.enumerated().forEach { index, city in
             searchIndex.insert(key: makeKey(city), value: index)
         }

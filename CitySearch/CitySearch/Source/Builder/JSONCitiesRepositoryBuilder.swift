@@ -4,7 +4,7 @@ struct JSONCitiesRepositoryBuilder: BuilderProtocol {
     
     let data: Data
     var makeKey: (City) -> String
-    var index: TextIndex = TrieTextIndex()
+    var index: TextIndex = CaseInsensitiveTextIndex(index: TrieTextIndex())
     var decoder: JSONDecoder = JSONDecoder()
     
     func build() throws -> CitiesRepositoryProtocol {
