@@ -42,6 +42,8 @@
 		FC5CC4CB28548E6800D02FD1 /* JSONCitiesRepositoryBuilderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4CA28548E6800D02FD1 /* JSONCitiesRepositoryBuilderTests.swift */; };
 		FC5CC4CD2854908100D02FD1 /* JSONCitiesRepositoryBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4CC2854908100D02FD1 /* JSONCitiesRepositoryBuilder.swift */; };
 		FC5CC4CF2854A5B700D02FD1 /* PlaceholderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4CE2854A5B700D02FD1 /* PlaceholderView.swift */; };
+		FC5CC4D12854B0C000D02FD1 /* CaseInsensitiveTextIndexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4D02854B0C000D02FD1 /* CaseInsensitiveTextIndexTests.swift */; };
+		FC5CC4D32854B20C00D02FD1 /* CaseInsensitiveTextIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4D22854B20C00D02FD1 /* CaseInsensitiveTextIndex.swift */; };
 		FC660C4D284F88470074A213 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4C284F88470074A213 /* AppDelegate.swift */; };
 		FC660C4F284F88470074A213 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4E284F88470074A213 /* SceneDelegate.swift */; };
 		FC660C51284F88470074A213 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C50284F88470074A213 /* SearchViewController.swift */; };
@@ -110,6 +112,8 @@
 		FC5CC4CA28548E6800D02FD1 /* JSONCitiesRepositoryBuilderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONCitiesRepositoryBuilderTests.swift; sourceTree = "<group>"; };
 		FC5CC4CC2854908100D02FD1 /* JSONCitiesRepositoryBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSONCitiesRepositoryBuilder.swift; sourceTree = "<group>"; };
 		FC5CC4CE2854A5B700D02FD1 /* PlaceholderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaceholderView.swift; sourceTree = "<group>"; };
+		FC5CC4D02854B0C000D02FD1 /* CaseInsensitiveTextIndexTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseInsensitiveTextIndexTests.swift; sourceTree = "<group>"; };
+		FC5CC4D22854B20C00D02FD1 /* CaseInsensitiveTextIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CaseInsensitiveTextIndex.swift; sourceTree = "<group>"; };
 		FC660C49284F88470074A213 /* CitySearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitySearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC660C4C284F88470074A213 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC660C4E284F88470074A213 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -169,6 +173,7 @@
 				FC660C8B284FD6B00074A213 /* TextIndex.swift */,
 				FC38873B28507DFA00F5922A /* LinearIndex.swift */,
 				FC38873D28507E1400F5922A /* TrieTextIndex.swift */,
+				FC5CC4D22854B20C00D02FD1 /* CaseInsensitiveTextIndex.swift */,
 			);
 			path = Index;
 			sourceTree = "<group>";
@@ -196,6 +201,7 @@
 				FC5CC47B28514C5100D02FD1 /* IndexedCitiesRepositoryTests.swift */,
 				FC5CC4CA28548E6800D02FD1 /* JSONCitiesRepositoryBuilderTests.swift */,
 				FC660C81284F99520074A213 /* BaselineTests.swift */,
+				FC5CC4D02854B0C000D02FD1 /* CaseInsensitiveTextIndexTests.swift */,
 				FC660C85284FA0390074A213 /* TextIndexAcceptanceTests.swift */,
 			);
 			path = Tests;
@@ -493,6 +499,7 @@
 				FC5CC4C5285391D800D02FD1 /* AnyCoordinator.swift in Sources */,
 				FC5CC4BD2853872E00D02FD1 /* NavigationCoordinator.swift in Sources */,
 				FC660C51284F88470074A213 /* SearchViewController.swift in Sources */,
+				FC5CC4D32854B20C00D02FD1 /* CaseInsensitiveTextIndex.swift in Sources */,
 				FC5CC4CD2854908100D02FD1 /* JSONCitiesRepositoryBuilder.swift in Sources */,
 				FC5CC49228523C8C00D02FD1 /* SearchModuleBuilder.swift in Sources */,
 				FC660C4D284F88470074A213 /* AppDelegate.swift in Sources */,
@@ -527,6 +534,7 @@
 				FC5CC4962852418400D02FD1 /* MockCitySearchModel.swift in Sources */,
 				FC5CC47C28514C5100D02FD1 /* IndexedCitiesRepositoryTests.swift in Sources */,
 				FC5CC4842852068300D02FD1 /* CitySearchModelTests.swift in Sources */,
+				FC5CC4D12854B0C000D02FD1 /* CaseInsensitiveTextIndexTests.swift in Sources */,
 				FC5CC48D285235EB00D02FD1 /* SearchViewControllerTests.swift in Sources */,
 				FC5CC4A3285324F000D02FD1 /* CombineExtensions.swift in Sources */,
 				FC660C82284F99520074A213 /* BaselineTests.swift in Sources */,
