@@ -254,3 +254,47 @@ It would also be nice to be able to dismiss the keyboard on the search screen,
 so that that it is easier to browse the search results.  
 
 ---
+
+Performance tests using the `cities.json` file indicates that a significant 
+amount of time is spent creating the result set after the initial node is 
+located.
+
+In `IndexedCitiesRepositoryUnitTests` we load the `cities.json` then perform two
+tests:
+ 
+1. In one test we query each letter of the latin alphabet (A...Z), then 
+create an array from the result sequence and count the number of items in the
+sequence. The average time is ~500ms.
+2. In the other test, we perform the same query but ignore the actual results, 
+and thereby avoid the array conversion. The average time is below 1ms.
+
+This seems to indicate that creating the array of results is a significant
+cause of latency within the app.
+
+Performance can be improved by implementing a `Collection` type, that
+avoids iterating the results, and returns items only as they are needed. We can
+take advantage of fact that the collection view will read items in sequential 
+order, and return items from the underlying data as they are requested by the 
+colletion view: 
+- Add a count number to each node in the trie.
+- Increment the count whenever a value is added to the node, or one of its
+children.
+- When returning a result, use the count of the top-level node for the result.
+
+We also need to create a custom collection:
+- Create a new class that conforms to `Collection`, that uses the sequence of 
+indices from the seqrch results and the list of cities. Use a `currentCount` 
+variable to keep track of the number of items that have been retrieved from the 
+result sequence. initially this variable will be zero. Use a `cache` array to 
+store the indices returned by the result set. Initially this array will contain 
+placeholder values. 
+- When an item is accessed in the collection and the fetch all of the indices 
+in the sequence up to required index. Store the resulting index in the cache 
+array, then return the city.
+
+This would amortize the cost of retrieving results, over the time it takes the
+user to scroll through the list. Most of the times the user will not scroll
+through the entire list of results when the list is large, and so we avoid doing
+work that is never needed.
+
+---

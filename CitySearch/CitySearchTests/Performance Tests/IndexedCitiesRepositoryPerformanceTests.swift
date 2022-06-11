@@ -7,15 +7,6 @@ class IndexedCitiesRepositoryUnitTests: XCTestCase {
     private var subject: IndexedCitiesRepository!
     
     override func setUpWithError() throws {
-        let url = Bundle.main.url(forResource: "cities", withExtension: "json")!
-        let data = try Data(contentsOf: url)
-        let decoder = JSONDecoder()
-        let cities = try decoder.decode([City].self, from: data)
-        var nameIndex = CaseInsensitiveTextIndex(index: TrieTextIndex())
-        cities.enumerated().forEach { index, city in
-            nameIndex.insert(key: city.name, value: index)
-        }
-        subject = IndexedCitiesRepository(cities: cities, nameIndex: nameIndex)
     }
     
     override func tearDown() {
@@ -29,6 +20,7 @@ class IndexedCitiesRepositoryUnitTests: XCTestCase {
     /// the latency of the app as experienced by the user.
     ///
     func test_searchChecked() throws {
+        try loadSubject()
         let options = XCTMeasureOptions()
         measure(metrics: defaultMetrics(), options: options) {
             searchChecked()
@@ -40,6 +32,7 @@ class IndexedCitiesRepositoryUnitTests: XCTestCase {
     /// application. The results are not checked.
     ///
     func test_searchUnchecked() throws {
+        try loadSubject()
         let options = XCTMeasureOptions()
         measure(metrics: defaultMetrics(), options: options) {
             searchUnchecked()
@@ -114,4 +107,18 @@ class IndexedCitiesRepositoryUnitTests: XCTestCase {
         ]
     }
 
+    ///
+    ///
+    ///
+    private func loadSubject() {
+        let url = Bundle.main.url(forResource: "cities", withExtension: "json")!
+        let data = try Data(contentsOf: url)
+        let decoder = JSONDecoder()
+        let cities = try decoder.decode([City].self, from: data)
+        var nameIndex = CaseInsensitiveTextIndex(index: TrieTextIndex())
+        cities.enumerated().forEach { index, city in
+            nameIndex.insert(key: city.name, value: index)
+        }
+        subject = IndexedCitiesRepository(cities: cities, nameIndex: nameIndex)
+    }
 }
