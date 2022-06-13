@@ -4,11 +4,11 @@ import XCTest
 
 ///
 ///
-final class TrieTextIndexPerformanceTests: TextIndexTestCase {
+final class TrieTextIndexPerformanceTests: TextIndexTestCase<TrieTextIndex<Int>> {
 
     func test_trieTextIndex_1k_searchPerformance() {
         let testCase = makeTestCase(name: "1k", count: 1_000)
-        var subject = TrieTextIndex()
+        var subject = TrieTextIndex<Int>()
         fillTextIndex(&subject, with: testCase.data[0])
         measure(metrics: defaultMetrics()) {
             exerciseSearch(subject, with: testCase.queries, name: testCase.name, verify: false)
@@ -17,7 +17,7 @@ final class TrieTextIndexPerformanceTests: TextIndexTestCase {
     
     func test_trieTextIndex_10k_searchPerformance() {
         let testCase = makeTestCase(name: "10k", count: 10_000)
-        var subject = TrieTextIndex()
+        var subject = TrieTextIndex<Int>()
         fillTextIndex(&subject, with: testCase.data[0])
         measure(metrics: defaultMetrics()) {
             exerciseSearch(subject, with: testCase.queries, name: testCase.name, verify: false)
@@ -26,7 +26,7 @@ final class TrieTextIndexPerformanceTests: TextIndexTestCase {
     
     func test_trieTextIndex_100k_searchPerformance() {
         let testCase = makeTestCase(name: "100k", count: 100_000)
-        var subject = TrieTextIndex()
+        var subject = TrieTextIndex<Int>()
         fillTextIndex(&subject, with: testCase.data[0])
         measure(metrics: defaultMetrics()) {
             exerciseSearch(subject, with: testCase.queries, name: testCase.name, verify: false)
@@ -35,7 +35,7 @@ final class TrieTextIndexPerformanceTests: TextIndexTestCase {
     
     func test_trieTextIndex_200k_searchPerformance() {
         let testCase = makeTestCase(name: "200k", count: 200_000)
-        var subject = TrieTextIndex()
+        var subject = TrieTextIndex<Int>()
         fillTextIndex(&subject, with: testCase.data[0])
         measure(metrics: defaultMetrics()) {
             exerciseSearch(subject, with: testCase.queries, name: testCase.name, verify: false)
@@ -44,10 +44,10 @@ final class TrieTextIndexPerformanceTests: TextIndexTestCase {
     
     func test_trieTextIndex_1m_searchPerformance() {
         let indices = Array((0 ..< 1_000_000))
-        let elements = indices.map { (i: Int) -> Data in
+        let elements = indices.map { (i: Int) -> KeyValue in
             (key: String(format: "a%09d", i), value: i)
         }
-        var subject = TrieTextIndex()
+        var subject = TrieTextIndex<Int>()
         elements.forEach { element in
             subject.insert(key: element.key, value: element.value)
         }

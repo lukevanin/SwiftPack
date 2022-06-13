@@ -6,7 +6,7 @@ final class SequentialIndexedCollectionTests: XCTestCase {
     func testCount_shouldEqualZero_givenEmptySequence() {
         let subject = SequentialIndexedCollection(
             count: 0,
-            indices: [].makeIterator(),
+            indices: [Int]().makeIterator(),
             elements: []
         )
         XCTAssertEqual(subject.count, 0)
@@ -15,7 +15,7 @@ final class SequentialIndexedCollectionTests: XCTestCase {
     func testCount_shouldEqualCount_givenNonEmptySequence() {
         let subject = SequentialIndexedCollection(
             count: 1,
-            indices: [].makeIterator(),
+            indices: [Int]().makeIterator(),
             elements: []
         )
         XCTAssertEqual(subject.count, 1)

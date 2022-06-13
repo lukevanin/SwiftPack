@@ -2,22 +2,22 @@ import XCTest
 
 @testable import CitySearch
 
-class TextIndexTestCase: XCTestCase {
+class TextIndexTestCase<Index>: XCTestCase where Index: TextIndex, Index.Value == Int {
     
-    typealias Data = (key: String, value: Int)
+    typealias KeyValue = (key: String, value: Int)
     
     typealias SearchScenario = (query: String, results: [Int])
     
     struct TestCase {
         let name: String
-        let data: [[Data]]
+        let data: [[KeyValue]]
         let queries: [SearchScenario]
     }
 
     ///
     ///
     ///
-    func exerciseTextIndex<I>(_ makeSubject: @autoclosure () -> I, testCase: TestCase, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
+    func exerciseTextIndex(_ makeSubject: @autoclosure () -> Index, testCase: TestCase, file: StaticString = #file, line: UInt = #line) {
         testCase.data.forEach { data in
             // Create an instance of the subject
             var subject = makeSubject()
@@ -31,7 +31,7 @@ class TextIndexTestCase: XCTestCase {
     ///
     /// Fill the subject with data.
     ///
-    func fillTextIndex<I>(_ subject: inout I, with data: [Data]) where I: TextIndex {
+    func fillTextIndex(_ subject: inout Index, with data: [KeyValue]) {
         data.forEach { datum in
             subject.insert(key: datum.key, value: datum.value)
         }
@@ -40,7 +40,7 @@ class TextIndexTestCase: XCTestCase {
     ///
     /// Verify that the test subject returns the expected values for a given prefix.
     ///
-    func exerciseSearch<I>(_ subject: I, with scenarios: [SearchScenario], name: String, verify: Bool = true, file: StaticString = #file, line: UInt = #line) where I: TextIndex {
+    func exerciseSearch(_ subject: Index, with scenarios: [SearchScenario], name: String, verify: Bool = true, file: StaticString = #file, line: UInt = #line) {
         scenarios.forEach { scenario in
             let results = Array(subject.search(prefix: scenario.query).iterator)
             if verify {

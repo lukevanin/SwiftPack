@@ -9,7 +9,7 @@ import Foundation
 ///
 /// - Note: Accessing this collection randomly will result in reduced performance up to O(n).
 ///
-class SequentialIndexedCollection<Iterator, Element>: Collection where Iterator: IteratorProtocol, Iterator.Element == Int {
+class SequentialIndexedCollection<Iterator, Element>: Collection where Iterator: IteratorProtocol, Iterator.Element: BinaryInteger {
     
     let startIndex: Int = 0
     
@@ -47,7 +47,7 @@ class SequentialIndexedCollection<Iterator, Element>: Collection where Iterator:
                 return
             }
             currentIndex += 1
-            cachedIndices[currentIndex] = index
+            cachedIndices[currentIndex] = Int(index)
         }
     }
 }

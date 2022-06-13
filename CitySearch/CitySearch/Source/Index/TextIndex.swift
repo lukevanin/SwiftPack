@@ -6,9 +6,9 @@ import Foundation
 ///
 /// Contains the number of items returned from the result, and an iterator for accessing the result values.
 ///
-struct TextIndexSearchResult {
+struct TextIndexSearchResult<Value> {
     let count: Int
-    var iterator: AnyIterator<Int>
+    var iterator: AnyIterator<Value>
 }
 
 
@@ -30,9 +30,14 @@ struct TextIndexSearchResult {
 protocol TextIndex {
     
     ///
+    /// Type of the values stored in the index.
+    ///
+    associatedtype Value
+    
+    ///
     /// Inserts a value into the index associated with a key string.
     ///
-    mutating func insert(key: String, value: Int)
+    mutating func insert(key: String, value: Value)
     
     ///
     /// Retrieves all values whose key starts with the given query.
@@ -42,6 +47,71 @@ protocol TextIndex {
     /// - Returns: A collecion of values whose keys start with the given prefix. Values are returned
     /// sorted relative to the alphabetical order of their keys.
     ///
-    func search<S>(prefix: S) -> TextIndexSearchResult where S: StringProtocol
+    func search<S>(prefix: S) -> TextIndexSearchResult<Value> where S: StringProtocol
 }
 
+
+///
+/// Type-erased text index.
+///
+/// Erases the specific type of a text index. Used to pass text index instances generically.
+///
+struct AnyTextIndex<Value>: TextIndex {
+        
+    private let wrapper: _TextIndex<Value>
+
+    init<Index>(_ index: Index) where Index: TextIndex, Index.Value == Value {
+        self.wrapper = _TextIndexWrapper(index)
+    }
+    
+    mutating func insert(key: String, value: Value) {
+        #warning("TODO: Implement copy-on-write for wrapped value")
+        wrapper.insert(key: key, value: value)
+    }
+    
+    func search<S>(prefix: S) -> TextIndexSearchResult<Value> where S : StringProtocol {
+        wrapper.search(prefix: prefix)
+    }
+}
+
+
+///
+/// Type-erased text index.
+///
+/// Erases the specific type of a text index. Used to pass text index instances generically.
+///
+private class _TextIndex<Value>: TextIndex {
+    
+    fileprivate init() {
+        
+    }
+    
+    func insert(key: String, value: Value) {
+        fatalError("not implemented")
+    }
+    
+    func search<S>(prefix: S) -> TextIndexSearchResult<Value> where S : StringProtocol {
+        fatalError("not implemented")
+    }
+}
+
+
+///
+///
+///
+final private class _TextIndexWrapper<Index>: _TextIndex<Index.Value> where Index: TextIndex {
+    
+    private var wrapped: Index
+    
+    init(_ wrapped: Index) {
+        self.wrapped = wrapped
+    }
+    
+    override func insert(key: String, value: Value) {
+        wrapped.insert(key: key, value: value)
+    }
+    
+    override func search<S>(prefix: S) -> TextIndexSearchResult<Value> where S : StringProtocol {
+        wrapped.search(prefix: prefix)
+    }
+}

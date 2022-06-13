@@ -9,16 +9,16 @@ import Foundation
 /// - Note: This index should not be used in real world applications. It exists as a worst case baseline
 /// comparison for more efficient implementations which should be used instead.
 ///
-struct LinearTextIndex: TextIndex {
+struct LinearTextIndex<Value>: TextIndex where Value: Comparable {
     
     struct Element {
         let key: String
-        var values: [Int]
+        var values: [Value]
     }
     
     private var elements = [Element]()
     
-    mutating func insert(key: String, value: Int) {
+    mutating func insert(key: String, value: Value) {
         // Find the index of the element with the given key, if one exists.
         let index = elements.firstIndex { element in
             element.key == key
@@ -40,7 +40,7 @@ struct LinearTextIndex: TextIndex {
         }
     }
     
-    func search<S>(prefix: S) -> TextIndexSearchResult where S : StringProtocol {
+    func search<S>(prefix: S) -> TextIndexSearchResult<Value> where S : StringProtocol {
         let values = elements
             .filter { element in
                 element.key.prefix(prefix.count) == prefix

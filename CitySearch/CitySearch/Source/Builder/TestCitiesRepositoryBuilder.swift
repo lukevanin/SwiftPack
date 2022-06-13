@@ -2,7 +2,7 @@ import Foundation
 
 struct TestCitiesRepositoryBuilder: BuilderProtocol {
     
-    var index: TextIndex = CaseInsensitiveTextIndex(index: TrieTextIndex())
+    var index: AnyTextIndex<Int> = AnyTextIndex(CaseInsensitiveTextIndex(TrieTextIndex<Int>()))
     var makeKey: (City) -> String
     
     func build() -> CitiesRepositoryProtocol {

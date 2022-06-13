@@ -4,7 +4,7 @@ import XCTest
 
 final class IndexedCitiesRepositoryTests: XCTestCase {
     
-    private var nameIndex: MockTextIndex!
+    private var nameIndex: MockTextIndex<Int>!
     
     override func setUp() {
         nameIndex = MockTextIndex()
@@ -23,7 +23,7 @@ final class IndexedCitiesRepositoryTests: XCTestCase {
             XCTAssertEqual(query, "")
             return []
         }
-        let subject = IndexedCitiesRepository(cities: [], nameIndex: nameIndex)
+        let subject = IndexedCitiesRepository(cities: [], nameIndex: AnyTextIndex(nameIndex))
         let result = await subject.searchByName(prefix: "")
         XCTAssertEqual(Array(result), [])
     }
@@ -33,7 +33,7 @@ final class IndexedCitiesRepositoryTests: XCTestCase {
             XCTAssertEqual(query, "foobarbaz")
             return []
         }
-        let subject = IndexedCitiesRepository(cities: [], nameIndex: nameIndex)
+        let subject = IndexedCitiesRepository(cities: [], nameIndex: AnyTextIndex(nameIndex))
         let result = await subject.searchByName(prefix: "foobarbaz")
         XCTAssertEqual(Array(result), [])
     }
@@ -44,7 +44,7 @@ final class IndexedCitiesRepositoryTests: XCTestCase {
             XCTAssertEqual(query, "wellington")
             return [0]
         }
-        let subject = IndexedCitiesRepository(cities: [city], nameIndex: nameIndex)
+        let subject = IndexedCitiesRepository(cities: [city], nameIndex: AnyTextIndex(nameIndex))
         let result = await subject.searchByName(prefix: "wellington")
         XCTAssertEqual(Array(result), [city])
     }
@@ -55,7 +55,7 @@ final class IndexedCitiesRepositoryTests: XCTestCase {
             XCTAssertEqual(query, "foo")
             return [0]
         }
-        let subject = IndexedCitiesRepository(cities: [city], nameIndex: nameIndex)
+        let subject = IndexedCitiesRepository(cities: [city], nameIndex: AnyTextIndex(nameIndex))
         let result = await subject.searchByName(prefix: "foo")
         XCTAssertEqual(Array(result), [city])
     }
@@ -67,7 +67,7 @@ final class IndexedCitiesRepositoryTests: XCTestCase {
             XCTAssertEqual(query, "foo")
             return [0, 1]
         }
-        let subject = IndexedCitiesRepository(cities: [city0, city1], nameIndex: nameIndex)
+        let subject = IndexedCitiesRepository(cities: [city0, city1], nameIndex: AnyTextIndex(nameIndex))
         let result = await subject.searchByName(prefix: "foo")
         XCTAssertEqual(Array(result), [city0, city1])
     }
@@ -79,7 +79,7 @@ final class IndexedCitiesRepositoryTests: XCTestCase {
             XCTAssertEqual(query, "bar")
             return []
         }
-        let subject = IndexedCitiesRepository(cities: [city0, city1], nameIndex: nameIndex)
+        let subject = IndexedCitiesRepository(cities: [city0, city1], nameIndex: AnyTextIndex(nameIndex))
         let result = await subject.searchByName(prefix: "bar")
         XCTAssertEqual(Array(result), [])
     }

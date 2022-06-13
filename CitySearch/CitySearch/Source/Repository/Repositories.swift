@@ -30,6 +30,20 @@ extension Coordinate: Decodable {
     
 }
 
+extension Coordinate: DataCodable {
+    init(decoder: DataDecoder) throws {
+        self.init(
+            lon: try Double(decoder: decoder),
+            lat: try Double(decoder: decoder)
+        )
+    }
+    
+    func encode(encoder: DataEncoder) {
+        lon.encode(encoder: encoder)
+        lat.encode(encoder: encoder)
+    }
+}
+
 
 ///
 /// A description of a city
@@ -68,6 +82,24 @@ struct City: Equatable {
 }
 
 extension City: Decodable {
+}
+
+extension City: DataCodable {
+    init(decoder: DataDecoder) throws {
+        self.init(
+            _id: try UInt64(decoder: decoder),
+            country: try String(decoder: decoder),
+            name: try String(decoder: decoder),
+            coord: try Coordinate(decoder: decoder)
+        )
+    }
+    
+    func encode(encoder: DataEncoder) {
+        _id.encode(encoder: encoder)
+        country.encode(encoder: encoder)
+        name.encode(encoder: encoder)
+        coord.encode(encoder: encoder)
+    }
 }
 
 

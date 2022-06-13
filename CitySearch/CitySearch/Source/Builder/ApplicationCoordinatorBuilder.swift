@@ -36,16 +36,21 @@ struct ApplicationCoordinatorBuilder: BuilderProtocol {
         }
         else {
             // Use the production module.
+//            let fileURL = Bundle.main.url(
+//                forResource: "cities",
+//                withExtension: "json"
+//            )!
+//            let data = try Data(contentsOf: fileURL)
+//            let builder = JSONCitiesRepositoryBuilder(
+//                data: data,
+//                makeKey: makeKey
+//            )
+//            repository = try builder.build()
             let fileURL = Bundle.main.url(
-                forResource: "cities",
-                withExtension: "json"
+                forResource: "cities-repository",
+                withExtension: "lzfse"
             )!
-            let data = try Data(contentsOf: fileURL)
-            let builder = JSONCitiesRepositoryBuilder(
-                data: data,
-                makeKey: makeKey
-            )
-            repository = try builder.build()
+            repository = try IndexedCitiesRepository<CaseInsensitiveTextIndex<TrieTextIndex<UInt32>>>(fileURL: fileURL)
         }
         return repository
     }

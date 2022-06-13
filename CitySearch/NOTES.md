@@ -172,3 +172,5 @@ nodes to avoid having to re-sort each array when a value is inserted.
 - Keyboard avoidance for placeholders.
 - Dismiss keyboard on search screen while keeping current query.
 - Include country in search index.
+- AnyTextIndexWrapper copy-on-write + tests
+- DataCodec tests.

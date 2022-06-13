@@ -4,7 +4,11 @@ import XCTest
 
 class IndexedCitiesRepositoryUnitTests: XCTestCase {
     
-    private var subject: IndexedCitiesRepository!
+    typealias Index = CaseInsensitiveTextIndex<TrieTextIndex<Int>>
+    
+    typealias Subject = IndexedCitiesRepository<Index>
+    
+    private var subject: Subject!
     
     override func setUpWithError() throws {
     }
@@ -150,7 +154,7 @@ class IndexedCitiesRepositoryUnitTests: XCTestCase {
         let data = try Data(contentsOf: url)
         let decoder = JSONDecoder()
         let cities = try decoder.decode([City].self, from: data)
-        var nameIndex = CaseInsensitiveTextIndex(index: TrieTextIndex())
+        var nameIndex = CaseInsensitiveTextIndex(TrieTextIndex<Int>())
         cities.enumerated().forEach { index, city in
             nameIndex.insert(key: city.name, value: index)
         }

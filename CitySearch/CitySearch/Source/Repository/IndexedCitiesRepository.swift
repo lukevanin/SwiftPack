@@ -6,13 +6,13 @@ import Foundation
 /// Provides access to retrieving cities by their name. Implemented using a `TextIndex` (hence the
 /// name), to provide search capability.
 ///
-struct IndexedCitiesRepository: CitiesRepositoryProtocol {
+struct IndexedCitiesRepository<Index>: CitiesRepositoryProtocol where Index: TextIndex, Index.Value: BinaryInteger {
     
     /// List of all cities.
     let cities: [City]
     
     /// Index where the key is the name of a city, and value is the index of the city in the `cities` array.
-    let nameIndex: TextIndex
+    let nameIndex: Index
     
     ///
     /// Searches for cities whose name starts with the given prefix.
@@ -31,5 +31,19 @@ struct IndexedCitiesRepository: CitiesRepositoryProtocol {
             )
             continuation.resume(returning: AnyCollection(collection))
         }
+    }
+}
+
+extension IndexedCitiesRepository: DataCodable where Index: DataCodable {
+    init(decoder: DataDecoder) throws {
+        self.init(
+            cities: try [City](decoder: decoder),
+            nameIndex: try Index(decoder: decoder)
+        )
+    }
+    
+    func encode(encoder: DataEncoder) {
+        cities.encode(encoder: encoder)
+        nameIndex.encode(encoder: encoder)
     }
 }

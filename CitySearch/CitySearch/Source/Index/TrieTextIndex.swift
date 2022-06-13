@@ -39,7 +39,29 @@ import Foundation
 /// the key associated with the value. If multiple valiues are associated with one key, the values are returned
 /// in ascending order.
 ///
-struct TrieTextIndex: TextIndex {
+struct TrieTextIndex<Value>: TextIndex where Value: Comparable {
+        
+    ///
+    /// A single character in a key or search prefix
+    ///
+    struct CodeUnit: Hashable, Comparable {
+        
+        let scalarValue: UInt32
+
+        init(character: Character) {
+            #warning("TODO: Support multi-scalar characters")
+            let unicodeScalar = character.unicodeScalars[character.unicodeScalars.startIndex]
+            self.init(unicodeScalar: unicodeScalar)
+        }
+        
+        init(unicodeScalar: UnicodeScalar) {
+            self.scalarValue = unicodeScalar.value
+        }
+        
+        static func < (lhs: CodeUnit, rhs: CodeUnit) -> Bool {
+            lhs.scalarValue < rhs.scalarValue
+        }
+    }
 
     ///
     /// A node within the trie.
@@ -48,21 +70,21 @@ struct TrieTextIndex: TextIndex {
     /// - A value
     /// - Zero or more child nodes
     ///
-    private struct Node {
+    fileprivate struct Node {
         
         /// Number of values contained within the node and all of its descendants.
-        private(set) var count = 0
+        private(set) var count = Int(0)
         
-        /// Values assigned to the node. V
-        private(set) var values = [Int]()
+        /// Values assigned to the node.
+        private(set) var values = [Value]()
         
         /// Characters which have corresponding child nodes in this node. Used to determine the order
         /// in which nodes are traversed.
-        private(set) var characters = [Character]()
+        private(set) var characters = [CodeUnit]()
 
         /// Child nodes contained by this node. Each position in the child node list corresponds to a
         /// character in the alphabet.
-        private(set) var childNodes = [Character: Node]()
+        private(set) var childNodes = [CodeUnit : Node]()
         
         ///
         /// Inserts the value for the key and returns the existing value.
@@ -71,7 +93,7 @@ struct TrieTextIndex: TextIndex {
         /// - Parameter value: Value to store for the key.
         /// - Returns: Previous `true` if a value was inserted, or false otherwise.
         ///
-        mutating func insert<S>(key: S, value: Int) -> Bool where S: StringProtocol {
+        mutating func insert<S>(key: S, value: Value) -> Bool where S: StringProtocol {
             // Examine the first character in the given key.
             guard let character = key.first else {
                 // Key is empty. Insert the given value at the current node.
@@ -86,19 +108,20 @@ struct TrieTextIndex: TextIndex {
                     return false
                 }
             }
+            let scalar = CodeUnit(character: character)
             // Get the child node corresponding to the character.
-            if childNodes[character] == nil {
+            if childNodes[scalar] == nil {
                 // The child node does not exist yet. Create it and insert it
                 // into the array of child nodes.
-                childNodes[character] = Node()
+                childNodes[scalar] = Node()
                 #warning("TODO: Use binary insertion sort to insert character")
-                characters.append(character)
+                characters.append(scalar)
                 characters.sort()
             }
             // Insert the value with the remainder of the key into the
             // child node.
             let suffix = key.dropFirst()
-            let inserted = childNodes[character]!.insert(key: suffix, value: value)
+            let inserted = childNodes[scalar]!.insert(key: suffix, value: value)
             if inserted == true {
                 // Increment the value count if a value was inserted.
                 count += 1
@@ -119,7 +142,7 @@ struct TrieTextIndex: TextIndex {
                 // query has been evaluated. Return the current node.
                 return self
             }
-            guard let childNode = childNodes[character] else {
+            guard let childNode = childNodes[CodeUnit(character: character)] else {
                 // No node was found matching the current character. There is
                 // no node that matches the query. Return nil.
                 return nil
@@ -152,8 +175,8 @@ struct TrieTextIndex: TextIndex {
         ///
         struct NodeIterator {
             let node: Node
-            var characters: IndexingIterator<[Character]>
-            var values: IndexingIterator<[Int]>
+            var characters: IndexingIterator<[CodeUnit]>
+            var values: IndexingIterator<[Value]>
             
             init(node: Node) {
                 self.node = node
@@ -161,7 +184,7 @@ struct TrieTextIndex: TextIndex {
                 self.values = node.values.makeIterator()
             }
             
-            mutating func nextValue() -> Int? {
+            mutating func nextValue() -> Value? {
                 values.next()
             }
             
@@ -194,7 +217,7 @@ struct TrieTextIndex: TextIndex {
         ///
         /// - Returns: The next available value, or nil if no more values are available.
         ///
-        mutating func next() -> Int? {
+        mutating func next() -> Value? {
             // Use depth-first search to find the next value in the sequence
             while stack.count > 0 {
                 // Find the next child node for the current node
@@ -217,13 +240,26 @@ struct TrieTextIndex: TextIndex {
         }
     }
     
-    private var root = Node()
+    fileprivate var root = Node()
     
-    mutating func insert(key: String, value: Int) {
+    ///
+    /// Inserts a value associated with a given key.
+    ///
+    /// Multiple values can be associated with any given key. Inserting multiple values for a given key
+    /// associates all fot eh values with the key. Searches matching the key will returb all of the values for
+    /// the key.
+    ///
+    /// A value may only be associated once with a given key. A key may not be associated with duplicate
+    /// values.
+    ///
+    /// - Parameter key: Key to associated the value with.
+    /// - Parameter value: Value to store for the key. The valid range is (0 ... 2^32 - 1)
+    ///
+    mutating func insert(key: String, value: Value) {
         root.insert(key: key, value: value)
     }
     
-    func search<S>(prefix: S) -> TextIndexSearchResult where S : StringProtocol {
+    func search<S>(prefix: S) -> TextIndexSearchResult<Value> where S : StringProtocol {
         guard let node = root.search(query: prefix) else {
             return TextIndexSearchResult(
                 count: 0,
@@ -231,8 +267,66 @@ struct TrieTextIndex: TextIndex {
             )
         }
         return TextIndexSearchResult(
-            count: node.count,
+            count: Int(node.count),
             iterator: AnyIterator(NodesIterator(node: node))
         )
+    }
+}
+
+
+extension TrieTextIndex: DataCodable where Value: DataCodable {
+    init(decoder: DataDecoder) throws {
+        self.init(
+            root: try Node(decoder: decoder)
+        )
+    }
+    
+    func encode(encoder: DataEncoder) {
+        root.encode(encoder: encoder)
+    }
+}
+
+
+extension TrieTextIndex.Node: DataCodable where Value: DataCodable {
+    
+    init(decoder: DataDecoder) throws {
+        self = TrieTextIndex.Node(
+            count: Int(try VarUInt64(decoder: decoder).value),
+            values: try [Value](decoder: decoder),
+            characters: try [TrieTextIndex.CodeUnit](decoder: decoder),
+            childNodes: try [TrieTextIndex.CodeUnit : TrieTextIndex.Node](decoder: decoder)
+        )
+    }
+    
+    func encode(encoder: DataEncoder) {
+        VarUInt64(count).encode(encoder: encoder)
+        values.encode(encoder: encoder)
+        characters.encode(encoder: encoder)
+        childNodes.encode(encoder: encoder)
+    }
+}
+
+
+extension TrieTextIndex.CodeUnit: DataCodable {
+    
+    init(decoder: DataDecoder) throws {
+        let scalar = try VarUInt64(decoder: decoder)
+        #warning("TODO: Safe unwrap")
+        let unicodeScalar = UnicodeScalar(UInt32(scalar.value))!
+        self.init(unicodeScalar: unicodeScalar)
+//        let scalarValue = character.unicodeScalars.first!.value
+//        let count = try UInt8(decoder: decoder)
+//        let data = try decoder.readBytes(count: Int(count))
+//        #warning("TODO: Safe unwrap")
+//        let stringValue = String(data: data, encoding: .utf8)!
+//        self.init(stringValue: stringValue)
+    }
+    
+    func encode(encoder: DataEncoder) {
+        #warning("TODO: Safe unwrap")
+        VarUInt64(scalarValue).encode(encoder: encoder)
+//        let data = stringValue.data(using: .utf8)!
+//        UInt8(data.count).encode(encoder: encoder)
+//        encoder.writeBytes(data)
     }
 }

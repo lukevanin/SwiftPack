@@ -12,7 +12,7 @@ final class CaseInsensitiveTextIndexTests: XCTestCase {
             keyValues.append((key, value))
         }
         
-        func search<S>(prefix: S) -> TextIndexSearchResult where S : StringProtocol {
+        func search<S>(prefix: S) -> TextIndexSearchResult<Int> where S : StringProtocol {
             let values = keyValues
                 .filter { (key, value) in
                     key.prefix(prefix.count) == prefix
@@ -28,11 +28,11 @@ final class CaseInsensitiveTextIndexTests: XCTestCase {
     }
     
     private var control: DictionaryTextIndex!
-    private var subject: CaseInsensitiveTextIndex!
+    private var subject: CaseInsensitiveTextIndex<DictionaryTextIndex>!
     
     override func setUp() {
         control = DictionaryTextIndex()
-        subject = CaseInsensitiveTextIndex(index: control)
+        subject = CaseInsensitiveTextIndex(control)
     }
     
     override func tearDown() {
