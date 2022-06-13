@@ -22,10 +22,11 @@ extension DataCodable {
     }
     
     init(fileURL: URL) throws {
-        let compressedData = try Data(contentsOf: fileURL, options: [.uncached])
-        let data = NSMutableData(data: compressedData)
-        try data.decompress(using: .lzfse)
-        let decoder = DataDecoder(data: data as Data)
+        let rawData = try Data(contentsOf: fileURL, options: [.uncached])
+//        let data = NSData(data: compressedData)
+//        let decompressedData = try data.decompressed(using: .lz4) as Data
+//        let decoder = DataDecoder(data: decompressedData)
+        let decoder = DataDecoder(data: rawData)
         try self.init(decoder: decoder)
     }
     
@@ -34,9 +35,9 @@ extension DataCodable {
         encode(encoder: measureEncoder)
         let encoder = DataEncoder(capacity: measureEncoder.count)
         encode(encoder: encoder)
-        let uncompressedData = encoder.data!
-        let data = NSMutableData(bytes: uncompressedData.baseAddress, length: encoder.count)
-        try data.compress(using: .lzfse)
-        try data.write(to: fileURL, options: [.atomic])
+        let rawData = NSData(bytes: encoder.data!.baseAddress, length: encoder.count)
+//        let compressedData =  try data.compressed(using: .lz4)
+//        try compressedData.write(to: fileURL, options: [.atomic])
+        try rawData.write(to: fileURL, options: [.atomic])
     }
 }

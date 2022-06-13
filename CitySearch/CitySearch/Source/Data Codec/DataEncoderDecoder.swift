@@ -14,7 +14,7 @@ private let flag2: UInt64 = 0x4000
 private let flag4: UInt64 = 0x80000000
 private let flag8: UInt64 = 0xc000000000000000
 
-class DataEncoder {
+final class DataEncoder {
     
     private(set) var count = 0
     private(set) var data: UnsafeMutableBufferPointer<UInt8>?
@@ -101,7 +101,7 @@ class DataEncoder {
 }
 
 
-class DataDecoder {
+final class DataDecoder {
     
     private var index: Int = 0
     private let data: UnsafeMutableBufferPointer<UInt8>
@@ -131,7 +131,6 @@ class DataDecoder {
         // 01 = 1 = 2 bytes (16 bits)
         // 10 = 2 = 4 bytes (32 bits)
         // 11 = 3 = 8 bytes (64 bits)
-        let value = UInt64(b) & mask1
         let exponent = (b >> 6) & 0x03
         switch exponent {
         case 0:

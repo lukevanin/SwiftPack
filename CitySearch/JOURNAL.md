@@ -345,4 +345,32 @@ numbers using their binary representation.
 
 ---
 
-     
+Unit testing indicates the following:     
+
+1. Load cities from JSON data and construct index (excluding file access).
+2. Load cities and index from data using `DataCodable`.
+3. Load cities and index from uncompressed file using `DataCodable`.
+4. Load cities and index from lz4 compressed file using `DataCodable`.
+
+MacBook Pro M1 iOS simulator, debug (no optimization):
+1. 5.5 seconds
+2. 3.3 seconds
+3. 3.3 seconds 
+4. 4.4 seconds
+
+iPhone X, debug (no optimization):
+1. 10.3 seconds
+2. 5.5 seconds
+3. 5.4 seconds
+4. 9.2 seconds
+
+iPhone X, release (fastest/smallest optimization):
+1. 9.5 seconds
+2. 1.2 seconds
+3. 1.2 seconds
+4. - not tested -
+
+The optimised `DataCodable` format improves performance 8x. The appears to be
+available almost immediately after launch. 
+
+---

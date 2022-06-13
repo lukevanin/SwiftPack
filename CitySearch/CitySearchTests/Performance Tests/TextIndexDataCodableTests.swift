@@ -2,7 +2,7 @@ import XCTest
 
 @testable import CitySearch
 
-final class TextIndexEncoderDecoderTests: XCTestCase {
+final class TextIndexDataCodableTests: XCTestCase {
     
     private var fileURL: URL!
     private var filePath: String!
@@ -12,7 +12,7 @@ final class TextIndexEncoderDecoderTests: XCTestCase {
             for: .cachesDirectory,
                in: .userDomainMask
         )
-        let filename = String(describing: TextIndexEncoderDecoderTests.self) + UUID().uuidString
+        let filename = String(describing: TextIndexDataCodableTests.self) + UUID().uuidString
         fileURL = directoryURLs
             .first!
             .appendingPathComponent(filename, isDirectory: false)
