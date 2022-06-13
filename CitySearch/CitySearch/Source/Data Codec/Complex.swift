@@ -18,9 +18,9 @@ extension Optional: DataCodable where Wrapped: DataCodable {
     init(decoder: DataDecoder) throws {
         let isNil = try Bool(decoder: decoder)
         switch isNil {
-        case true:
-            self = .none
         case false:
+            self = .none
+        case true:
             self = .some(try Wrapped(decoder: decoder))
         }
     }

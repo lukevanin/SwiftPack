@@ -17,6 +17,7 @@
 		FC474CB628576F7F00887594 /* DictionaryDataCodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC474CB528576F7F00887594 /* DictionaryDataCodableTests.swift */; };
 		FC474CB82857717B00887594 /* DataDataCodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC474CB72857717B00887594 /* DataDataCodableTests.swift */; };
 		FC474CBA2857723400887594 /* StringDataCodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC474CB92857723400887594 /* StringDataCodableTests.swift */; };
+		FC474CBC285775A000887594 /* OptionalDataCodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC474CBB285775A000887594 /* OptionalDataCodableTests.swift */; };
 		FC5CC47C28514C5100D02FD1 /* IndexedCitiesRepositoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC47B28514C5100D02FD1 /* IndexedCitiesRepositoryTests.swift */; };
 		FC5CC47E2851DCCA00D02FD1 /* IndexedCitiesRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC47D2851DCCA00D02FD1 /* IndexedCitiesRepository.swift */; };
 		FC5CC4802852004C00D02FD1 /* Repositories.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC47F2852004B00D02FD1 /* Repositories.swift */; };
@@ -108,6 +109,7 @@
 		FC474CB528576F7F00887594 /* DictionaryDataCodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryDataCodableTests.swift; sourceTree = "<group>"; };
 		FC474CB72857717B00887594 /* DataDataCodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataDataCodableTests.swift; sourceTree = "<group>"; };
 		FC474CB92857723400887594 /* StringDataCodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringDataCodableTests.swift; sourceTree = "<group>"; };
+		FC474CBB285775A000887594 /* OptionalDataCodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OptionalDataCodableTests.swift; sourceTree = "<group>"; };
 		FC5CC47B28514C5100D02FD1 /* IndexedCitiesRepositoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexedCitiesRepositoryTests.swift; sourceTree = "<group>"; };
 		FC5CC47D2851DCCA00D02FD1 /* IndexedCitiesRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexedCitiesRepository.swift; sourceTree = "<group>"; };
 		FC5CC47F2852004B00D02FD1 /* Repositories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repositories.swift; sourceTree = "<group>"; };
@@ -257,6 +259,7 @@
 				FC474CB328574C5300887594 /* ArrayDataCodableTests.swift */,
 				FC474CB92857723400887594 /* StringDataCodableTests.swift */,
 				FC474CB528576F7F00887594 /* DictionaryDataCodableTests.swift */,
+				FC474CBB285775A000887594 /* OptionalDataCodableTests.swift */,
 			);
 			path = "Unit Tests";
 			sourceTree = "<group>";
@@ -627,6 +630,7 @@
 				FC5CC47C28514C5100D02FD1 /* IndexedCitiesRepositoryTests.swift in Sources */,
 				FC5CC4842852068300D02FD1 /* CitySearchModelTests.swift in Sources */,
 				FC474CB428574C5300887594 /* ArrayDataCodableTests.swift in Sources */,
+				FC474CBC285775A000887594 /* OptionalDataCodableTests.swift in Sources */,
 				FC5CC4D12854B0C000D02FD1 /* CaseInsensitiveTextIndexTests.swift in Sources */,
 				FC5CC4D92854BEDC00D02FD1 /* TrieTextIndexPerformanceTests.swift in Sources */,
 				FCA6E6562856643A00CDE0AE /* IndexedCitiesRepositoryDataTests.swift in Sources */,
