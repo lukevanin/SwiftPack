@@ -54,7 +54,7 @@ final class SearchViewController: UICollectionViewController {
         let layoutGroup = NSCollectionLayoutGroup.vertical(
             layoutSize: NSCollectionLayoutSize(
                 widthDimension: .fractionalWidth(1.0),
-                heightDimension: .estimated(80)
+                heightDimension: .absolute(80)
             ),
             subitems: [layoutItem]
         )

@@ -24,6 +24,7 @@ struct ApplicationCoordinatorBuilder: BuilderProtocol {
     }
     
     private func makeCitiesRepository() throws -> CitiesRepositoryProtocol {
+        #warning("TODO: Refactor repository construction into separate builders")
         let arguments = ProcessInfo.processInfo.arguments
         let repository: CitiesRepositoryProtocol
         if arguments.contains("test") {
