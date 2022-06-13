@@ -131,7 +131,7 @@ class DataDecoder {
         // 01 = 1 = 2 bytes (16 bits)
         // 10 = 2 = 4 bytes (32 bits)
         // 11 = 3 = 8 bytes (64 bits)
-        var value = UInt64(b) & mask1
+        let value = UInt64(b) & mask1
         let exponent = (b >> 6) & 0x03
         switch exponent {
         case 0:

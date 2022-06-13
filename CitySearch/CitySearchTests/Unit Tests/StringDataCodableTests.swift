@@ -27,7 +27,13 @@ final class StringDataCodableTests: XCTestCase {
     func testEncode_returnMultipleBytes_givenSingleCharacter() {
         let value = "🏴󠁧󠁢󠁳󠁣󠁴󠁿"
         let data = [UInt8](value.data())
-        XCTAssertEqual(data, [28, 240, 159, 143, 180, 243, 160, 129, 167, 243, 160, 129, 162, 243, 160, 129, 179, 243, 160, 129, 163, 243, 160, 129, 180, 243, 160, 129, 191])
+        XCTAssertEqual(data, [
+            0x1c,
+            0xf0, 0x9f, 0x8f, 0xb4, 0xf3, 0xa0, 0x81, 0xa7,
+            0xf3, 0xa0, 0x81, 0xa2, 0xf3, 0xa0, 0x81, 0xb3,
+            0xf3, 0xa0, 0x81, 0xa3, 0xf3, 0xa0, 0x81, 0xb4,
+            0xf3, 0xa0, 0x81, 0xbf
+        ])
     }
     
     // MARK: Decode
@@ -51,7 +57,13 @@ final class StringDataCodableTests: XCTestCase {
     }
     
     func testDecode_shouldReturnSingleCharacter_givenMultipleBytes() throws {
-        let data = Data([28, 240, 159, 143, 180, 243, 160, 129, 167, 243, 160, 129, 162, 243, 160, 129, 179, 243, 160, 129, 163, 243, 160, 129, 180, 243, 160, 129, 191])
+        let data = Data([
+            0x1c,
+            0xf0, 0x9f, 0x8f, 0xb4, 0xf3, 0xa0, 0x81, 0xa7,
+            0xf3, 0xa0, 0x81, 0xa2, 0xf3, 0xa0, 0x81, 0xb3,
+            0xf3, 0xa0, 0x81, 0xa3, 0xf3, 0xa0, 0x81, 0xb4,
+            0xf3, 0xa0, 0x81, 0xbf
+        ])
         let value = try String(data: data)
         XCTAssertEqual(value, "🏴󠁧󠁢󠁳󠁣󠁴󠁿")
     }
