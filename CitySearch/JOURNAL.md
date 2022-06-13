@@ -311,3 +311,38 @@ magnitude slower than simply returning the node, but still two orders of
 magnitude faster than converting the results to an array.
 
 ---
+
+13/06
+
+Loading and populating the index from a JSON file takes ~10 seconds or 
+longer. We should try to improve this time if possible.
+
+Our initial approach was to use the iOS framework: 
+
+- _Compression:_ The data file reduces the loading time by ~10%. A probably reason
+for this is that less data needs to be loaded from relatively slow SSD storage,
+and so less time needs to be spent loading data.
+- _Binary Property List:_ iOS provides encoders and decoders for serializing 
+`Codable` objects to a property list (.plist) file format. The format supports 
+encoding as XML and as binary. Using XML results in a larger file compared to 
+JSON (~200MB). Binary encoding fails when the file is being read, with the
+error indicating that the format does not support the hierarchical depth (object
+nesting) required by the trie.
+
+Our current approach is to experiment with a more efficient data encoding 
+format.
+
+The intention is to fill the index and array offline, then write the contents of 
+the data structure to a file using a compact binary representation. The file
+will be included in the application bundle, and loaded by the app at launch. 
+
+The encoding should avoid the overhead of using the JSON file format:
+- JSON encodes the names of fields and uses additional syntax to define 
+structure, such as brackets, braces  and quotes. Our format should use the 
+structure of the encoded objects and should not require structural syntax.
+- JSON encodes numbers as a sequence of characters. Our format should encode 
+numbers using their binary representation. 
+
+---
+
+     
