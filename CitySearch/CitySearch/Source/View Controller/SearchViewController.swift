@@ -109,6 +109,7 @@ final class SearchViewController: UICollectionViewController {
         }()
         
         collectionView.accessibilityIdentifier = "search-results"
+        collectionView.keyboardDismissMode = .interactive
         collectionView.dataSource = self
         collectionView.delegate = self
         
