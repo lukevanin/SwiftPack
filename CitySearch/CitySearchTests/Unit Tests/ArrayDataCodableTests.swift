@@ -25,4 +25,22 @@ final class ArrayDataCodableTests: XCTestCase {
     }
     
     // MARK: Decode
+    
+    func testDecode_shouldReturnZeroValues_givenZeroLength() throws {
+        let data = Data([0x00])
+        let value = try [UInt8](data: data)
+        XCTAssertEqual(value, [])
+    }
+    
+    func testDecode_shouldReturnOneValue_givenLengthAndValue() throws {
+        let data = Data([0x01, 0x81])
+        let value = try [UInt8](data: data)
+        XCTAssertEqual(value, [0x81])
+    }
+    
+    func testDecode_shouldReturnValues_givenLengthAndValues() throws {
+        let data = Data([0x02, 0x81, 0xc3])
+        let value = try [UInt8](data: data)
+        XCTAssertEqual(value, [0x81, 0xc3])
+    }
 }
