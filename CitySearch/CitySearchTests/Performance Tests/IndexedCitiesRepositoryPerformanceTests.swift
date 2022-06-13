@@ -124,7 +124,7 @@ class IndexedCitiesRepositoryUnitTests: XCTestCase {
             "e": 4_999,
             "f": 4_864,
             "g": 9_039,
-            "h": 7_760,
+            "h": 7_761,
             "i": 2_559,
             "j": 2_774,
             "k": 10_159,
@@ -142,7 +142,7 @@ class IndexedCitiesRepositoryUnitTests: XCTestCase {
             "w": 6_572,
             "x": 879,
             "y": 1779,
-            "z": 2_504
+            "z": 2_505
         ]
     }
 

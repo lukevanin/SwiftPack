@@ -274,6 +274,27 @@ struct TrieTextIndex<Value>: TextIndex where Value: Comparable {
 }
 
 
+// MARK: Equatable conformance
+
+
+extension TrieTextIndex: Equatable {
+    
+}
+
+
+extension TrieTextIndex.Node: Equatable {
+    
+}
+
+
+extension TrieTextIndex.CodeUnit: Equatable {
+    
+}
+
+
+// MARK: DataCodable conformance
+
+
 extension TrieTextIndex: DataCodable where Value: DataCodable {
     init(decoder: DataDecoder) throws {
         self.init(
@@ -314,19 +335,9 @@ extension TrieTextIndex.CodeUnit: DataCodable {
         #warning("TODO: Safe unwrap")
         let unicodeScalar = UnicodeScalar(UInt32(scalar.value))!
         self.init(unicodeScalar: unicodeScalar)
-//        let scalarValue = character.unicodeScalars.first!.value
-//        let count = try UInt8(decoder: decoder)
-//        let data = try decoder.readBytes(count: Int(count))
-//        #warning("TODO: Safe unwrap")
-//        let stringValue = String(data: data, encoding: .utf8)!
-//        self.init(stringValue: stringValue)
     }
     
     func encode(encoder: DataEncoder) {
-        #warning("TODO: Safe unwrap")
         VarUInt64(scalarValue).encode(encoder: encoder)
-//        let data = stringValue.data(using: .utf8)!
-//        UInt8(data.count).encode(encoder: encoder)
-//        encoder.writeBytes(data)
     }
 }

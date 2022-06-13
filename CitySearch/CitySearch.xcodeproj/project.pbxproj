@@ -62,7 +62,7 @@
 		FC5CC4DE2854C06F00D02FD1 /* IndexedCitiesRepositoryPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4DD2854C06F00D02FD1 /* IndexedCitiesRepositoryPerformanceTests.swift */; };
 		FC5CC4E02854CD5300D02FD1 /* SequentialIndexedCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4DF2854CD5300D02FD1 /* SequentialIndexedCollection.swift */; };
 		FC5CC4E22854D05A00D02FD1 /* SequentialIndexedCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4E12854D05A00D02FD1 /* SequentialIndexedCollectionTests.swift */; };
-		FC5CC4E42855261E00D02FD1 /* TextIndexDataCodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4E32855261E00D02FD1 /* TextIndexDataCodableTests.swift */; };
+		FC5CC4E42855261E00D02FD1 /* TrieTextIndexDataCodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC5CC4E32855261E00D02FD1 /* TrieTextIndexDataCodableTests.swift */; };
 		FC660C4D284F88470074A213 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4C284F88470074A213 /* AppDelegate.swift */; };
 		FC660C4F284F88470074A213 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C4E284F88470074A213 /* SceneDelegate.swift */; };
 		FC660C51284F88470074A213 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C50284F88470074A213 /* SearchViewController.swift */; };
@@ -75,7 +75,7 @@
 		FC660C84284F9D420074A213 /* cities.json in Resources */ = {isa = PBXBuildFile; fileRef = FC660C7C284F885D0074A213 /* cities.json */; };
 		FC660C86284FA0390074A213 /* TrieTextIndexAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C85284FA0390074A213 /* TrieTextIndexAcceptanceTests.swift */; };
 		FC660C8C284FD6B00074A213 /* TextIndex.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC660C8B284FD6B00074A213 /* TextIndex.swift */; };
-		FCA6E6502855619400CDE0AE /* index.z in Resources */ = {isa = PBXBuildFile; fileRef = FCA6E64F2855619400CDE0AE /* index.z */; };
+		FC9A57072857BC3700329151 /* TextIndexDataCodablePerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC9A57062857BC3700329151 /* TextIndexDataCodablePerformanceTests.swift */; };
 		FCA6E6522855620900CDE0AE /* DataCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA6E6512855620900CDE0AE /* DataCodable.swift */; };
 		FCA6E6562856643A00CDE0AE /* IndexedCitiesRepositoryDataCodableTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA6E6552856643A00CDE0AE /* IndexedCitiesRepositoryDataCodableTests.swift */; };
 		FCA6E65928566FA400CDE0AE /* DataEncoderDecoder.swift in Sources */ = {isa = PBXBuildFile; fileRef = FCA6E65828566FA400CDE0AE /* DataEncoderDecoder.swift */; };
@@ -157,7 +157,7 @@
 		FC5CC4DD2854C06F00D02FD1 /* IndexedCitiesRepositoryPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexedCitiesRepositoryPerformanceTests.swift; sourceTree = "<group>"; };
 		FC5CC4DF2854CD5300D02FD1 /* SequentialIndexedCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequentialIndexedCollection.swift; sourceTree = "<group>"; };
 		FC5CC4E12854D05A00D02FD1 /* SequentialIndexedCollectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequentialIndexedCollectionTests.swift; sourceTree = "<group>"; };
-		FC5CC4E32855261E00D02FD1 /* TextIndexDataCodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextIndexDataCodableTests.swift; sourceTree = "<group>"; };
+		FC5CC4E32855261E00D02FD1 /* TrieTextIndexDataCodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrieTextIndexDataCodableTests.swift; sourceTree = "<group>"; };
 		FC660C49284F88470074A213 /* CitySearch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CitySearch.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC660C4C284F88470074A213 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		FC660C4E284F88470074A213 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -175,7 +175,7 @@
 		FC660C81284F99520074A213 /* FilePerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilePerformanceTests.swift; sourceTree = "<group>"; };
 		FC660C85284FA0390074A213 /* TrieTextIndexAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrieTextIndexAcceptanceTests.swift; sourceTree = "<group>"; };
 		FC660C8B284FD6B00074A213 /* TextIndex.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextIndex.swift; sourceTree = "<group>"; };
-		FCA6E64F2855619400CDE0AE /* index.z */ = {isa = PBXFileReference; lastKnownFileType = file; path = index.z; sourceTree = "<group>"; };
+		FC9A57062857BC3700329151 /* TextIndexDataCodablePerformanceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextIndexDataCodablePerformanceTests.swift; sourceTree = "<group>"; };
 		FCA6E6512855620900CDE0AE /* DataCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCodable.swift; sourceTree = "<group>"; };
 		FCA6E6552856643A00CDE0AE /* IndexedCitiesRepositoryDataCodableTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IndexedCitiesRepositoryDataCodableTests.swift; sourceTree = "<group>"; };
 		FCA6E65828566FA400CDE0AE /* DataEncoderDecoder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataEncoderDecoder.swift; sourceTree = "<group>"; };
@@ -255,6 +255,7 @@
 				FC5CC4D02854B0C000D02FD1 /* CaseInsensitiveTextIndexTests.swift */,
 				FC5CC4D62854BEAA00D02FD1 /* LinearTextIndexTests.swift */,
 				FC660C85284FA0390074A213 /* TrieTextIndexAcceptanceTests.swift */,
+				FC5CC4E32855261E00D02FD1 /* TrieTextIndexDataCodableTests.swift */,
 				FC5CC4E12854D05A00D02FD1 /* SequentialIndexedCollectionTests.swift */,
 				FC474CAD2857275500887594 /* NumberDataCodableTests.swift */,
 				FC474CB128573C9500887594 /* VarUInt64DataCodableTests.swift */,
@@ -324,7 +325,7 @@
 				FC5CC4DA2854BF1F00D02FD1 /* LinearTextIndexPerformanceTests.swift */,
 				FC5CC4D82854BEDC00D02FD1 /* TrieTextIndexPerformanceTests.swift */,
 				FC5CC4DD2854C06F00D02FD1 /* IndexedCitiesRepositoryPerformanceTests.swift */,
-				FC5CC4E32855261E00D02FD1 /* TextIndexDataCodableTests.swift */,
+				FC9A57062857BC3700329151 /* TextIndexDataCodablePerformanceTests.swift */,
 				FC474CBF2857796D00887594 /* IndexedCitiesRepositoryDataCodablePerformanceTests.swift */,
 			);
 			path = "Performance Tests";
@@ -406,7 +407,6 @@
 			children = (
 				FC474CC1285782BF00887594 /* cities-repository.z */,
 				FC660C7C284F885D0074A213 /* cities.json */,
-				FCA6E64F2855619400CDE0AE /* index.z */,
 				FC660C55284F88490074A213 /* Assets.xcassets */,
 				FC660C57284F88490074A213 /* LaunchScreen.storyboard */,
 				FC660C5A284F88490074A213 /* Info.plist */,
@@ -560,7 +560,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				FC660C83284F9D3F0074A213 /* cities.json in Resources */,
-				FCA6E6502855619400CDE0AE /* index.z in Resources */,
 				FC660C59284F88490074A213 /* LaunchScreen.storyboard in Resources */,
 				FC660C56284F88490074A213 /* Assets.xcassets in Resources */,
 				FC474CC2285782BF00887594 /* cities-repository.z in Resources */,
@@ -644,6 +643,7 @@
 				FC5CC48D285235EB00D02FD1 /* SearchViewControllerTests.swift in Sources */,
 				FC5CC4D72854BEAA00D02FD1 /* LinearTextIndexTests.swift in Sources */,
 				FC5CC4E22854D05A00D02FD1 /* SequentialIndexedCollectionTests.swift in Sources */,
+				FC9A57072857BC3700329151 /* TextIndexDataCodablePerformanceTests.swift in Sources */,
 				FC474CBE2857770B00887594 /* BooleanDataCodableTests.swift in Sources */,
 				FC5CC4D52854BE1100D02FD1 /* TextIndexTestCase.swift in Sources */,
 				FC5CC4A3285324F000D02FD1 /* CombineExtensions.swift in Sources */,
@@ -654,7 +654,7 @@
 				FC5CC49C285245C300D02FD1 /* CitySampleData.swift in Sources */,
 				FC5CC4DB2854BF1F00D02FD1 /* LinearTextIndexPerformanceTests.swift in Sources */,
 				FC660C86284FA0390074A213 /* TrieTextIndexAcceptanceTests.swift in Sources */,
-				FC5CC4E42855261E00D02FD1 /* TextIndexDataCodableTests.swift in Sources */,
+				FC5CC4E42855261E00D02FD1 /* TrieTextIndexDataCodableTests.swift in Sources */,
 				FC5CC4DE2854C06F00D02FD1 /* IndexedCitiesRepositoryPerformanceTests.swift in Sources */,
 				FC5CC48828520E0200D02FD1 /* MockCitiesRepository.swift in Sources */,
 				FC5CC4CB28548E6800D02FD1 /* JSONCitiesRepositoryBuilderTests.swift in Sources */,
