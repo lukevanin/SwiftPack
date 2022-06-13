@@ -87,7 +87,7 @@ extension Array: DataCodable where Element: DataCodable {
 }
 
 
-extension Dictionary: DataCodable where Key: DataCodable & Hashable, Value: DataCodable {
+extension Dictionary: DataCodable where Key: DataCodable & Hashable & Comparable, Value: DataCodable {
     init(decoder: DataDecoder) throws {
         let count = try VarUInt64(decoder: decoder)
         var elements = [Key: Value]()
@@ -101,7 +101,8 @@ extension Dictionary: DataCodable where Key: DataCodable & Hashable, Value: Data
     
     func encode(encoder: DataEncoder) {
         VarUInt64(count).encode(encoder: encoder)
-        for (key, value) in self {
+        for key in keys.sorted() {
+            let value = self[key]!
             key.encode(encoder: encoder)
             value.encode(encoder: encoder)
         }
