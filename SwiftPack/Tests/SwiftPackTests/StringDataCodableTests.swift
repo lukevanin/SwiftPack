@@ -1,6 +1,6 @@
 import XCTest
 
-@testable import CitySearch
+@testable import SwiftPack
 
 final class StringDataCodableTests: XCTestCase {
     
