@@ -1,3 +1,6 @@
+///
+/// Copright (c) 2022 Luke Van In
+///
 import Foundation
 
 
