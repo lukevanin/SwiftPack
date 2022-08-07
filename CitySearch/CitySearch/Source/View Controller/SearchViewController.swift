@@ -137,7 +137,7 @@ final class SearchViewController: UICollectionViewController {
     ///
     private func connectViewModel() {
         citiesCancellable = model.citiesPublisher
-            .receive(on: DispatchQueue.main)
+            .receive(on: RunLoop.main)
             .sink { [weak self] cities in
                 self?.updateCities(cities)
             }

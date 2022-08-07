@@ -41,14 +41,15 @@ final class CitySearchModel: CitySearchModelProtocol {
     func searchByName(prefix: String) {
         Task { [weak self, citiesRepository] in
             let cities: AnyCollection<City>?
-            if prefix.isEmpty == true {
-                // Publish nil when prefix is empty.
-                cities = nil
-            }
-            else {
-                // Search for cities.
-                cities = await citiesRepository.searchByName(prefix: prefix)
-            }
+//            if prefix.isEmpty == true {
+//                // Publish nil when prefix is empty.
+//                cities = nil
+//            }
+//            else {
+//                // Search for cities.
+//                cities = await citiesRepository.searchByName(prefix: prefix)
+//            }
+            cities = await citiesRepository.searchByName(prefix: prefix)
             self?.publishCities(cities)
         }
     }

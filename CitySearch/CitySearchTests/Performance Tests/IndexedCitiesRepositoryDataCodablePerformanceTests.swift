@@ -75,7 +75,8 @@ final class IndexedCitiesRepositoryDataCodablePerformanceTests: XCTestCase {
     private func makeSubject(cities: [City]) -> Subject {
         var nameIndex = CaseInsensitiveTextIndex(TrieTextIndex<UInt32>())
         cities.enumerated().forEach { index, city in
-            nameIndex.insert(key: city.name, value: UInt32(index))
+            let key = city.name + ", " + city.country
+            return nameIndex.insert(key: key, value: UInt32(index))
         }
         return Subject(
             cities: cities,

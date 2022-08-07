@@ -48,7 +48,7 @@ struct ApplicationCoordinatorBuilder: BuilderProtocol {
 //            )
 //            repository = try builder.build()
             let fileURL = Bundle.main.url(
-                forResource: "cities-repository",
+                forResource: "Cities-2",
                 withExtension: "z"
             )!
             repository = try IndexedCitiesRepository<CaseInsensitiveTextIndex<TrieTextIndex<UInt32>>>(
