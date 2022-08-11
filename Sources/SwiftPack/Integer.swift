@@ -102,7 +102,7 @@ extension Int64: DataCodable {
 
 public struct VarUInt64: DataCodable, Equatable {
     
-    let value: UInt64
+    public let value: UInt64
     
     public init<T>(_ value: T) where T: BinaryInteger {
         self.value = UInt64(value)
