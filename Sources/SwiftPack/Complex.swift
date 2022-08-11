@@ -5,12 +5,12 @@ import Foundation
 
 
 extension Bool: DataCodable {
-    func encode(encoder: DataEncoder) {
+    public func encode(encoder: DataEncoder) {
         let value: UInt8 = self ? 1 : 0
         value.encode(encoder: encoder)
     }
     
-    init(decoder: DataDecoder) throws {
+    public init(decoder: DataDecoder) throws {
         let value = try UInt8(decoder: decoder)
         self = (value == 0) ? false : true
     }
@@ -18,7 +18,7 @@ extension Bool: DataCodable {
 
 
 extension Optional: DataCodable where Wrapped: DataCodable {
-    init(decoder: DataDecoder) throws {
+    public init(decoder: DataDecoder) throws {
         let isNil = try Bool(decoder: decoder)
         switch isNil {
         case false:
@@ -28,7 +28,7 @@ extension Optional: DataCodable where Wrapped: DataCodable {
         }
     }
     
-    func encode(encoder: DataEncoder) {
+    public func encode(encoder: DataEncoder) {
         switch self {
         case .none:
             false.encode(encoder: encoder)
@@ -42,13 +42,13 @@ extension Optional: DataCodable where Wrapped: DataCodable {
 
 extension String: DataCodable {
     
-    init(decoder: DataDecoder) throws {
+    public init(decoder: DataDecoder) throws {
         let data = try Data(decoder: decoder)
         #warning("TODO: unsafe unwrap")
         self.init(data: data, encoding: .utf8)!
     }
     
-    func encode(encoder: DataEncoder) {
+    public func encode(encoder: DataEncoder) {
         #warning("TODO: unsafe unwrap")
         let values = data(using: .utf8)!
         values.encode(encoder: encoder)
@@ -57,12 +57,12 @@ extension String: DataCodable {
 
 
 extension Data: DataCodable {
-    init(decoder: DataDecoder) throws {
+    public init(decoder: DataDecoder) throws {
         let count = try VarUInt64(decoder: decoder)
         self = try decoder.readBytes(count: Int(count.value))
     }
     
-    func encode(encoder: DataEncoder) {
+    public func encode(encoder: DataEncoder) {
         VarUInt64(count).encode(encoder: encoder)
         encoder.writeBytes(self)
     }
@@ -71,7 +71,7 @@ extension Data: DataCodable {
 
 
 extension Array: DataCodable where Element: DataCodable {
-    init(decoder: DataDecoder) throws {
+    public init(decoder: DataDecoder) throws {
         let count = try VarUInt64(decoder: decoder)
         var elements = [Element]()
         for _ in 0 ..< count.value {
@@ -81,7 +81,7 @@ extension Array: DataCodable where Element: DataCodable {
         self = elements
     }
     
-    func encode(encoder: DataEncoder) {
+    public func encode(encoder: DataEncoder) {
         VarUInt64(count).encode(encoder: encoder)
         for element in self {
             element.encode(encoder: encoder)
@@ -91,7 +91,7 @@ extension Array: DataCodable where Element: DataCodable {
 
 
 extension Dictionary: DataCodable where Key: DataCodable & Hashable & Comparable, Value: DataCodable {
-    init(decoder: DataDecoder) throws {
+    public init(decoder: DataDecoder) throws {
         let count = try VarUInt64(decoder: decoder)
         var elements = [Key: Value]()
         for _ in 0 ..< count.value {
@@ -102,7 +102,7 @@ extension Dictionary: DataCodable where Key: DataCodable & Hashable & Comparable
         self = elements
     }
     
-    func encode(encoder: DataEncoder) {
+    public func encode(encoder: DataEncoder) {
         VarUInt64(count).encode(encoder: encoder)
         for key in keys.sorted() {
             let value = self[key]!

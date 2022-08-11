@@ -4,18 +4,18 @@
 import Foundation
 
 
-protocol DataCodable{
+public protocol DataCodable{
     init(decoder: DataDecoder) throws
     func encode(encoder: DataEncoder)
 }
 
 extension DataCodable {
-    init(data: Data) throws {
+    public init(data: Data) throws {
         let decoder = DataDecoder(data: data)
         try self.init(decoder: decoder)
     }
     
-    func data() -> Data {
+    public func data() -> Data {
         let measureEncoder = DataEncoder(capacity: nil)
         encode(encoder: measureEncoder)
         let encoder = DataEncoder(capacity: measureEncoder.count)
@@ -24,13 +24,13 @@ extension DataCodable {
         return data
     }
     
-    init(fileURL: URL) throws {
+    public init(fileURL: URL) throws {
         let rawData = try Data(contentsOf: fileURL, options: [.uncached])
         let decoder = DataDecoder(data: rawData)
         try self.init(decoder: decoder)
     }
     
-    func write(to fileURL: URL) throws {
+    public func write(to fileURL: URL) throws {
         let measureEncoder = DataEncoder(capacity: nil)
         encode(encoder: measureEncoder)
         let encoder = DataEncoder(capacity: measureEncoder.count)
